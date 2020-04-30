@@ -1,0 +1,36 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+
+  &.is-open{
+    display: block;
+  }
+}
+
+.modal-conten {
+  max-width: 750px;
+  margin: auto;
+  background-color: white;
+  padding: 2rem;
+  width: 100%;
+  display: none;
+  position: relative;
+
+  &.is-open{
+    display: block;
+  }
+}
+
+.modal-close{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 1.6rem;
+  color: $black;
+  background-color: transparent;
+}

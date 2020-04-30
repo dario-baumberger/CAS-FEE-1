@@ -1,0 +1,25 @@
+{
+  "name": "cas-fee-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dario-baumberger/CAS-FEE-1.git"
+  },
+  "author": "Dario Baumberger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dario-baumberger/CAS-FEE-1/issues"
+  },
+  "homepage": "https://github.com/dario-baumberger/CAS-FEE-1#readme",
+  "dependencies": {
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "node-sass-middleware": "^0.11.0",
+    "socket.io": "^2.3.0"
+  }
+}

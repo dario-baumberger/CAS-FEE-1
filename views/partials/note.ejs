@@ -1,0 +1,25 @@
+<!-- views/partials/note.ejs -->
+<li notes-item>
+    <article class="note">
+        <div class="note-content">
+            <h2><%= data.title %></h2>
+            <p><%= data.content %></p>
+        </div>
+        <div class="note-infos t-sm">
+            <div>
+                <p>Created: <%= data.created %></p>
+                <pDue>Date: <%= data.due %></pDue>
+            </div>
+            <div class="note-age">
+                <p class="label">Age:</p>
+                <% for(var i = 0; i < data.age; i++) {%>
+                    <span></span>
+                <% } %>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="bg-yellow"><i class="fas fa-pen"></i></button>
+            <button class="bg-green"><i class="fas fa-check"></i></button>
+        </div>
+    </article>
+</li>

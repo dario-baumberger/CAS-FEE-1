@@ -1,0 +1,91 @@
+<%- include('../partials/head', {lang: 'de', page: 'Home'}) -%>
+<%- include('../partials/header') -%>
+
+<main>
+    <section class="notes">
+        <ol>
+            <% for(var i = 0; i < notes.length; i++) {%>
+                <%- include('../partials/note', {data: notes[i]}) -%>
+            <% } %>
+
+
+        </ol>
+    </section>
+    <%- include('../partials/notifications', {notifications: notifications}) -%>
+</main>
+<%- include('../partials/footer', {text: 'Copyright 2019 Dario Baumberger'}) -%>
+<div class="modal">
+    <div class="modal-conten modal-content-add">
+        <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+            <span class="sr-only">Close Notification</span>
+        </button>
+    </div>
+    <div class="modal-conten modal-content-filter">
+        <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+            <span class="sr-only">Close Notification</span>
+        </button>
+        <h1>Filter</h1>
+        <form>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input placeholder="Feed the cat"/>
+            </div>
+            <div class="form-group">
+                <label for="note">Note</label>
+                <textarea placeholder="Don't forgett the water"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select>
+                    <option>Todo</option>
+                    <option>Done</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="state">Categories</label>
+                <select>
+                    <option>School</option>
+                    <option>Work</option>
+                    <optin>No Categorie</optin>
+                </select>
+            </div>
+        </form>
+        <nav class="pills">
+            <p>Status</p>
+            <ul>
+                <li>
+                    <button class="bg-yellow">Todo</button>
+                </li>
+                <li>
+                    <button class="bg-orange">This Week</button>
+                </li>
+                <li>
+                    <button class="bg-red">Overdue</button>
+                </li>
+                <li>
+                    <button class="bg-green">Done</button>
+                </li>
+            </ul>
+        </nav>
+        <nav class="pills">
+            <p>Categories</p>
+            <ul>
+                <li>
+                    <button class="bg-blue">School</button>
+                </li>
+                <li>
+                    <button class="bg-turkis">Work</button>
+                </li>
+                <li>
+                    <button class="bg-turkis">No Categorie</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<script src="js/socket.io.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
