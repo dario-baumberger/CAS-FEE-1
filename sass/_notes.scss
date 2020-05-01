@@ -1,0 +1,81 @@
+.notes {
+  ol {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-gap: 30px;
+  }
+
+  .note-content {
+    width: 100%;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+.note-age {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: $red-500;
+    border-radius: 50%;
+    margin-right: 5px;
+    flex-shrink: 0;
+
+    @for $i from 1 through 4 {
+      &:nth-of-type(#{$i}) {
+        background-color: $black;
+        opacity: #{0.025 * $i};
+      }
+    }
+
+    @for $i from 5 through 8 {
+      &:nth-of-type(#{$i}) {
+        background-color: $yellow-500;
+        opacity: #{0.1 * $i};
+      }
+    }
+    @for $i from 9 through 14 {
+      &:nth-of-type(#{$i}) {
+        background-color: $red-500;
+        opacity: #{0.05 * $i};
+      }
+    }
+
+
+  }
+}
+
+.note-infos {
+  width: calc(100% - 200px);
+}
+
+.note {
+  transition: all .3s;
+  max-height: 500px;
+
+  &.is-removed {
+    max-height: 0;
+    overflow: hidden;
+    transition: all .3s;
+  }
+}
+
+article {
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+
+  h2 {
+    margin-top: 0;
+  }
+}

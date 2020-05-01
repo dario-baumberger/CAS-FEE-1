@@ -1,0 +1,39 @@
+<!-- views/partials/note.hbs-->
+<li class="note">
+    <article>
+        <div class="note-content">
+            <h2>
+                {{#if title}}
+                    {{title}}
+                {{else}}
+                    \{{title}}
+                {{/if}}
+            </h2>
+            <p>
+                {{#if content}}
+                    {{content}}
+                {{else}}
+                    \{{content}}
+                {{/if}}
+            </p>
+        </div>
+        <div class="note-infos t-sm">
+            <div>
+                <p>Created: {{created}}</p>
+                <pDue>Date: {{due}}</pDue>
+            </div>
+            <div class="note-age">
+                <p class="label">Age:</p>
+
+                {{#each age }}
+                    <span></span>
+
+                {{/each}}
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="bg-yellow" id="" onclick="showModal('edit')"><i class="fas fa-pen"></i></button>
+            <button class="bg-green" onclick="noteDone({{id}})"><i class="fas fa-check"></i></button>
+        </div>
+    </article>
+</li>

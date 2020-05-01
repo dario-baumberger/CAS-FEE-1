@@ -1,0 +1,29 @@
+.pills {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+    margin-right: 10px;
+  }
+
+  button {
+    height: 40px;
+    padding: 0 30px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+  }
+}
+
+.pills {
+  display: flex;
+
+  p {
+    width: 100px;
+  }
+}

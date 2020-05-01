@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function() {
+
+
+});
+
 document.addEventListener('click', function (event) {
 
 
@@ -36,12 +41,31 @@ function closeModal() {
     let parent = content.parentNode;
     content.classList.remove('is-open');
     parent.classList.remove('is-open');
+}
 
-
+function noteDone(id) {
+    let content = event.currentTarget.parentNode;
+    let note = content.parentNode;
+    let listEl = note.parentNode;
+    listEl.classList.add('is-removed');
+    setTimeout(function(){ listEl.remove(); }, 300);
+    socket.emit('noteDone', { id: id });
 }
 
 const socket = io.connect('http://localhost:3000');
 socket.on('notification', (data) => {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
+    renderTemplate(data, 'notification', '.notifications-list');
 });
+
+socket.on('note', (data) => {
+    renderTemplate(data, 'note', '.notes-list');
+});
+
+let renderTemplate = function (data, id, target, place = 'beforeend') {
+    let template = document.getElementById(id).innerHTML;
+    let theTemplate = Handlebars.compile(template);
+    let theCompiledHtml = theTemplate(data);
+    let elem = document.querySelector ( target )
+    elem.insertAdjacentHTML(place, theCompiledHtml);
+
+}

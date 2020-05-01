@@ -1,0 +1,23 @@
+<!-- views/partials/notification.hbs-->
+<li class="notification t-sm is-auto">
+    <div class="notification-content">
+        <b>
+            {{#if title}}
+                {{title}}
+            {{else}}
+                \{{title}}
+            {{/if}}
+        </b>
+        <p>
+            {{#if text}}
+                {{text}}
+            {{else}}
+                \{{text}}
+            {{/if}}
+        </p>
+    </div>
+    <button class="notification-close" onclick="closeNotification()">
+        <i class="fas fa-times"></i>
+        <span class="sr-only">Close Notification</span>
+    </button>
+</li>

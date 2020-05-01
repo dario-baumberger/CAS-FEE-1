@@ -8,16 +8,17 @@
   display: none;
 
   &.is-open{
-    display: block;
+    display: flex;
   }
 }
 
 .modal-conten {
   max-width: 750px;
+  height: 90vh;
   margin: auto;
   background-color: white;
   padding: 2rem;
-  width: 100%;
+  width: 90%;
   display: none;
   position: relative;
 

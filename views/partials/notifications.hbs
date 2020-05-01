@@ -1,0 +1,8 @@
+<!-- views/partials/notifications.hbs-->
+<section class="notifications">
+    <ul class="notifications-list">
+        {{#each notifications as | notification |}}
+            {{> notification notification}}
+        {{/each}}
+    </ul>
+</section>

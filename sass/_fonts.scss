@@ -110,3 +110,20 @@
   font-weight: normal;
   src: local('Muli Black Italic'), url('../fonts/muli/Muli-BlackItalic.woff') format('woff');
 }
+
+html {
+  font-family: 'Muli Regular';
+}
+
+body {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.t-sm {
+  font-size: 0.9rem;
+}
+
+.t-xs {
+  font-size: 0.8rem;
+}

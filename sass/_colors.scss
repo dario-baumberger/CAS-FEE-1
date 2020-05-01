@@ -1,0 +1,47 @@
+.bg-blue {
+  background-color: $blue-500;
+
+  &:hover {
+    background-color: $blue-600;
+  }
+}
+
+.bg-green {
+  background-color: $green-500;
+
+  &:hover {
+    background-color: $green-600;
+  }
+}
+
+.bg-red {
+  background-color: $red-500;
+
+  &:hover {
+    background-color: $red-600;
+  }
+}
+
+.bg-yellow {
+  background-color: $yellow-500;
+
+  &:hover {
+    background-color: $yellow-600;
+  }
+}
+
+.bg-orange {
+  background-color: $orange-500;
+
+  &:hover {
+    background-color: $orange-600;
+  }
+}
+
+.bg-turkis {
+  background-color: $turkis-500;
+
+  &:hover {
+    background-color: $turkis-600;
+  }
+}

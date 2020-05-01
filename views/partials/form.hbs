@@ -1,0 +1,36 @@
+<!-- views/partials/filter.hbs-->
+<form>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" placeholder="Feed the cat"/>
+    </div>
+    <div class="form-group">
+        <label for="note">Note</label>
+        <textarea id="note" placeholder="Don't forgett the water"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="state">State</label>
+        <select id="state">
+            <option>Todo</option>
+            <option>Done</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="categories">Categories</label>
+        <select id="categories">
+            <option>School</option>
+            <option>Work</option>
+            <option>No Categorie</option>
+        </select>
+    </div>
+    <div class="buttons">
+        <button class="bg-red" id="" onclick="noteDelete()">
+            <i class="far fa-trash-alt"></i>
+            <span class="sr-only">Delete Note</span>
+        </button>
+        <button class="bg-green" onclick="noteSave()">
+            <i class="far fa-save"></i>
+            <span class="sr-only">Save Note</span>
+        </button>
+    </div>
+</form>

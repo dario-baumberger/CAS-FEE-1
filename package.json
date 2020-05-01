@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/dario-baumberger/CAS-FEE-1#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "ejs": "^3.1.2",
     "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "handlebars-helpers": "^0.10.0",
     "node-sass-middleware": "^0.11.0",
     "socket.io": "^2.3.0"
   }
