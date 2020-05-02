@@ -19,3 +19,14 @@ textarea {
     color: #333;
   }
 }
+
+.form-actions{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+form{
+  position: relative;
+  padding: 0 0 50px 0;
+}

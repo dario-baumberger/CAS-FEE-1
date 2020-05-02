@@ -12,6 +12,7 @@
 
   li {
     list-style: none;
+    border: 1px solid #efefef;
   }
 }
 
@@ -54,12 +55,15 @@
 }
 
 .note-infos {
-  width: calc(100% - 200px);
+  width: 100%
 }
 
 .note {
   transition: all .3s;
   max-height: 500px;
+  max-width: 500px;
+  margin: auto;
+  width: 100%;
 
   &.is-removed {
     max-height: 0;

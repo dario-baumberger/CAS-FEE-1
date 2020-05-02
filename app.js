@@ -8,8 +8,13 @@ const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
 const hbsHelpers = require('handlebars-helpers');
 const hbsMultiHelpers = hbsHelpers();
+const mongoose = require('mongoose');
 
-const port = 3000;
+
+require('./routes/routes.index.js')(app);
+let apiRoutes = require('./routes/routes.api.js')
+
+const port = process.env.PORT || 3000;
 
 /*hbsHelpers.registerHelper('times', function(n, block) {
     var accum = '';
@@ -36,7 +41,10 @@ app.engine('hbs', hbs({
 app.set('views', path.join(__dirname, 'views'));
 
 server.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 app.use(sassMiddleware({
     /* Options */
     src: path.join(__dirname, 'sass'),
@@ -45,30 +53,26 @@ app.use(sassMiddleware({
     outputStyle: 'compressed',
     prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
 }));
-
-console.log()
-
 app.use(express.static('public'));
 //app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/static', express.static('public'))
 //app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/api', apiRoutes)
+mongoose.connect('mongodb://localhost/', { useNewUrlParser: true});
+let db = mongoose.connection;
 
-
-app.get('/', function(req, res){
-    let page = {lang: 'de', page: 'Home', copyright: 'Copyright 2019 Dario Baumberger'};
-    let notes = [{id: 1, title: 'Title 1', content: 'lorem ipsum dolor', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 35}, {id: 2, title: 'Title 2', content: 'hahah', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 10}]
-    let notifications = []
-    res.render('main', {layout : 'index', page: page, notes: notes, notifications : notifications})
-})
-
-app.get('/random', function (req, res) {
-    res.render('layouts/index');
-})
+if(!db)
+    console.log("Error connecting db")
+else
+    console.log("Db connected successfully")
 
 io.on('connection', (socket) => {
     socket.emit('notification', { title: 'Welcome', text: 'Add your notes and prior them' });
 
-    setTimeout(function(){ socket.emit('note', {id: 7, title: 'Title 3', content: 'from server', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 35}); }, 3000);
+    setTimeout(function(){
+        socket.emit('note', {id: 7, title: 'Title 3', content: 'from server', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 35});
+        socket.emit('notification', { title: 'New Note', text: 'Title 3 was added to your list' });
+        }, 3000);
 
 
     socket.on('my other event', (data) => {

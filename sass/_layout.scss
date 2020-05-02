@@ -4,11 +4,16 @@
 
 html {
   background-color: #efefef;
+  min-width: 320px;
 }
 
 main{
   min-height: calc(100vh - 90px);
   padding-top: 50px;
-  max-width: 750px;
+  max-width: 90%;
   margin: auto;
+
+  @include media($md){
+    max-width: 1200px;
+  }
 }

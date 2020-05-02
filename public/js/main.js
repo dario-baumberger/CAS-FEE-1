@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+
 document.addEventListener('click', function (event) {
 
 
@@ -21,25 +22,25 @@ document.addEventListener('click', function (event) {
 
 console.log('asd')
 
-function showModal(modalContent) {
+function modalShow(title, content) {
+    renderTemplate({title: title}, 'modalcontent', '.modal');
+    renderTemplate({title: title}, content, '.modal-content-template');
     let modalEl = document.getElementsByClassName('modal')[0];
-    let modalContentEl = document.getElementsByClassName('modal-content-' + modalContent)[0];
     console.log(modalEl)
     modalEl.classList.add('is-open');
-    modalContentEl.classList.add('is-open');
 }
 
-function closeNotification() {
+function notificationClose() {
     let El = event.currentTarget.parentNode;
     El.classList.add('is-removed');
     setTimeout(function(){ El.remove(); }, 300);
 
 }
 
-function closeModal() {
+function modalClose() {
     let content = event.currentTarget.parentNode;
     let parent = content.parentNode;
-    content.classList.remove('is-open');
+    parent.innerHTML = '';
     parent.classList.remove('is-open');
 }
 
@@ -51,6 +52,16 @@ function noteDone(id) {
     setTimeout(function(){ listEl.remove(); }, 300);
     socket.emit('noteDone', { id: id });
 }
+
+function noteAdd(id) {
+    let content = event.currentTarget.parentNode;
+    let note = content.parentNode;
+    let listEl = note.parentNode;
+    listEl.classList.add('is-removed');
+    setTimeout(function(){ listEl.remove(); }, 300);
+    socket.emit('noteDone', { id: id });
+}
+
 
 const socket = io.connect('http://localhost:3000');
 socket.on('notification', (data) => {
@@ -69,3 +80,14 @@ let renderTemplate = function (data, id, target, place = 'beforeend') {
     elem.insertAdjacentHTML(place, theCompiledHtml);
 
 }
+
+var notificationsModule = function () {
+    this.test = function () {
+        console.log('hallo')
+    }
+    return this;
+}
+
+
+
+notificationsModule.test();

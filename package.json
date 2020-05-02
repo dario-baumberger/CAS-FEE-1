@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "start mongod --config ./data/mongod.cfg",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,13 @@
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
     "handlebars-helpers": "^0.10.0",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.11",
     "node-sass-middleware": "^0.11.0",
+    "request": "^2.88.2",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }

@@ -1,0 +1,14 @@
+<div class="modal-content">
+    <h1>
+        {{#if title}}
+            {{title}}
+        {{else}}
+            \{{title}}
+        {{/if}}
+    </h1>
+    <div class="modal-content-template"></div>
+    <button class="modal-close" onclick="modalClose()">
+        <i class="fas fa-times"></i>
+        <span class="sr-only">Close Notification</span>
+    </button>
+</div>

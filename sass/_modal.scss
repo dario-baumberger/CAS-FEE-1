@@ -10,21 +10,21 @@
   &.is-open{
     display: flex;
   }
+
+  h1{
+    margin-top: 0;
+  }
 }
 
-.modal-conten {
+.modal-content {
   max-width: 750px;
   height: 90vh;
   margin: auto;
   background-color: white;
   padding: 2rem;
   width: 90%;
-  display: none;
+  display: block;
   position: relative;
-
-  &.is-open{
-    display: block;
-  }
 }
 
 .modal-close{

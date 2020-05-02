@@ -1,3 +1,9 @@
 @mixin bg ($color) {
 
 }
+
+@mixin media($media) {
+  @media all and (min-width: $media) {
+    @content;
+  }
+}

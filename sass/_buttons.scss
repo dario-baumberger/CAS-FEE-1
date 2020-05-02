@@ -21,5 +21,9 @@ button {
     margin-right: 20px;
     cursor: pointer;
     color: #fff;
+
+    &:last-of-type{
+      margin-right: 0;
+    }
   }
 }

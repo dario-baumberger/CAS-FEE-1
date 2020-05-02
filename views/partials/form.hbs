@@ -1,12 +1,12 @@
 <!-- views/partials/filter.hbs-->
-<form>
+<form id="form-data">
     <div class="form-group">
         <label for="title">Title</label>
         <input id="title" placeholder="Feed the cat"/>
     </div>
     <div class="form-group">
         <label for="note">Note</label>
-        <textarea id="note" placeholder="Don't forgett the water"></textarea>
+        <textarea id="note" placeholder="Don't forget the water"></textarea>
     </div>
     <div class="form-group">
         <label for="state">State</label>
@@ -23,7 +23,8 @@
             <option>No Categorie</option>
         </select>
     </div>
-    <div class="buttons">
+    <input type="hidden" name="id">
+    <div class="form-actions buttons">
         <button class="bg-red" id="" onclick="noteDelete()">
             <i class="far fa-trash-alt"></i>
             <span class="sr-only">Delete Note</span>
@@ -31,6 +32,10 @@
         <button class="bg-green" onclick="noteSave()">
             <i class="far fa-save"></i>
             <span class="sr-only">Save Note</span>
+        </button>
+        <button class="bg-green" onclick="noteAdd()">
+            <i class="fas fa-plus"></i>
+            <span class="sr-only">Add Note</span>
         </button>
     </div>
 </form>
