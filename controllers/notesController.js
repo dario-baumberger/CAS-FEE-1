@@ -15,13 +15,16 @@ exports.index = function (req, res) {
 };
 
 exports.new = function (req, res) {
-    console.log(req.body)
+
     let note = new Note();
+
     note.title = req.body.title ? req.body.title : note.title;
     note.content = req.body.content;
+    note.state = req.body.state;
     note.created = req.body.created;
+    note.importance = req.body.importance;
     note.due = req.body.due;
-// save the note and check for errors
+
     note.save(function (err) {
          if (err){
              res.json(err);
@@ -40,7 +43,7 @@ exports.view = function (req, res) {
         if (err)
             res.send(err);
         res.json({
-            message: 'Contact details loading..',
+            message: 'note details loading..',
             data: note
         });
     });
@@ -59,7 +62,7 @@ exports.update = function (req, res) {
             if (err)
                 res.json(err);
             res.json({
-                message: 'Contact Info updated',
+                message: 'note Info updated',
                 data: note
             });
         });
@@ -67,14 +70,15 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
+    console.log(req.params)
     Note.remove({
         _id: req.params.note_id
-    }, function (err, contact) {
+    }, function (err, note) {
         if (err)
             res.send(err);
         res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'note deleted'
         });
     });
 };

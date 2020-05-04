@@ -1,5 +1,10 @@
 <!-- views/partials/note.hbs-->
-<li class="note">
+<li
+        class="note"
+        data-created="{{#if created}}{{created}}{{else}}\{{created}}{{/if}}"
+        data-due="{{#if due}}{{due}}{{else}}\{{due}}{{/if}}"
+        data-importance="{{#if importance}}{{importance}}{{else}}\{{importance}}{{/if}}"
+>
     <article>
         <div class="note-content">
             <h2>
@@ -33,7 +38,7 @@
         </div>
         <div class="buttons">
             <button class="bg-yellow" id="" onclick="modalShow('Edit', 'form')"><i class="fas fa-pen"></i></button>
-            <button class="bg-green" onclick="noteDone({{id}})"><i class="fas fa-check"></i></button>
+            <button class="bg-green" onclick="noteDone({{_id}})"><i class="fas fa-check"></i></button>
         </div>
     </article>
 </li>

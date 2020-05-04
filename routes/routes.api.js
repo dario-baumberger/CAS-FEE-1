@@ -22,7 +22,7 @@ let noteController = require('../controllers/notesController');
 router.route('/notes')
     .get(noteController.index)
     .post(noteController.new);
-router.route('/notes/:noe_id')
+router.route('/notes/:note_id')
     .get(noteController.view)
     .patch(noteController.update)
     .put(noteController.update)

@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
     socket.emit('notification', { title: 'Welcome', text: 'Add your notes and prior them' });
 
     setTimeout(function(){
-        socket.emit('note', {id: 7, title: 'Title 3', content: 'from server', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 35});
+       // socket.emit('note', {id: 7, title: 'Title 3', content: 'from server', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 35});
         socket.emit('notification', { title: 'New Note', text: 'Title 3 was added to your list' });
         }, 3000);
 

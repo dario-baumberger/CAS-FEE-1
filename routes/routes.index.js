@@ -6,7 +6,6 @@ module.exports = function(app){
                 let notes  = JSON.parse(body).notes;
                 console.log(notes)
                 let page = {lang: 'de', page: 'Home', description: 'lorem', color: 'red', copyright: 'Copyright 2019 Dario Baumberger'};
-                let notes2 = {notes: [{id: 1, title: 'Title 1', content: 'lorem ipsum dolor', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 35}, {id: 2, title: 'Title 2', content: 'hahah', created: '12.12.2019', due: '12.12.2020', priority: 5, age: 10}]}
                 let notifications = []
                 console.log(notes.notes)
                 res.render('main', {layout : 'index', page: page, notes})

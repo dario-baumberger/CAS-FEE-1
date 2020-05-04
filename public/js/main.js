@@ -81,13 +81,19 @@ let renderTemplate = function (data, id, target, place = 'beforeend') {
 
 }
 
-var notificationsModule = function () {
-    this.test = function () {
-        console.log('hallo')
-    }
-    return this;
+function apiCall() {
+    return fetch('http://localhost:3000/api/notes').then(function (response) {
+        // The API call was successful!
+        return response.json();
+    }).then(function (data) {
+        // This is the JSON from our response
+        return data;
+    }).catch(function (err) {
+        // There was an error
+        console.warn('Something went wrong.', err);
+    });
 }
 
-
-
-notificationsModule.test();
+function listSort() {
+   console.log(apiCall)
+}

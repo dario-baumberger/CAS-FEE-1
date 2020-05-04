@@ -11,17 +11,22 @@ let notesSchema = mongoose.Schema({
     },
     state: {
         type: Number,
+        default: 0,
         required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    importance: {
+        type: String,
+        default: 0
     },
     categories: {
         type: Array,
     },
     due: {
         type: Date,
-    },
-    created: {
-        type: Date,
-        default: Date.now
     }
 });
 
