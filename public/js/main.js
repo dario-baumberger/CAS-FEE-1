@@ -24,7 +24,7 @@ console.log('asd')
 
 function modalShow(title, content) {
     renderTemplate({title: title}, 'modalcontent', '.modal');
-    renderTemplate({title: title}, content, '.modal-content-template');
+    renderTemplate({title: 'Demo Title', note: 'Demo Note' }, content[0], '.modal-content-template');
     let modalEl = document.getElementsByClassName('modal')[0];
     console.log(modalEl)
     modalEl.classList.add('is-open');
@@ -73,6 +73,7 @@ socket.on('note', (data) => {
 });
 
 let renderTemplate = function (data, id, target, place = 'beforeend') {
+    console.log(id, data, target)
     let template = document.getElementById(id).innerHTML;
     let theTemplate = Handlebars.compile(template);
     let theCompiledHtml = theTemplate(data);

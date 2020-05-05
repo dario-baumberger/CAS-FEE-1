@@ -2,11 +2,11 @@
 <form id="form-data">
     <div class="form-group">
         <label for="title">Title</label>
-        <input id="title" placeholder="Feed the cat"/>
+        <input id="title" placeholder="Feed the cat" value="\{{title}}"/>
     </div>
     <div class="form-group">
         <label for="note">Note</label>
-        <textarea id="note" placeholder="Don't forget the water"></textarea>
+        <textarea id="note" placeholder="Don't forget the water">\{{note}}</textarea>
     </div>
     <div class="form-group">
         <label for="state">State</label>
@@ -23,7 +23,7 @@
             <option>No Categorie</option>
         </select>
     </div>
-    <input type="hidden" name="id">
+    <input type="hidden" name="id" value="\{{id}}">
     <div class="form-actions buttons">
         <button class="bg-red" id="" onclick="noteDelete()">
             <i class="far fa-trash-alt"></i>
