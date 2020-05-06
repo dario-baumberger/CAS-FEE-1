@@ -1,3 +1,9 @@
+'use strict'
+
+/*import {Modal} from './modules/modal';
+
+let square1 = new Modal();*/
+
 document.addEventListener("DOMContentLoaded", function() {
 
 
@@ -24,15 +30,15 @@ console.log('asd')
 
 function modalShow(title, content) {
     renderTemplate({title: title}, 'modalcontent', '.modal');
-    renderTemplate({title: 'Demo Title', note: 'Demo Note' }, content[0], '.modal-content-template');
+    renderTemplate({title: 'Demo Title', note: 'Demo Note' }, content[0], '.modal__template');
     let modalEl = document.getElementsByClassName('modal')[0];
     console.log(modalEl)
-    modalEl.classList.add('is-open');
+    modalEl.classList.add('modal--open');
 }
 
 function notificationClose() {
     let El = event.currentTarget.parentNode;
-    El.classList.add('is-removed');
+    El.classList.add('notification--removed');
     setTimeout(function(){ El.remove(); }, 300);
 
 }
@@ -41,14 +47,14 @@ function modalClose() {
     let content = event.currentTarget.parentNode;
     let parent = content.parentNode;
     parent.innerHTML = '';
-    parent.classList.remove('is-open');
+    parent.classList.remove('modal--open');
 }
 
 function noteDone(id) {
     let content = event.currentTarget.parentNode;
     let note = content.parentNode;
     let listEl = note.parentNode;
-    listEl.classList.add('is-removed');
+    listEl.classList.add('note--removed');
     setTimeout(function(){ listEl.remove(); }, 300);
     socket.emit('noteDone', { id: id });
 }
@@ -57,7 +63,7 @@ function noteAdd(id) {
     let content = event.currentTarget.parentNode;
     let note = content.parentNode;
     let listEl = note.parentNode;
-    listEl.classList.add('is-removed');
+    listEl.classList.add('note--removed');
     setTimeout(function(){ listEl.remove(); }, 300);
     socket.emit('noteDone', { id: id });
 }
@@ -65,15 +71,16 @@ function noteAdd(id) {
 
 const socket = io.connect('http://localhost:3000');
 socket.on('notification', (data) => {
-    renderTemplate(data, 'notification', '.notifications-list');
+    renderTemplate(data, 'notification', '.notifications__list');
 });
 
 socket.on('note', (data) => {
-    renderTemplate(data, 'note', '.notes-list');
+    renderTemplate(data, 'note', '.notes__list');
 });
 
 let renderTemplate = function (data, id, target, place = 'beforeend') {
     console.log(id, data, target)
+    id = 'templates__'+id;
     let template = document.getElementById(id).innerHTML;
     let theTemplate = Handlebars.compile(template);
     let theCompiledHtml = theTemplate(data);

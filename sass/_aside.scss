@@ -1,0 +1,25 @@
+.aside {
+  width: 50px;
+  margin: auto;
+  position: fixed;
+  right: 2rem;
+  top: 0;
+  padding-top: 30px;
+
+  button{
+    margin-bottom: 2rem;
+  }
+}
+
+.aside__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.aside__item {
+  list-style: none;
+  margin: 0;
+}

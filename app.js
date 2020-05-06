@@ -1,3 +1,5 @@
+'use strict'
+
 const express = require('express');
 const sassMiddleware = require('node-sass-middleware');
 const app = express();
@@ -9,6 +11,8 @@ const hbs = require('express-handlebars');
 const hbsHelpers = require('handlebars-helpers');
 const hbsMultiHelpers = hbsHelpers();
 const mongoose = require('mongoose');
+const session = require('express-session');
+const cookieParser = require('cookie-parser')();
 
 
 require('./routes/routes.index.js')(app);

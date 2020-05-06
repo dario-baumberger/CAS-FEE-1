@@ -5,9 +5,9 @@
         data-due="{{#if due}}{{due}}{{else}}\{{due}}{{/if}}"
         data-importance="{{#if importance}}{{importance}}{{else}}\{{importance}}{{/if}}"
 >
-    <article>
-        <div class="note-content">
-            <h2>
+    <article class="note__article">
+        <div class="note__content">
+            <h2 class="note__title">
                 {{#if title}}
                     {{title}}
                 {{else}}
@@ -22,12 +22,12 @@
                 {{/if}}
             </p>
         </div>
-        <div class="note-infos t-sm">
+        <div class="note__infos t-sm">
             <div>
                 <p>Created: {{created}}</p>
                 <pDue>Date: {{due}}</pDue>
             </div>
-            <div class="note-age">
+            <div class="note__age">
                 <p class="label">Age:</p>
 
                 {{#each age }}
@@ -36,9 +36,10 @@
                 {{/each}}
             </div>
         </div>
-        <div class="note-actions buttons">
-            <button class="bg-yellow" id="" onclick="modalShow('Edit', ['form', '/notes/{{_id}}'])"><i class="fas fa-pen"></i></button>
-            <button class="bg-green" onclick="noteDone({{_id}})"><i class="fas fa-check"></i></button>
+        <div class="note__actions">
+            <button class="bg-yellow round button" id="" onclick="modalShow('Edit', ['form', '/notes/{{_id}}'])"><i class="fas fa-pen"></i></button>
+            <button class="bg-orange round button" onclick="noteDone({{_id}})"><i class="fas fa-spinner"></i></button>
+            <button class="bg-green round button" onclick="noteDone({{_id}})"><i class="fas fa-check"></i></button>
         </div>
     </article>
 </li>

@@ -1,22 +1,37 @@
-.notes {
-  ol {
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-gap: 30px;
-  }
+.notes__list{
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-gap: 30px;
 
-  .note-content {
-    width: 100%;
-  }
-
-  li {
+  li{
     list-style: none;
-    border: 1px solid #efefef;
   }
 }
 
-.note-age {
+.note__article {
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: $white;
+  position: relative;
+  transition: all .3s;
+  max-height: 500px;
+  max-width: 500px;
+  margin: auto;
+  width: 100%;
+  border: 1px solid #efefef;
+}
+
+.note__title {
+  margin-top: 0;
+}
+.note__content {
+  width: 100%;
+}
+
+.note__age {
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -54,39 +69,18 @@
   }
 }
 
-.note-infos {
+.note__infos {
   width: 100%
 }
 
-.note {
+.note--removed {
+  max-height: 0;
+  overflow: hidden;
   transition: all .3s;
-  max-height: 500px;
-  max-width: 500px;
-  margin: auto;
-  width: 100%;
-
-  &.is-removed {
-    max-height: 0;
-    overflow: hidden;
-    transition: all .3s;
-  }
 }
 
-.note-actions{
+.note__actions{
   position: absolute;
   right: 2rem;
   bottom: 2rem;
-}
-
-article {
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: $white;
-  position: relative;
-
-  h2 {
-    margin-top: 0;
-  }
 }

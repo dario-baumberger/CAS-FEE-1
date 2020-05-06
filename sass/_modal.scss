@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.75);
   display: none;
 
-  &.is-open{
+  &.modal--open{
     display: flex;
   }
 
@@ -16,7 +16,7 @@
   }
 }
 
-.modal-content {
+.modal__content {
   max-width: 750px;
   height: 90vh;
   margin: auto;
@@ -27,7 +27,7 @@
   position: relative;
 }
 
-.modal-close{
+.modal__close{
   position: absolute;
   right: 5px;
   top: 5px;
