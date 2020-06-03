@@ -37,9 +37,9 @@
             </div>
         </div>
         <div class="note__actions">
-            <button class="bg-yellow round button" id="" onclick="modalShow('Edit', ['form', '/notes/{{_id}}'])"><i class="fas fa-pen"></i></button>
+            <button class="bg-yellow round button js-modal--edit" id="" ><i class="fas fa-pen"></i></button>
             <button class="bg-orange round button" onclick="noteDone({{_id}})"><i class="fas fa-spinner"></i></button>
-            <button class="bg-green round button" onclick="noteDone({{_id}})"><i class="fas fa-check"></i></button>
+            <button class="bg-green round button js-note--done"><i class="fas fa-check"></i></button>
         </div>
     </article>
 </li>

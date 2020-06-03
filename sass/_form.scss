@@ -24,6 +24,9 @@ textarea {
   position: absolute;
   right: 0;
   bottom: 0;
+  display: grid;
+  grid-gap: 1rem;
+  grid-auto-flow: column;
 }
 
 form{

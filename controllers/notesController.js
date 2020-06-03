@@ -1,4 +1,4 @@
-Note = require('../models/notesModel');
+const Note = require('../models/notesModel');
 
 exports.index = function (req, res) {
     Note.get(function (err, notes) {

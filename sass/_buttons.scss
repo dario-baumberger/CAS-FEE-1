@@ -4,6 +4,10 @@ button {
   border: none;
   color: #fff;
   text-align: center;
+
+  i{
+    pointer-events: none;
+  }
 }
 
 .buttons {

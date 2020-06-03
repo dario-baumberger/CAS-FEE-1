@@ -83,4 +83,7 @@
   position: absolute;
   right: 2rem;
   bottom: 2rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-auto-flow: column;
 }
