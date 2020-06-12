@@ -1,16 +1,39 @@
 const Note = require('../models/notesModel');
 
 exports.index = function (req, res) {
-    Note.get(function (err, notes) {
+    Note.get(function (err, data) {
+
+        let notes = [];
+
+        const now = Date.now();
+
+        data.forEach(function (note) {
+            const diffTime = (now - note.created);
+
+            notes.push({
+                id: note._id,
+                title: note.title,
+                created: note.createdAt,
+                updated: note.updatedAt,
+                content: note.content,
+                importance: note.importance,
+                state: note.state,
+                categories: note.categories,
+                now: now,
+                age: diffTime,
+            })
+        });
+
+//
+        //const
         if (err) {
             res.json({
                 status: "error",
                 message: err,
             });
         }
-        res.json({
-            notes
-        });
+
+        res.json({notes});
     });
 };
 

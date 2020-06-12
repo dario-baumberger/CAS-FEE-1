@@ -12,11 +12,6 @@ let notesSchema = mongoose.Schema({
     state: {
         type: Number,
         default: 0,
-        required: true
-    },
-    created: {
-        type: Date,
-        default: Date.now
     },
     importance: {
         type: String,
@@ -27,6 +22,12 @@ let notesSchema = mongoose.Schema({
     },
     due: {
         type: Date,
+    }
+},{
+    timestamps: {
+        createdAt: 'createdAt',
+        fieldType: Number,
+        currentTime: 202020,
     }
 });
 
