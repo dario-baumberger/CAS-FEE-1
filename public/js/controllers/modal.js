@@ -1,7 +1,10 @@
+import {NotesService} from '../services/notes.js';
+
 export class Modal {
     constructor(template) {
         this.template = template;
         this.$modal = document.querySelector ('.modal' );
+        this.notesService = new NotesService();
     }
 
     showModal(){
@@ -17,12 +20,16 @@ export class Modal {
         this.$modal.innerHTML = '';
     }
 
-    initEventHandlers() {
-        window.addEventListener('click', (event) => {
+    async initEventHandlers() {
+        window.addEventListener('click', async (event) => {
             if (event.target.matches('.js-modal--edit')) {
-                this.template.renderTemplate({title: 'title'}, 'modalcontent', '.modal');
-                this.template.renderTemplate({title: 'Demo Title', note: 'Demo Note' }, 'form', '.modal__template');
-                this.showModal();
+                const id = event.target.closest('.note').dataset.id;
+                this.notesService.getNotes(id).then( (data) => {
+                    console.log(data)
+                    this.template.renderTemplate({title: 'Edit'}, 'modalcontent', '.modal');
+                    this.template.renderTemplate({title: data.title, note: data.content, id: data.id }, 'form', '.modal__template');
+                    this.showModal();
+                });
             }else  if (event.target.matches('.js-modal--filter')) {
                 this.template.renderTemplate({title: 'title'}, 'filter', '.modal');
                 this.template.renderTemplate({title: 'Filter', note: 'Demo Note' }, 'form', '.modal__template');
@@ -38,7 +45,7 @@ export class Modal {
         });
     }
 
-    init(){
-        this.initEventHandlers();
+    async init(){
+        await this.initEventHandlers();
     }
 }

@@ -4,7 +4,7 @@ export class Template {
     }
 
     renderTemplate(data, id, target, place = 'beforeend'){
-        console.log(id, data, target)
+       // console.log(id, data, target)
         id = 'templates__'+id;
         const template = document.getElementById(id).innerHTML;
         const theTemplate = Handlebars.compile(template);

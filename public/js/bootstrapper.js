@@ -1,8 +1,9 @@
-import {Modal} from './modules/modal.js';
-import {Notes} from './modules/notes.js';
-import {Template} from './modules/template.js';
-import {SocketIo} from './modules/socket.io.js';
-import {Notifications} from './modules/notifications.js';
+import {Modal} from './controllers/modal.js';
+import {Notes} from './controllers/notes.js';
+import {NotesService} from './services/notes.js';
+import {Template} from './controllers/template.js';
+import {SocketIo} from './controllers/socket.io.js';
+import {Notifications} from './controllers/notifications.js';
 
 class Bootstrapper {
     static start() {
@@ -12,6 +13,7 @@ class Bootstrapper {
         new Modal(template).init();
         new Notifications(template, socket).init();
         new Notes(template, socket).init();
+        new NotesService();
     }
 }
 

@@ -63,12 +63,26 @@ exports.new = function (req, res) {
 // Handle view contact info
 exports.view = function (req, res) {
     Note.findById(req.params.note_id, function (err, note) {
-        if (err)
+        if (err){
             res.send(err);
-        res.json({
-            message: 'note details loading..',
-            data: note
-        });
+        }
+        const now = Date.now();
+        let notes = {};
+        const diffTime = (now - note.created);
+
+        notes.id = note._id;
+        notes.title = note.title;
+        notes.created = note.createdAt;
+        notes.updated = note.updatedAt;
+        notes.content = note.content;
+        notes.importance = note.importance;
+        notes.state = note.state;
+        notes.categories = note.categories;
+        notes.now = now;
+        notes.age = diffTime;
+
+
+        res.json(notes);
     });
 };
 
@@ -80,6 +94,7 @@ exports.update = function (req, res) {
         note.content = req.body.content;
         note.created = req.body.created;
         note.due = req.body.due;
+
 // save the note and check for errors
         note.save(function (err) {
             if (err)
