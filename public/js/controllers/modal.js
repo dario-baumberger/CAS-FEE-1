@@ -27,11 +27,16 @@ export class Modal {
                 this.notesService.getNotes(id).then( (data) => {
                     console.log(data)
                     this.template.renderTemplate({title: 'Edit'}, 'modalcontent', '.modal');
-                    this.template.renderTemplate({title: data.title, note: data.content, id: data.id }, 'form', '.modal__template');
+                    this.template.renderTemplate({title: data.title, note: data.content, id: data.id, categories: data.categories, state: data.state  }, 'form', '.modal__template');
                     this.showModal();
                 });
             }else  if (event.target.matches('.js-modal--filter')) {
                 this.template.renderTemplate({title: 'title'}, 'filter', '.modal');
+                this.template.renderTemplate({title: 'Filter', note: 'Demo Note' }, 'form', '.modal__template');
+                this.showModal();
+            }
+            else  if (event.target.matches('.js-modal--add')) {
+                this.template.renderTemplate({title: 'Add'}, 'add', '.modal');
                 this.template.renderTemplate({title: 'Filter', note: 'Demo Note' }, 'form', '.modal__template');
                 this.showModal();
             }

@@ -7,12 +7,12 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require('path');
 const bodyParser = require('body-parser');
-const hbs = require('express-handlebars');
-const hbsHelpers = require('handlebars-helpers');
-const hbsMultiHelpers = hbsHelpers();
+const hbs   = require('express-handlebars');
+const hbsHelpers = require('handlebars-helpers')();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const cookieParser = require('cookie-parser')();
+
 
 
 require('./routes/routes.index.js')(app);
@@ -21,27 +21,44 @@ let apiRoutes = require('./routes/routes.api.js')
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
 /*
-hbsMultiHelpers.registerHelper('for', function(from, to, incr, block) {
-    var accum = '';
-    for(var i = from; i < to; i += incr)
-        accum += block.fn(i);
-    return accum;
+
+hbs.registerHelper('select', function (value, options) {
+    return options.fn()
+        .split('\n')
+        .map(function (v) {
+            let t = 'value="' + value + '"';
+            return RegExp(t).test(v) ? v.replace(t, t + ' selected="selected"') : v;
+        })
+        .join('\n');
+});
+
+hbs.registerHelper('times', function(n, block) {
+
 });*/
 
 app.engine('hbs', hbs({
-    helpers: hbsMultiHelpers,
+    helpers: {
+        select: function(value, options){
+            return options.fn()
+                .split('\n')
+                .map(function (v) {
+                    let t = 'value="' + value + '"';
+                    return RegExp(t).test(v) ? v.replace(t, t + ' selected="selected"') : v;
+                })
+                .join('\n');
+        },
+        times: function (n, block) {
+            let accum = '';
+            for(let i = 0; i < n; ++i)
+                accum += block.fn(i);
+            return accum;
+        }
+    },
     extname: 'hbs',
     defaultLayout:'main.hbs',
     layoutsDir: path.join(__dirname, '/views/layouts'),
+    partialsDir: path.join(__dirname, '/views/partials'),
 }));
-/*
-hbsHelpers.registerHelper('times', function(n, block) {
-    var accum = '';
-    for(var i = 0; i < n; ++i)
-        accum += block.fn(i);
-    return accum;
-});*/
-
 
 
 app.set('view engine', 'hbs');

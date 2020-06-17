@@ -18,7 +18,7 @@ let notesSchema = mongoose.Schema({
         default: 0
     },
     categories: {
-        type: Array,
+        type: Number,
     },
     due: {
         type: Date,
@@ -26,8 +26,7 @@ let notesSchema = mongoose.Schema({
 },{
     timestamps: {
         createdAt: 'createdAt',
-        fieldType: Number,
-        currentTime: 202020,
+        fieldType: Number
     }
 });
 

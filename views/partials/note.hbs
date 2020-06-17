@@ -26,13 +26,13 @@
         <div class="note__infos t-sm">
             <div>
                 <p>Created: {{created}}</p>
-                <pDue>Date: {{due}}</pDue>
+                <p>Due Date: {{due}}</p>
             </div>
             <div class="note__age">
                 <p class="label">Age:</p>
-                {{#each age}}
-                    <span>lorem</span>
-                {{/each}}
+                {{#times age}}
+                    <span></span>
+                {{/times}}
             </div>
         </div>
         <div class="note__actions">

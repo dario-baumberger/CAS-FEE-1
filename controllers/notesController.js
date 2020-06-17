@@ -39,6 +39,8 @@ exports.index = function (req, res) {
 
 exports.new = function (req, res) {
 
+    console.log(req.body)
+
     let note = new Note();
 
     note.title = req.body.title ? req.body.title : note.title;
@@ -47,11 +49,16 @@ exports.new = function (req, res) {
     note.created = req.body.created;
     note.importance = req.body.importance;
     note.due = req.body.due;
+    note.categories = req.body.categories;
+
+    console.log(note)
 
     note.save(function (err) {
          if (err){
+             console.log(err)
              res.json(err);
          }else{
+             console.log('ok')
              res.json({
                  message: 'New note created!',
                  data: note

@@ -1,5 +1,5 @@
 'use strict'
-
+/*
 function noteAdd(id) {
     let content = event.currentTarget.parentNode;
     let note = content.parentNode;
@@ -14,7 +14,17 @@ let renderTemplate = function (data, id, target, place = 'beforeend') {
 
 
 }
-
+*/
+Handlebars.registerHelper( 'select', function(value, options){
+    return options.fn()
+        .split('\n')
+        .map(function (v) {
+            let t = 'value="' + value + '"';
+            return RegExp(t).test(v) ? v.replace(t, t + ' selected="selected"') : v;
+        })
+        .join('\n');
+})
+/*
 function apiCall() {
     return fetch('http://localhost:3000/api/notes').then(function (response) {
         // The API call was successful!
@@ -27,7 +37,8 @@ function apiCall() {
         console.warn('Something went wrong.', err);
     });
 }
-
+*/
+/*
 function listSort() {
     let order = event.target.value
     let list = document.querySelectorAll('.notes .note');
@@ -38,7 +49,7 @@ function listSort() {
         .forEach((item) => item.parentNode.appendChild(item));
 
 
-   /* itemsArr.sort(function(a, b) {
+   itemsArr.sort(function(a, b) {
         return a.innerHTML == b.innerHTML
               ? 0
             : (a.innerHTML > b.innerHTML ? 1 : -1);
@@ -46,5 +57,5 @@ function listSort() {
 
     for (var i = 0; i < itemsArr.length; ++i) {
         list.appendChild(itemsArr[i]);
-    }*/
-}
+    }
+}*/
