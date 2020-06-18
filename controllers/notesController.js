@@ -33,7 +33,7 @@ exports.index = function (req, res) {
             });
         }
 
-        res.json({notes});
+        res.json(notes);
     });
 };
 
@@ -94,13 +94,21 @@ exports.view = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    Note.findById(req.params.note_id, function (err, note) {
+    console.log(req.body)
+
+
+   Note.findById(req.params.note_id, function (err, note) {
         if (err)
             res.send(err);
         note.title = req.body.title ? req.body.title : note.title;
         note.content = req.body.content;
         note.created = req.body.created;
         note.due = req.body.due;
+       note.state = req.body.state;
+
+       console.log(req.body)
+
+
 
 // save the note and check for errors
         note.save(function (err) {

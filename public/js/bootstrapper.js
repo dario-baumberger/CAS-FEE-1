@@ -12,7 +12,7 @@ class Bootstrapper {
         const socketIo = new SocketIo();
         new Modal(template).init();
         new Notifications(template, socket).init();
-        new Notes(template, socket).init();
+        new Notes(socket).init();
         new NotesService();
     }
 }

@@ -3,10 +3,9 @@ export class Template {
 
     }
 
-    renderTemplate(data, id, target, place = 'beforeend'){
-       // console.log(id, data, target)
-        id = 'templates__'+id;
-        const template = document.getElementById(id).innerHTML;
+    renderTemplate(data, templateId, target, place = 'beforeend'){
+        templateId = 'templates__'+templateId;
+        const template = document.getElementById(templateId).innerHTML;
         const theTemplate = Handlebars.compile(template);
         const theCompiledHtml = theTemplate(data);
         const elem = document.querySelector ( target )

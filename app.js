@@ -7,64 +7,20 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require('path');
 const bodyParser = require('body-parser');
-const hbs   = require('express-handlebars');
-const hbsHelpers = require('handlebars-helpers')();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const cookieParser = require('cookie-parser')();
 
 
+//const notesService = new NotesService();
 
 require('./routes/routes.index.js')(app);
 let apiRoutes = require('./routes/routes.api.js')
 
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
-/*
 
-hbs.registerHelper('select', function (value, options) {
-    return options.fn()
-        .split('\n')
-        .map(function (v) {
-            let t = 'value="' + value + '"';
-            return RegExp(t).test(v) ? v.replace(t, t + ' selected="selected"') : v;
-        })
-        .join('\n');
-});
-
-hbs.registerHelper('times', function(n, block) {
-
-});*/
-
-app.engine('hbs', hbs({
-    helpers: {
-        select: function(value, options){
-            return options.fn()
-                .split('\n')
-                .map(function (v) {
-                    let t = 'value="' + value + '"';
-                    return RegExp(t).test(v) ? v.replace(t, t + ' selected="selected"') : v;
-                })
-                .join('\n');
-        },
-        times: function (n, block) {
-            let accum = '';
-            for(let i = 0; i < n; ++i)
-                accum += block.fn(i);
-            return accum;
-        }
-    },
-    extname: 'hbs',
-    defaultLayout:'main.hbs',
-    layoutsDir: path.join(__dirname, '/views/layouts'),
-    partialsDir: path.join(__dirname, '/views/partials'),
-}));
-
-
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
-
-
+app.set('view engine', 'html');
 server.listen(port, () => console.log(`Example app listening at http://${host}:${port}`))
 app.use(bodyParser.urlencoded({
     extended: true
@@ -95,11 +51,9 @@ io.on('connection', (socket) => {
         socket.emit('notification', { title: 'New Note', text: 'Title 3 was added to your list' });
         }, 3000);
 
-
-    socket.on('my other event', (data) => {
-        console.log(data);
-    });
     socket.on('noteDone', (data => {
+        console.log(data.id)
+        //notesService.updateState(data.id, 2)
         socket.emit('notification', { title: 'title', text: 'Updated: Done' });
     }))
 });
@@ -108,10 +62,4 @@ app.use(function (req, res, next) {
     let page = {lang: 'de', page: 'Error 404'};
     res.status(404).render('main', {layout : 'error-404', page: page})
 })
-/*
-app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    let page = {lang: 'de', page: 'Error 500'};
-    res.status(500).render('error', {page: page})
-})
-*/
+

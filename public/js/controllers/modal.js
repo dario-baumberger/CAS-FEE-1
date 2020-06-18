@@ -24,7 +24,7 @@ export class Modal {
         window.addEventListener('click', async (event) => {
             if (event.target.matches('.js-modal--edit')) {
                 const id = event.target.closest('.note').dataset.id;
-                this.notesService.getNotes(id).then( (data) => {
+                this.notesService.getNote(id).then( (data) => {
                     console.log(data)
                     this.template.renderTemplate({title: 'Edit'}, 'modalcontent', '.modal');
                     this.template.renderTemplate({title: data.title, note: data.content, id: data.id, categories: data.categories, state: data.state  }, 'form', '.modal__template');
