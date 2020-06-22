@@ -22,9 +22,6 @@
             <li class="aside__item">
                 <button class="button button--round bg-turkis js-modal--add"><i class="fas fa-plus"></i></button>
             </li>
-            <li class="aside__item">
-                <button class="button button--round bg-red"><i class="fas fa-user"></i></button>
-            </li>
         </ul>
     </nav>
 </aside>
@@ -56,25 +53,17 @@
 
 </main>
 <footer class="footer">
-    <small class="t-xs">Copyright</small>
+    <small class="t-xs">2020 Dario Baumberger © Alle Rechte vorbehalten.</small>
 </footer>
 <div id="templates">
     <template id="templates__notification">
         <li class="notification">
             <div class="notification__content">
                 <b>
-                    {{#if title}}
                     {{title}}
-                    {{else}}
-                    \{{title}}
-                    {{/if}}
                 </b>
                 <p>
-                    {{#if text}}
                     {{text}}
-                    {{else}}
-                    \{{text}}
-                    {{/if}}
                 </p>
             </div>
             <button class="notification__close">
@@ -86,45 +75,47 @@
     <template id="templates__note">
         <li
                 class="note"
-                data-created="{{#if created}}{{created}}{{else}}\{{created}}{{/if}}"
-                data-due="{{#if due}}{{due}}{{else}}\{{due}}{{/if}}"
-                data-ID="{{#if id}}{{id}}{{else}}\{{id}}{{/if}}"
-                data-importance="{{#if importance}}{{importance}}{{else}}\{{importance}}{{/if}}"
-                data-state="{{#if state}}{{state}}{{else}}\{{state}}{{/if}}"
+                data-created="{{created}}"
+                data-due="{{due}}"
+                data-ID="{{id}}"
+                data-importance="{{importance}}"
+                data-state="{{state}}"
         >
             <article class="note__article">
                 <div class="note__content">
                     <h2 class="note__title">
-                        {{#if title}}
                         {{title}}
-                        {{else}}
-                        \{{title}}
-                        {{/if}}
                     </h2>
                     <p>
-                        {{#if content}}
                         {{content}}
-                        {{else}}
-                        \{{content}}
-                        {{/if}}
                     </p>
                 </div>
                 <div class="note__infos t-sm">
                     <div>
                         <p>Created: {{created}}</p>
+                        <p>Updated: {{updated}}</p>
+                        {{#if due}}
                         <p>Due Date: {{due}}</p>
+                        {{/if}}
                     </div>
+                    {{#if due}}
                     <div class="note__age">
                         <p class="label">Age:</p>
-                        {{#times age}}
+                        {{age}}
+                        {{#times 10}}
                         <span></span>
                         {{/times}}
                     </div>
+                    {{/if}}
                 </div>
                 <div class="note__actions">
                     <button class="bg-yellow round button js-modal--edit" id="" ><i class="fas fa-pen"></i></button>
-                    <button class="bg-orange round button" onclick="noteDone({{_id}})"><i class="fas fa-spinner"></i></button>
+                    {{#matches state 0}}
+                    <button class="bg-orange round button js-note--progress"><i class="fas fa-spinner"></i></button>
+                    {{/matches}}
+                    {{#matches state 1}}
                     <button class="bg-green round button js-note--done"><i class="fas fa-check"></i></button>
+                    {{/matches}}
                 </div>
             </article>
         </li>
@@ -132,11 +123,7 @@
     <template id="templates__modalcontent">
         <div class="modal__content">
             <h1>
-                {{#if title}}
                 {{title}}
-                {{else}}
-                \{{title}}
-                {{/if}}
             </h1>
             <div class="modal__template"></div>
             <button class="modal__close">
@@ -149,65 +136,114 @@
         <form id="form-data">
             <div class="form-group">
                 <label for="title">Title</label>
-                <input id="title" placeholder="Feed the cat" value="\{{title}}"/>
+                <input id="title" placeholder="Feed the cat" value="{{title}}"/>
             </div>
             <div class="form-group">
                 <label for="note">Note</label>
-                <textarea id="note" placeholder="Don't forget the water">\{{note}}</textarea>
+                <textarea id="note" placeholder="Don't forget the water">{{note}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="due">Due Date</label>
+                <input type="date" id="due" value="{{due}}"/>
             </div>
             <div class="form-group">
                 <label for="state">State</label>
                 <select id="state">
-                    \{{#select state}}
+                    {{#select state}}
                     <option value="0">Todo</option>
                     <option value="1">In Progress</option>
                     <option value="2">Done</option>
-                    \{{/select}}
+                    {{/select}}
                 </select>
             </div>
             <div class="form-group">
-                <label for="categories">Category</label>
-                <select id="categories">
-                    \{{#select categories}}
+                <label for="category">Category</label>
+                <select id="category">
+                    {{#select categories}}
                     <option value="">No Category</option>
                     <option value="0">School</option>
                     <option value="1">Work</option>
                 </select>
-                \{{/select}}
+                {{/select}}
             </div>
-            <input type="hidden" name="id" value="\{{id}}">
+            <div class="form-group">
+                <label for="importance">Importance</label>
+                <select id="importance">
+                    {{#select categories}}
+                    <option value="0">Normal</option>
+                    <option value="1">Minor</option>
+                    <option value="2">Urgent</option>
+                </select>
+                {{/select}}
+            </div>
+            <input type="hidden" name="id" id="id" value="{{id}}">
             <div class="form-actions buttons">
-                <button class="button round bg-red" id="" onclick="noteDelete()">
+                <button class="button round bg-warn js-note--delete">
                     <i class="far fa-trash-alt"></i>
                     <span class="sr-only">Delete Note</span>
                 </button>
-                <button class="button round bg-green" onclick="noteSave()">
+                {{#if id}}
+                <button class="button round bg-green js-note--save">
                     <i class="far fa-save"></i>
                     <span class="sr-only">Save Note</span>
                 </button>
-                <button class="button round bg-green" onclick="noteAdd()">
+                {{else}}
+                <button class="button round bg-green js-note--add">
                     <i class="fas fa-plus"></i>
                     <span class="sr-only">Add Note</span>
                 </button>
+                {{/if}}
             </div>
         </form>
     </template>
     <template id="templates__filter">
         <form>
-            <nav class="pills">
-                <p>Categories</p>
+            <fieldset class="pills">
+                <legend>Categories</legend>
                 <ul>
                     <li>
-                        <button class="bg-blue">School</button>
+                        <label for="">
+                            No Category
+                            <input type="checkbox" class="bg-blue" name="categories">
+                        </label>
                     </li>
                     <li>
-                        <button class="bg-turkis">Work</button>
+                        <label for="">
+                            Work
+                            <input type="checkbox" class="bg-turkis" name="categories">
+                        </label>
                     </li>
                     <li>
-                        <button class="bg-turkis">No Categorie</button>
+                        <label for="">
+                            School
+                            <input type="checkbox" class="bg-turkis" name="categories">
+                        </label>
                     </li>
                 </ul>
-            </nav>
+            </fieldset>
+            <fieldset class="pills">
+                <legend>State</legend>
+                <ul>
+                    <li>
+                        <label for="">
+                            Todo
+                            <input type="checkbox" class="bg-blue" name="categories">
+                        </label>
+                    </li>
+                    <li>
+                        <label for="">
+                            In Progress
+                            <input type="checkbox" class="bg-turkis" name="categories">
+                        </label>
+                    </li>
+                    <li>
+                        <label for="">
+                            Done
+                            <input type="checkbox" class="bg-turkis" name="categories">
+                        </label>
+                    </li>
+                </ul>
+            </fieldset>
         </form>
     </template>
 </div>

@@ -7,28 +7,24 @@ let notesSchema = mongoose.Schema({
     },
     content: {
         type: String,
-        required: true
+        default: "",
     },
     state: {
         type: Number,
         default: 0,
     },
     importance: {
-        type: String,
+        type: Number,
         default: 0
     },
-    categories: {
+    category: {
         type: Number,
+        default: 0
     },
     due: {
         type: Date,
     }
-},{
-    timestamps: {
-        createdAt: 'createdAt',
-        fieldType: Number
-    }
-});
+}, { timestamps: { createdAt: 'created', updatedAt: 'updated' } });
 
 
 let Notes = module.exports = mongoose.model('notes', notesSchema);

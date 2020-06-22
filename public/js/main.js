@@ -16,3 +16,11 @@ Handlebars.registerHelper( 'times', function(n, block){
     return accum;
 })
 
+Handlebars.registerHelper( 'matches', function(arg1, arg2, options){
+    return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+})
+
+Handlebars.registerHelper( 'notmatches', function(arg1, arg2, options){
+    return (arg1 !== arg2) ? options.fn(this) : options.inverse(this);
+})
+

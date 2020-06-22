@@ -25,19 +25,19 @@ export class Modal {
             if (event.target.matches('.js-modal--edit')) {
                 const id = event.target.closest('.note').dataset.id;
                 this.notesService.getNote(id).then( (data) => {
-                    console.log(data)
                     this.template.renderTemplate({title: 'Edit'}, 'modalcontent', '.modal');
                     this.template.renderTemplate({title: data.title, note: data.content, id: data.id, categories: data.categories, state: data.state  }, 'form', '.modal__template');
                     this.showModal();
                 });
             }else  if (event.target.matches('.js-modal--filter')) {
-                this.template.renderTemplate({title: 'title'}, 'filter', '.modal');
-                this.template.renderTemplate({title: 'Filter', note: 'Demo Note' }, 'form', '.modal__template');
+                this.template.renderTemplate({title: 'Filter'}, 'modalcontent', '.modal');
+                this.template.renderTemplate({title: 'Filter', note: 'Demo Note' }, 'filter', '.modal__template');
                 this.showModal();
             }
             else  if (event.target.matches('.js-modal--add')) {
-                this.template.renderTemplate({title: 'Add'}, 'add', '.modal');
-                this.template.renderTemplate({title: 'Filter', note: 'Demo Note' }, 'form', '.modal__template');
+                console.log('in')
+                this.template.renderTemplate({title: 'Add'}, 'modalcontent', '.modal');
+                this.template.renderTemplate({title: '', note: '' }, 'form', '.modal__template');
                 this.showModal();
             }
         });

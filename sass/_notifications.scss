@@ -24,7 +24,7 @@
 
 .notification{
   list-style: none;
-  background: $white;
+  background: var(--white);
   padding: 10px 30px 10px 10px;
   box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.1);
   margin-top: 5px;
@@ -80,6 +80,6 @@
   right: 5px;
   top: 5px;
   font-size: .8rem;
-  color: $black;
+  color: var(--black);
   background-color: transparent;
 }

@@ -1,47 +1,47 @@
 .bg-blue {
-  background-color: $blue-500;
+  background-color: var(--blue-500);
 
   &:hover {
-    background-color: $blue-600;
+    background-color: var(--blue-600);
   }
 }
 
 .bg-green {
-  background-color: $green-500;
+  background-color: var(--green-500);
 
   &:hover {
-    background-color: $green-600;
+    background-color: var(--green-600);
   }
 }
 
 .bg-red {
-  background-color: $red-500;
+  background-color: var(--red-warn500);
 
   &:hover {
-    background-color: $red-600;
+    background-color: var(--red-warn600);
   }
 }
 
 .bg-yellow {
-  background-color: $yellow-500;
+  background-color: var(--yellow-500);
 
   &:hover {
-    background-color: $yellow-600;
+    background-color: var(--yellow-600);
   }
 }
 
 .bg-orange {
-  background-color: $orange-500;
+  background-color: var(--orange-500);
 
   &:hover {
-    background-color: $orange-600;
+    background-color: var(--orange-600);
   }
 }
 
 .bg-turkis {
-  background-color: $turkis-500;
+  background-color: var(--turkis-500);
 
   &:hover {
-    background-color: $turkis-600;
+    background-color: var(--turkis-600);
   }
 }

@@ -14,10 +14,9 @@
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;
-  background-color: $white;
+  background-color: var(--white);
   position: relative;
   transition: all .3s;
-  max-height: 500px;
   max-width: 500px;
   margin: auto;
   width: 100%;
@@ -40,27 +39,27 @@
     display: block;
     width: 10px;
     height: 10px;
-    background-color: $red-500;
+    background-color: var(--red-warn500);
     border-radius: 50%;
     margin-right: 5px;
     flex-shrink: 0;
 
     @for $i from 1 through 4 {
       &:nth-of-type(#{$i}) {
-        background-color: $black;
+        background-color: var(--black);
         opacity: #{0.025 * $i};
       }
     }
 
     @for $i from 5 through 8 {
       &:nth-of-type(#{$i}) {
-        background-color: $yellow-500;
+        background-color: var(--yellow-500);
         opacity: #{0.1 * $i};
       }
     }
     @for $i from 9 through 14 {
       &:nth-of-type(#{$i}) {
-        background-color: $red-500;
+        background-color: var(--red-warn500);
         opacity: #{0.05 * $i};
       }
     }

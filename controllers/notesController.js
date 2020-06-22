@@ -1,26 +1,40 @@
 const Note = require('../models/notesModel');
 
 exports.index = function (req, res) {
-    Note.get(function (err, data) {
+    Note.find({}, function (err, data) {
 
         let notes = [];
-
-        const now = Date.now();
+        let now = new Date();
 
         data.forEach(function (note) {
-            const diffTime = (now - note.created);
+            let created = new Date(note.created);
+            let age = new Date(now - created);
+            let updated = new Date(note.updated);
+            let due = note.due;
+
+            if(due !== undefined){
+                due = new Date(due);
+                due = due.getDate()+'.' + (due.getMonth()+1) + '.'+due.getFullYear();
+            }
+
+            created = created.getDate()+'.' + (created.getMonth()+1) + '.'+created.getFullYear();
+            updated = updated.getDate()+'.' + (updated.getMonth()+1) + '.'+updated.getFullYear();
+
+            age = age.getDate()+'.' + (age.getMonth()+1) + '.'+age.getFullYear();
+
 
             notes.push({
                 id: note._id,
                 title: note.title,
-                created: note.createdAt,
-                updated: note.updatedAt,
+                created: created,
+                updated: updated,
                 content: note.content,
+                due: due,
                 importance: note.importance,
                 state: note.state,
-                categories: note.categories,
-                now: now,
-                age: diffTime,
+                category: note.category,
+                //now: now,
+               age: age,
             })
         });
 
@@ -39,32 +53,20 @@ exports.index = function (req, res) {
 
 exports.new = function (req, res) {
 
-    console.log(req.body)
-
     let note = new Note();
 
     note.title = req.body.title ? req.body.title : note.title;
     note.content = req.body.content;
     note.state = req.body.state;
-    note.created = req.body.created;
     note.importance = req.body.importance;
     note.due = req.body.due;
-    note.categories = req.body.categories;
+    note.category = req.body.category;
 
-    console.log(note)
-
-    note.save(function (err) {
-         if (err){
-             console.log(err)
-             res.json(err);
-         }else{
-             console.log('ok')
-             res.json({
-                 message: 'New note created!',
-                 data: note
-             });
-         }
-    });
+    note.save().then(item =>  {
+        res.send("item saved to database");
+    }).catch(err => {
+        res.status(400).send(err);
+    })
 };
 
 // Handle view contact info
@@ -76,7 +78,6 @@ exports.view = function (req, res) {
         const now = Date.now();
         let notes = {};
         const diffTime = (now - note.created);
-
         notes.id = note._id;
         notes.title = note.title;
         notes.created = note.createdAt;
@@ -84,46 +85,41 @@ exports.view = function (req, res) {
         notes.content = note.content;
         notes.importance = note.importance;
         notes.state = note.state;
-        notes.categories = note.categories;
+        notes.due = note.due;
+        notes.category = note.category;
         notes.now = now;
         notes.age = diffTime;
-
 
         res.json(notes);
     });
 };
 
 exports.update = function (req, res) {
-    console.log(req.body)
-
-
-   Note.findById(req.params.note_id, function (err, note) {
-        if (err)
+       Note.findById(req.params.note_id, function (err, note) {
+        if (err){
             res.send(err);
-        note.title = req.body.title ? req.body.title : note.title;
-        note.content = req.body.content;
-        note.created = req.body.created;
-        note.due = req.body.due;
-       note.state = req.body.state;
+        }else{
+            note.title = req.body.title
+            note.content = req.body.content;
+            note.created = req.body.created;
+            note.due = req.body.due;
+            note.state = req.body.state;
 
-       console.log(req.body)
+            console.log(req.body)
 
-
-
-// save the note and check for errors
-        note.save(function (err) {
-            if (err)
-                res.json(err);
-            res.json({
-                message: 'note Info updated',
-                data: note
+            note.save(function (err) {
+                if (err)
+                    res.json(err);
+                res.json({
+                    message: 'note Info updated',
+                    data: note
+                });
             });
-        });
+        }
     });
 };
 
 exports.delete = function (req, res) {
-    console.log(req.params)
     Note.remove({
         _id: req.params.note_id
     }, function (err, note) {
