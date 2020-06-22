@@ -1,10 +1,10 @@
-.notes__list{
+.notes__list {
   margin: 0;
   padding: 0;
   display: grid;
   grid-gap: 30px;
 
-  li{
+  li {
     list-style: none;
   }
 }
@@ -16,7 +16,7 @@
   flex-wrap: wrap;
   background-color: var(--white);
   position: relative;
-  transition: all .3s;
+  transition: all 0.3s;
   max-width: 500px;
   margin: auto;
   width: 100%;
@@ -63,22 +63,20 @@
         opacity: #{0.05 * $i};
       }
     }
-
-
   }
 }
 
 .note__infos {
-  width: 100%
+  width: 100%;
 }
 
 .note--removed {
   max-height: 0;
   overflow: hidden;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
-.note__actions{
+.note__actions {
   position: absolute;
   right: 2rem;
   bottom: 2rem;

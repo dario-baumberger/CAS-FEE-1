@@ -5,7 +5,7 @@ button {
   color: #fff;
   text-align: center;
 
-  i{
+  i {
     pointer-events: none;
   }
 }
@@ -15,8 +15,6 @@ button {
   justify-content: flex-end;
   width: 200px;
   align-items: flex-end;
-
-
 }
 
 .button--round {
@@ -29,7 +27,7 @@ button {
   cursor: pointer;
   color: #fff;
 
-  &:last-of-type{
+  &:last-of-type {
     margin-right: 0;
   }
 }
@@ -42,7 +40,7 @@ button {
   }
 }
 
-.round{
+.round {
   width: 50px;
   height: 50px;
   border-radius: 50%;

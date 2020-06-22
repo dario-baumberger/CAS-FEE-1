@@ -1,34 +1,36 @@
-let mongoose = require('mongoose');
+let mongoose = require("mongoose");
 
-let notesSchema = mongoose.Schema({
+let notesSchema = mongoose.Schema(
+  {
     title: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     content: {
-        type: String,
-        default: "",
+      type: String,
+      default: "",
     },
     state: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     importance: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0,
     },
     category: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0,
     },
     due: {
-        type: Date,
-    }
-}, { timestamps: { createdAt: 'created', updatedAt: 'updated' } });
+      type: Date,
+    },
+  },
+  { timestamps: { createdAt: "created", updatedAt: "updated" } }
+);
 
-
-let Notes = module.exports = mongoose.model('notes', notesSchema);
+let Notes = (module.exports = mongoose.model("notes", notesSchema));
 
 module.exports.get = function (callback, limit) {
-    Notes.find(callback).limit(limit);
-}
+  Notes.find(callback).limit(limit);
+};

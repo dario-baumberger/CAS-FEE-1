@@ -1,9 +1,9 @@
-.backlog{
+.backlog {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 2rem;
 
-  &>div{
+  & > div {
     background: white;
     padding: 0 1rem 5rem 1rem;
   }
