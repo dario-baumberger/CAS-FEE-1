@@ -26,7 +26,7 @@ export class NotesService {
       },
     };
     try {
-      const url = "http://localhost:3000/api/notes/";
+      const url = "http://localhost:3000/api/notes/" + query;
       const response = await fetch(url, options);
       const data = await response.json();
       console.log(data);
@@ -74,7 +74,7 @@ export class NotesService {
       const data = await response.json();
       return await data;
     } catch (err) {
-      console.error(err.toString());
+      console.error(err);
     }
   }
 

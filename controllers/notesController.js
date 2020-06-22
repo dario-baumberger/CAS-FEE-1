@@ -7,7 +7,9 @@ exports.index = function (req, res) {
 
     data.forEach(function (note) {
       let created = new Date(note.created);
-      let age = new Date(now - created);
+      let age = Math.floor(
+        (now.getTime() - created.getTime()) / (1000 * 3600 * 24)
+      );
       let updated = new Date(note.updated);
       let due = note.due;
 
@@ -22,16 +24,25 @@ exports.index = function (req, res) {
         "." +
         (created.getMonth() + 1) +
         "." +
-        created.getFullYear();
+        created.getFullYear() +
+        " " +
+        created.getHours() +
+        ":" +
+        created.getMinutes() +
+        ":" +
+        created.getSeconds();
       updated =
         updated.getDate() +
         "." +
         (updated.getMonth() + 1) +
         "." +
-        updated.getFullYear();
-
-      age =
-        age.getDate() + "." + (age.getMonth() + 1) + "." + age.getFullYear();
+        updated.getFullYear() +
+        " " +
+        updated.getHours() +
+        ":" +
+        updated.getMinutes() +
+        ":" +
+        updated.getSeconds();
 
       notes.push({
         id: note._id,
@@ -43,7 +54,6 @@ exports.index = function (req, res) {
         importance: note.importance,
         state: note.state,
         category: note.category,
-        //now: now,
         age: age,
       });
     });
@@ -110,23 +120,22 @@ exports.update = function (req, res) {
   Note.findById(req.params.note_id, function (err, note) {
     if (err) {
       res.send(err);
-    } else {
-      note.title = req.body.title;
-      note.content = req.body.content;
-      note.created = req.body.created;
-      note.due = req.body.due;
-      note.state = req.body.state;
-
-      console.log(req.body);
-
-      note.save(function (err) {
-        if (err) res.json(err);
-        res.json({
-          message: "note Info updated",
-          data: note,
-        });
-      });
     }
+    note.title = req.body.title ? req.body.title : note.title;
+    note.content = req.body.content;
+    note.created = req.body.created;
+    note.due = req.body.due;
+    note.state = req.body.state;
+
+    console.log(req.body);
+
+    note.save(function (err) {
+      if (err) res.json(err);
+      res.json({
+        message: "note Info updated",
+        data: note,
+      });
+    });
   });
 };
 

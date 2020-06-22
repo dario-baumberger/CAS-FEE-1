@@ -17,13 +17,9 @@ export class Notes {
 
   noteDelete() {
     event.preventDefault();
-    console.log("delete 2");
     const id = document.getElementById("id").value;
-    //  listEl.classList.add('note--removed');
     this.notesService.deleteNote(id).then((data) => {
-      //data.forEach(note => this.template.renderTemplate(note, 'note', '.notes__list'));
       if (data.status === "success") {
-        console.log("if");
         this.notesService.getNotes().then((data) => {
           this.clearNotes();
           data.forEach((note) =>
@@ -31,13 +27,8 @@ export class Notes {
           );
           this.modal.modalClose();
         });
-      } else {
-        console.log("else");
       }
-      console.log(data);
     });
-    //  setTimeout(function(){ listEl.remove(); }, 300);
-    //  this.socket.emit('noteState', { id: id });
   }
 
   noteState(state) {
@@ -143,9 +134,9 @@ export class Notes {
     this.initEventHandlers();
 
     this.notesService.getNotes().then((data) => {
-      data.forEach((note) =>
-        this.template.renderTemplate(note, "note", ".notes__list")
-      );
+      data.forEach((note) => {
+        this.template.renderTemplate(note, "note", ".notes__list");
+      });
     });
   }
 }
