@@ -6,9 +6,9 @@ export class Notifications {
     }
 
     closeNotification(){
-        console.log(event.target)
+
         let El = event.target.parentNode;
-        console.log(El)
+
         El.classList.add('notification--removed');
 
         setTimeout(function(){ El.remove(); }, 300);

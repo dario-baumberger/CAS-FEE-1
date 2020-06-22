@@ -8,7 +8,7 @@ export class SocketIo {
 
     initEventHandlers() {
         this.socket.on('notification', (data) => {
-            console.log('1234')
+
             this.template.renderTemplate(data, 'notification', '.notifications__list');
         });
 
