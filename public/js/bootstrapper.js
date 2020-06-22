@@ -4,6 +4,7 @@ import { NotesService } from "./services/notes.js";
 import { Template } from "./controllers/template.js";
 import { SocketIo } from "./controllers/socket.io.js";
 import { Notifications } from "./controllers/notifications.js";
+import { Theme } from "./controllers/theme.js";
 
 class Bootstrapper {
   static start() {
@@ -14,6 +15,7 @@ class Bootstrapper {
     new Notifications(template, socket).init();
     new Notes(socket).init();
     new NotesService();
+    new Theme().init();
   }
 }
 
