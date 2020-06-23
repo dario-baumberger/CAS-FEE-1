@@ -6,9 +6,16 @@ textarea {
 .form-group {
   margin-bottom: 1rem;
   display: flex;
+  @media screen and (max-width: $md) {
+    flex-wrap: wrap;
+  }
 
   label {
     width: 150px;
+
+    @media screen and (max-width: $md) {
+      width: 100%;
+    }
   }
 
   input,

@@ -5,14 +5,17 @@ export class Modal {
     this.template = template;
     this.$modal = document.querySelector(".modal");
     this.notesService = new NotesService();
+    this.$html = document.querySelector("html");
   }
 
   showModal() {
     this.$modal.classList.add("modal--open");
+    this.$html.classList.add("has-open-modal");
   }
 
   modalClose() {
     this.$modal.classList.remove("modal--open");
+    this.$html.classList.remove("has-open-modal");
     this.modalClear();
   }
 
@@ -30,17 +33,30 @@ export class Modal {
             "modalcontent",
             ".modal"
           );
-          this.template.renderTemplate(
-            {
-              title: data.title,
-              note: data.content,
-              id: data.id,
-              categories: data.categories,
-              state: data.state,
-            },
-            "form",
-            ".modal__template"
-          );
+          let due = data.due;
+
+          if (due !== undefined) {
+            due = new Date(due);
+            due =
+              due.getFullYear() +
+              "-" +
+              ("0" + (due.getMonth() + 1)).slice(-2) +
+              "-" +
+              ("0" + due.getDate()).slice(-2);
+          }
+
+          const ret = {
+            title: data.title,
+            note: data.content,
+            id: data.id,
+            category: data.category,
+            importance: data.importance,
+            state: data.state,
+            due: due,
+          };
+
+          console.log(ret);
+          this.template.renderTemplate(ret, "form", ".modal__template");
           this.showModal();
         });
       } else if (event.target.matches(".js-modal--filter")) {

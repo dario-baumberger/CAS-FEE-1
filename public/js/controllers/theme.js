@@ -8,7 +8,7 @@ export class Theme {
     console.log(this.$toggles);
 
     [].forEach.call(this.$toggles, function (toggle) {
-      toggle.classList.toggle("hidden");
+      toggle.parentNode.classList.toggle("hidden");
     });
     this.$html.classList.toggle("theme-dark");
   }

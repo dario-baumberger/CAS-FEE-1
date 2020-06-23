@@ -25,6 +25,7 @@
   width: 90%;
   display: block;
   position: relative;
+  overflow-y: auto;
 }
 
 .modal__close {
@@ -34,4 +35,8 @@
   font-size: 1.6rem;
   color: var(--black);
   background-color: transparent;
+}
+
+.has-open-modal{
+  overflow: hidden;
 }

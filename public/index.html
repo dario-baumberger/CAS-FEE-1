@@ -14,13 +14,13 @@
       <nav>
         <ul class="aside__list">
           <li class="aside__item">
-            <button class="button button--round bg-blue js-modal--filter">
-              <i class="fas fa-filter"></i>
+            <button class="button button--round bg-turkis js-modal--add">
+              <i class="fas fa-plus"></i>
             </button>
           </li>
           <li class="aside__item">
-            <button class="button button--round bg-turkis js-modal--add">
-              <i class="fas fa-plus"></i>
+            <button class="button button--round bg-blue js-modal--filter">
+              <i class="fas fa-filter"></i>
             </button>
           </li>
           <li class="aside__item">
@@ -28,8 +28,8 @@
               <i class="fas fa-sun"></i>
             </button>
           </li>
-          <li class="aside__item">
-            <button class="button button--round bg-turkis js-theme--toggle hidden">
+          <li class="aside__item hidden">
+            <button class="button button--round bg-turkis js-theme--toggle">
               <i class="far fa-sun"></i>
             </button>
           </li>
@@ -38,12 +38,7 @@
     </aside>
     <main>
       <div class="sort">
-        <select
-          class="sort__select"
-          name="sort"
-          id="sort"
-          onchange="listSort()"
-        >
+        <select class="sort__select js-note--sort" name="sort" id="sort">
           <option value="due">Due Date</option>
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
@@ -113,30 +108,22 @@
               {{#if age}}
               <div class="note__age">
                 <p class="label">Age:</p>
-{{#times age}}
+                {{#times age}}
                 <span></span>
                 {{/times}}
               </div>
-              {{/if}}
-              {{#matches importance 1}}
+              {{/if}} {{#matches importance 1}}
               <span class="sr-only">Normal</span>
-              {{/matches}}
-
-              {{#matches importance 1}}
+              {{/matches}} {{#matches importance 1}}
               <i class="fas fa-chevron-down"></i>
               <span class="sr-only">Minor Important</span>
-              {{/matches}}
-
-              {{#matches importance 2}}
+              {{/matches}} {{#matches importance 2}}
               <i class="fas fa-chevron-up"></i>
               <span class="sr-only">Important</span>
-              {{/matches}}
-
-              {{#matches importance 3}}
+              {{/matches}} {{#matches importance 3}}
               <i class="fas fa-exclamation"></i>
               <span class="sr-only">Urgent</span>
               {{/matches}}
-
             </div>
             <div class="note__actions">
               <button class="bg-yellow round button js-modal--edit" id="">
@@ -171,13 +158,11 @@
         <form id="form-data">
           <div class="form-group">
             <label for="title">Title</label>
-            <input id="title" placeholder="Feed the cat" value="{{title}}" />
+            <input id="title" value="{{title}}" required />
           </div>
           <div class="form-group">
             <label for="note">Note</label>
-            <textarea id="note" placeholder="Don't forget the water">
-{{note}}</textarea
-            >
+            <textarea id="note" required>{{note}}</textarea>
           </div>
           <div class="form-group">
             <label for="due">Due Date</label>
@@ -196,37 +181,42 @@
           <div class="form-group">
             <label for="category">Category</label>
             <select id="category">
-              {{#select categories}}
-              <option value="">No Category</option>
-              <option value="0">School</option>
-              <option value="1">Work</option>
+              {{#select category}}
+              <option value="0">No Category</option>
+              <option value="1">School</option>
+              <option value="2">Work</option>
+              <option value="3">House</option>
+              {{/select}}
             </select>
-            {{/select}}
           </div>
           <div class="form-group">
             <label for="importance">Importance</label>
             <select id="importance">
-              {{#select categories}}
-              <option value="0">Normal</option>
-              <option value="1">Minor</option>
+              {{#select importance}}
+              <option value="1">Normal</option>
+              <option value="0">Minor</option>
               <option value="2">Important</option>
               <option value="3">Urgent</option>
+              {{/select}}
             </select>
-            {{/select}}
           </div>
           <input type="hidden" name="id" id="id" value="{{id}}" />
           <div class="form-actions buttons">
-            <button class="button round bg-warn js-note--delete">
+            {{#if id}}
+            <button type="button" class="button round bg-warn js-note--delete">
               <i class="far fa-trash-alt"></i>
               <span class="sr-only">Delete Note</span>
             </button>
-            {{#if id}}
-            <button class="button round bg-green js-note--save">
+            <button type="submit" class="button round bg-green js-note--save">
               <i class="far fa-save"></i>
               <span class="sr-only">Save Note</span>
             </button>
             {{else}}
-            <button class="button round bg-green js-note--add">
+            <button type="submit" class="button round bg-warn js-modal--close">
+              <i class="fas fa-times"></i>
+              <span class="sr-only">Close Modal</span>
+            </button>
+            <button type="submit" class="button round bg-green js-note--add">
               <i class="fas fa-plus"></i>
               <span class="sr-only">Add Note</span>
             </button>
@@ -242,19 +232,34 @@
               <li>
                 <label for="">
                   No Category
-                  <input type="checkbox" class="bg-blue" name="categories" />
+                  <input
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-categories"
+                    value="0"
+                  />
                 </label>
               </li>
               <li>
                 <label for="">
                   Work
-                  <input type="checkbox" class="bg-turkis" name="categories" />
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="1"
+                  />
                 </label>
               </li>
               <li>
                 <label for="">
                   School
-                  <input type="checkbox" class="bg-turkis" name="categories" />
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="2"
+                  />
                 </label>
               </li>
             </ul>
@@ -265,23 +270,44 @@
               <li>
                 <label for="">
                   Todo
-                  <input type="checkbox" class="bg-blue" name="categories" />
+                  <input
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-states"
+                    value="0"
+                  />
                 </label>
               </li>
               <li>
                 <label for="">
                   In Progress
-                  <input type="checkbox" class="bg-turkis" name="categories" />
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-states"
+                    value="1"
+                  />
                 </label>
               </li>
               <li>
                 <label for="">
                   Done
-                  <input type="checkbox" class="bg-turkis" name="categories" />
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-states"
+                    value="2"
+                  />
                 </label>
               </li>
             </ul>
           </fieldset>
+          <div class="form-actions buttons">
+            <button class="button round bg-blue js-note--filter">
+              <i class="fas fa-search"></i>
+              <span class="sr-only">Show Notes</span>
+            </button>
+          </div>
         </form>
       </template>
     </div>

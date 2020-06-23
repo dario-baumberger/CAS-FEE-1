@@ -53,7 +53,7 @@
 
     @for $i from 5 through 8 {
       &:nth-of-type(#{$i}) {
-        background-color: var(--yellow-500);
+        background-color: var(--danger-500);
         opacity: #{0.1 * $i};
       }
     }

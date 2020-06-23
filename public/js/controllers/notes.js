@@ -1,6 +1,7 @@
 import { NotesService } from "../services/notes.js";
 import { Template } from "../controllers/template.js";
 import { Modal } from "../controllers/modal.js";
+//import { Observable } from "../../../rxjs";
 
 export class Notes {
   constructor(socket) {
@@ -9,6 +10,13 @@ export class Notes {
     this.$notes = document.querySelector(".notes");
     this.socket = socket;
     this.notesService = new NotesService();
+    this.notes;
+    /*this.obs = new Observable(this.notes, (changes) => {
+      changes.forEach(function (change) {
+        // Letting us know what changed
+        console.log(change.type, change.name, change.oldValue);
+      });
+    });*/
   }
 
   clearNotes() {
@@ -51,7 +59,10 @@ export class Notes {
   noteUpdate() {
     const data = this.noteGetData();
 
+    console.log(data);
+
     this.notesService.updateNote(data).then((data) => {
+      console.log(data);
       this.notesService.getNotes().then((data) => {
         this.clearNotes();
         data.forEach((note) =>
@@ -60,6 +71,37 @@ export class Notes {
         this.modal.modalClose();
       });
     });
+  }
+
+  noteFilter() {
+    const filterCategories = this.getFilterData("filter-categories");
+    const filterStates = this.getFilterData("filter-states");
+    console.log(filterCategories);
+    console.log(filterStates);
+  }
+
+  noteSort(key) {
+    console.log("sort");
+    console.log(this.notes);
+    console.log(typeof this.notes);
+    this.notes = this.notes.sort(function (a, b) {
+      console.log(a.title - b.title);
+      return a.title - b.title;
+    });
+    console.log(this.notes);
+  }
+
+  getFilterData(name) {
+    const oRadio = document.forms[0].elements[name];
+    let ret = [];
+
+    for (let i = 0; i < oRadio.length; i++) {
+      if (oRadio[i].checked) {
+        ret.push(oRadio[i].value);
+      }
+    }
+
+    return ret;
   }
 
   noteGetData() {
@@ -118,6 +160,12 @@ export class Notes {
       }
     });
 
+    window.addEventListener("change", (event) => {
+      if (event.target.matches(".js-note--sort")) {
+        this.noteSort("importance");
+      }
+    });
+
     window.addEventListener("click", (event) => {
       if (event.target.matches(".js-note--delete")) {
         this.noteDelete();
@@ -127,6 +175,11 @@ export class Notes {
         event.preventDefault();
         this.noteUpdate();
       }
+
+      if (event.target.matches(".js-note--filter")) {
+        event.preventDefault();
+        this.noteFilter();
+      }
     });
   }
 
@@ -134,6 +187,7 @@ export class Notes {
     this.initEventHandlers();
 
     this.notesService.getNotes().then((data) => {
+      this.notes = data;
       data.forEach((note) => {
         this.template.renderTemplate(note, "note", ".notes__list");
       });
