@@ -29,7 +29,7 @@ export class NotesService {
       const url = "http://localhost:3000/api/notes/";
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log(data);
+
       return await data;
     } catch (err) {
       console.error(err);
@@ -37,7 +37,6 @@ export class NotesService {
   }
 
   async deleteNote(id) {
-    console.log("delete");
     const options = {
       method: "DELETE",
       headers: {
@@ -50,7 +49,6 @@ export class NotesService {
     try {
       const url = "http://localhost:3000/api/notes/" + id;
       const response = await fetch(url, options);
-      console.log(await response);
       const data = await response.json();
       return await data;
     } catch (err) {
@@ -59,7 +57,6 @@ export class NotesService {
   }
 
   async addNote(data) {
-    console.log(data);
     const options = {
       method: "POST",
       headers: {
@@ -71,7 +68,7 @@ export class NotesService {
       const url = "http://localhost:3000/api/notes/";
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log(await data);
+
       return await data;
     } catch (err) {
       console.error(err);
@@ -79,8 +76,6 @@ export class NotesService {
   }
 
   async updateNote(data) {
-    console.log(data);
-
     const options = {
       method: "PATCH",
       headers: {
@@ -91,7 +86,7 @@ export class NotesService {
     try {
       const url = "http://localhost:3000/api/notes/" + data._id;
       const response = await fetch(url, options);
-      console.log(await response);
+
       const ret = await response.json();
       return await ret;
     } catch (err) {
@@ -100,8 +95,6 @@ export class NotesService {
   }
 
   async updateState(id, state) {
-    console.log("here");
-    console.log(id, state);
     const options = {
       method: "PATCH",
       headers: {
@@ -114,7 +107,7 @@ export class NotesService {
     try {
       const url = "http://localhost:3000/api/notes/" + id;
       const response = await fetch(url, options);
-      console.log(await response);
+
       const data = await response.json();
       return await data;
     } catch (err) {

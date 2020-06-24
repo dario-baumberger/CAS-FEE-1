@@ -59,10 +59,7 @@ export class Notes {
   noteUpdate() {
     const data = this.noteGetData();
 
-    console.log(data);
-
     this.notesService.updateNote(data).then((data) => {
-      console.log(data);
       this.notesService.getNotes().then((data) => {
         this.clearNotes();
         data.forEach((note) =>
@@ -76,14 +73,11 @@ export class Notes {
   noteFilter() {
     const filterCategories = this.getFilterData("filter-categories");
     const filterStates = this.getFilterData("filter-states");
-    console.log(filterCategories);
-    console.log(filterStates);
   }
 
   noteSort(key) {
     console.log("sort");
     console.log(this.notes);
-    console.log(typeof this.notes);
     this.notes = this.notes.sort(function (a, b) {
       console.log(a.title - b.title);
       return a.title - b.title;
@@ -113,8 +107,6 @@ export class Notes {
     const importance = document.getElementById("importance").value;
     const id = document.getElementById("id").value;
 
-    console.log(id);
-
     const data = {
       _id: id,
       title: title,
@@ -138,7 +130,6 @@ export class Notes {
           this.template.renderTemplate(note, "note", ".notes__list")
         );
         this.modal.modalClose();
-        console.log("added");
       });
     });
     event.preventDefault();

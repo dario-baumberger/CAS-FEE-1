@@ -13,8 +13,6 @@ exports.index = function (req, res) {
       let updated = new Date(note.updated);
       let due = note.due;
 
-      console.log(due);
-
       if (due !== undefined || due !== "" || due !== null) {
         due = new Date(due);
         due =
@@ -128,8 +126,6 @@ exports.update = function (req, res) {
     note.created = req.body.created;
     note.due = req.body.due;
     note.state = req.body.state;
-
-    console.log(req.body);
 
     note.save(function (err) {
       if (err) res.json(err);

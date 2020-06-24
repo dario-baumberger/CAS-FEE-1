@@ -5,8 +5,6 @@ export class Theme {
   }
 
   toggleTheme() {
-    console.log(this.$toggles);
-
     [].forEach.call(this.$toggles, function (toggle) {
       toggle.parentNode.classList.toggle("hidden");
     });

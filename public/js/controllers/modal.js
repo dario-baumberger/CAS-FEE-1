@@ -55,7 +55,6 @@ export class Modal {
             due: due,
           };
 
-          console.log(ret);
           this.template.renderTemplate(ret, "form", ".modal__template");
           this.showModal();
         });
@@ -72,7 +71,6 @@ export class Modal {
         );
         this.showModal();
       } else if (event.target.matches(".js-modal--add")) {
-        console.log("in");
         this.template.renderTemplate(
           { title: "Add" },
           "modalcontent",
