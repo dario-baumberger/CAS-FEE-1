@@ -10,5 +10,4 @@ router
   .put(noteController.update)
   .delete(noteController.delete);
 
-// Export API routes
 module.exports = router;

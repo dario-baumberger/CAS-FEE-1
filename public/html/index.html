@@ -100,12 +100,29 @@
           <article class="note__article">
             <div class="note__content">
               <h2 class="note__title">
-                {{title}}
+                <span>
+                  {{title}}
+                </span>
+                <span class="note__importance">
+                  {{#matches importance 1}}
+                  <span class="sr-only">Normal</span>
+                  {{/matches}} {{#matches importance 1}}
+                  <i class="fas fa-chevron-down"></i>
+                  <span class="sr-only">Minor Important</span>
+                  {{/matches}} {{#matches importance 2}}
+                  <i class="fas fa-chevron-up"></i>
+                  <span class="sr-only">Important</span>
+                  {{/matches}} {{#matches importance 3}}
+                  <i class="fas fa-exclamation"></i>
+                  <span class="sr-only">Urgent</span>
+                  {{/matches}}
+                </span>
               </h2>
               <p>
                 {{content}}
               </p>
             </div>
+
             <div class="note__infos t-sm">
               <div>
                 <p>Created: {{created}}</p>
@@ -121,18 +138,7 @@
                 <span></span>
                 {{/times}}
               </div>
-              {{/if}} {{#matches importance 1}}
-              <span class="sr-only">Normal</span>
-              {{/matches}} {{#matches importance 1}}
-              <i class="fas fa-chevron-down"></i>
-              <span class="sr-only">Minor Important</span>
-              {{/matches}} {{#matches importance 2}}
-              <i class="fas fa-chevron-up"></i>
-              <span class="sr-only">Important</span>
-              {{/matches}} {{#matches importance 3}}
-              <i class="fas fa-exclamation"></i>
-              <span class="sr-only">Urgent</span>
-              {{/matches}}
+              {{/if}}
             </div>
             <div class="note__actions">
               <button class="bg-yellow round button js-modal--edit" id="">
@@ -181,9 +187,9 @@
             <label for="state">State</label>
             <select id="state">
               {{#select state}}
-              <option value="0">Todo</option>
-              <option value="1">In Progress</option>
-              <option value="2">Done</option>
+              <option value="0">Todo 0</option>
+              <option value="1">In Progress 1</option>
+              <option value="2">Done 2</option>
               {{/select}}
             </select>
           </div>
@@ -191,10 +197,10 @@
             <label for="category">Category</label>
             <select id="category">
               {{#select category}}
-              <option value="0">No Category</option>
-              <option value="1">School</option>
-              <option value="2">Work</option>
-              <option value="3">House</option>
+              <option value="0">No Category 0</option>
+              <option value="1">School 1</option>
+              <option value="2">Work 2</option>
+              <option value="3">House 3</option>
               {{/select}}
             </select>
           </div>
@@ -202,10 +208,10 @@
             <label for="importance">Importance</label>
             <select id="importance">
               {{#select importance}}
-              <option value="1">Normal</option>
-              <option value="0">Minor</option>
-              <option value="2">Important</option>
-              <option value="3">Urgent</option>
+              <option value="1">Normal 1</option>
+              <option value="0">Minor 0</option>
+              <option value="2">Important 2</option>
+              <option value="3">Urgent 3</option>
               {{/select}}
             </select>
           </div>
@@ -238,6 +244,7 @@
           <fieldset class="pills">
             <legend>Categories</legend>
             <ul>
+
               <li>
                 <label for="">
                   No Category
@@ -246,6 +253,7 @@
                     class="bg-blue"
                     name="filter-categories"
                     value="0"
+checked
                   />
                 </label>
               </li>
@@ -256,7 +264,20 @@
                     type="checkbox"
                     class="bg-turkis"
                     name="filter-categories"
-                    value="1"
+                    value="2"
+                    checked
+                  />
+                </label>
+              </li>
+              <li>
+                <label for="">
+                  House
+                  <input
+                          type="checkbox"
+                          class="bg-turkis"
+                          name="filter-categories"
+                          value="3"
+                          checked
                   />
                 </label>
               </li>
@@ -267,7 +288,8 @@
                     type="checkbox"
                     class="bg-turkis"
                     name="filter-categories"
-                    value="2"
+                    value="1"
+                    checked
                   />
                 </label>
               </li>
@@ -284,6 +306,7 @@
                     class="bg-blue"
                     name="filter-states"
                     value="0"
+                    checked
                   />
                 </label>
               </li>
@@ -295,6 +318,7 @@
                     class="bg-turkis"
                     name="filter-states"
                     value="1"
+                    checked
                   />
                 </label>
               </li>
@@ -306,6 +330,7 @@
                     class="bg-turkis"
                     name="filter-states"
                     value="2"
+                    checked
                   />
                 </label>
               </li>
@@ -322,6 +347,7 @@
     </div>
     <script src="js/vendor/socket.io.js"></script>
     <script src="js/vendor/handlebars.js"></script>
+   <script src="js/vendor/rxjs.umd.min.js"></script>
     <script src="js/bootstrapper.js" type="module" defer></script>
     <script src="js/utils/handlebars-helpers.js"></script>
   </body>

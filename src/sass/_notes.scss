@@ -11,7 +11,7 @@
 
 .note__article {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding: 2rem 2rem 6rem;
   display: flex;
   flex-wrap: wrap;
   background-color: var(--white);
@@ -25,6 +25,8 @@
 
 .note__title {
   margin-top: 0;
+  display: flex;
+  justify-content: space-between;
 }
 .note__content {
   width: 100%;
@@ -83,4 +85,8 @@
   display: grid;
   grid-gap: 1rem;
   grid-auto-flow: column;
+}
+
+.note__importance{
+  opacity: .3;
 }

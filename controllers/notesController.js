@@ -58,8 +58,6 @@ exports.index = function (req, res) {
       });
     });
 
-    //
-    //const
     if (err) {
       res.json({
         status: "error",
@@ -81,13 +79,19 @@ exports.new = function (req, res) {
   note.due = req.body.due;
   note.category = req.body.category;
 
+  console.log(note);
+
   note
     .save()
     .then((item) => {
-      res.send("item saved to database");
+      res.json({
+        status: "success",
+        message: "note added",
+        data: note,
+      });
     })
     .catch((err) => {
-      res.status(400).send(err);
+      res.json(err);
     });
 };
 
@@ -126,11 +130,16 @@ exports.update = function (req, res) {
     note.created = req.body.created;
     note.due = req.body.due;
     note.state = req.body.state;
+    note.importance = req.body.importance;
+    note.category = req.body.category;
 
     note.save(function (err) {
-      if (err) res.json(err);
+      if (err) {
+        res.json(err);
+      }
       res.json({
-        message: "note Info updated",
+        status: "success",
+        message: "note added",
         data: note,
       });
     });
@@ -147,6 +156,7 @@ exports.delete = function (req, res) {
       res.json({
         status: "success",
         message: "note deleted",
+        data: note,
       });
     }
   );

@@ -57,6 +57,7 @@ export class NotesService {
   }
 
   async addNote(data) {
+    console.log(data);
     const options = {
       method: "POST",
       headers: {
@@ -68,7 +69,6 @@ export class NotesService {
       const url = "http://localhost:3000/api/notes/";
       const response = await fetch(url, options);
       const data = await response.json();
-
       return await data;
     } catch (err) {
       console.error(err);
@@ -76,6 +76,7 @@ export class NotesService {
   }
 
   async updateNote(data) {
+    console.log(data);
     const options = {
       method: "PATCH",
       headers: {

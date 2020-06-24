@@ -1,7 +1,6 @@
 import { NotesService } from "../services/notes.js";
 import { Template } from "../controllers/template.js";
 import { Modal } from "../controllers/modal.js";
-//import { Observable } from "../../../rxjs";
 
 export class Notes {
   constructor(socket) {
@@ -10,7 +9,15 @@ export class Notes {
     this.$notes = document.querySelector(".notes");
     this.socket = socket;
     this.notesService = new NotesService();
-    this.notes;
+    this.notes = [];
+
+    /*this.observer = new Observable((observer) => {
+      setTimeout(() => {
+        observer.next("got data!");
+        observer.complete();
+      }, 1000);
+    });
+    this.observer.subscribe(this.notes);*/
     /*this.obs = new Observable(this.notes, (changes) => {
       changes.forEach(function (change) {
         // Letting us know what changed
@@ -23,16 +30,21 @@ export class Notes {
     document.querySelectorAll(".note").forEach((n) => n.remove());
   }
 
+  renderNotes() {
+    this.clearNotes();
+    this.notes.forEach((note) =>
+      this.template.renderTemplate(note, "note", ".notes__list")
+    );
+  }
+
   noteDelete() {
     event.preventDefault();
     const id = document.getElementById("id").value;
     this.notesService.deleteNote(id).then((data) => {
       if (data.status === "success") {
         this.notesService.getNotes().then((data) => {
-          this.clearNotes();
-          data.forEach((note) =>
-            this.template.renderTemplate(note, "note", ".notes__list")
-          );
+          this.notes = data;
+          this.renderNotes();
           this.modal.modalClose();
         });
       }
@@ -47,10 +59,8 @@ export class Notes {
     listEl.classList.add("note--removed");
     this.notesService.updateState(id, state).then((data) => {
       this.notesService.getNotes().then((data) => {
-        this.clearNotes();
-        data.forEach((note) =>
-          this.template.renderTemplate(note, "note", ".notes__list")
-        );
+        this.notes = data;
+        this.renderNotes();
         this.modal.modalClose();
       });
     });
@@ -59,30 +69,76 @@ export class Notes {
   noteUpdate() {
     const data = this.noteGetData();
 
+    console.log(data);
+
     this.notesService.updateNote(data).then((data) => {
       this.notesService.getNotes().then((data) => {
-        this.clearNotes();
-        data.forEach((note) =>
-          this.template.renderTemplate(note, "note", ".notes__list")
-        );
+        this.notes = data;
+        this.renderNotes();
+        this.renderNotes();
         this.modal.modalClose();
       });
     });
   }
 
   noteFilter() {
-    const filterCategories = this.getFilterData("filter-categories");
-    const filterStates = this.getFilterData("filter-states");
+    this.notesService.getNotes().then((data) => {
+      this.notes = data;
+      const filterCategories = this.getFilterData("filter-categories");
+      const filterStates = this.getFilterData("filter-states");
+
+      console.log(filterCategories);
+
+      this.notes = this.notes.filter((obj) => {
+        let inCategories = false;
+        let inStates = false;
+
+        if (filterCategories.length) {
+          inCategories = filterCategories.some((x) => {
+            console.log(
+              "cat",
+              obj.title,
+              obj.category,
+              parseInt(x),
+              parseInt(x) === obj.category
+            );
+            return parseInt(x) === obj.category;
+          });
+        }
+
+        if (filterStates.length) {
+          inStates = filterStates.some((x) => {
+            console.log(
+              "state",
+              obj.title,
+              obj.state,
+              parseInt(x),
+              parseInt(x) === obj.state
+            );
+            return parseInt(x) === obj.state;
+          });
+        }
+
+        console.log(
+          inStates,
+          inCategories,
+          ![inStates, inCategories].some((x) => x === false)
+        );
+
+        console.log("-----------");
+
+        return ![inStates, inCategories].some((x) => x === false);
+      });
+      this.renderNotes();
+      this.modal.modalClose();
+    });
   }
 
-  noteSort(key) {
-    console.log("sort");
-    console.log(this.notes);
-    this.notes = this.notes.sort(function (a, b) {
-      console.log(a.title - b.title);
-      return a.title - b.title;
+  noteSort() {
+    this.notes.sort(function (a, b) {
+      return a.importance - b.importance;
     });
-    console.log(this.notes);
+    this.renderNotes();
   }
 
   getFilterData(name) {
@@ -121,18 +177,19 @@ export class Notes {
   }
 
   noteAdd() {
+    event.preventDefault();
     const data = this.noteGetData();
 
+    console.log(data);
+
     this.notesService.addNote(data).then((data) => {
+      console.log(data);
       this.notesService.getNotes().then((data) => {
-        this.clearNotes();
-        data.forEach((note) =>
-          this.template.renderTemplate(note, "note", ".notes__list")
-        );
+        this.notes = data;
+        this.renderNotes();
         this.modal.modalClose();
       });
     });
-    event.preventDefault();
   }
 
   initEventHandlers() {
@@ -147,12 +204,14 @@ export class Notes {
 
     window.addEventListener("submit", (event) => {
       if (event.target.matches("#form-data")) {
+        event.preventDefault();
         this.noteAdd();
       }
     });
 
     window.addEventListener("change", (event) => {
       if (event.target.matches(".js-note--sort")) {
+        event.preventDefault();
         this.noteSort("importance");
       }
     });
@@ -179,9 +238,7 @@ export class Notes {
 
     this.notesService.getNotes().then((data) => {
       this.notes = data;
-      data.forEach((note) => {
-        this.template.renderTemplate(note, "note", ".notes__list");
-      });
+      this.renderNotes();
     });
   }
 }
