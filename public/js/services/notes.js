@@ -70,8 +70,8 @@ export class NotesService {
     try {
       const url = "http://localhost:3000/api/notes/";
       const response = await fetch(url, options);
-      console.log(await response);
       const data = await response.json();
+      console.log(await data);
       return await data;
     } catch (err) {
       console.error(err);

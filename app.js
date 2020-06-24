@@ -8,8 +8,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-require("./routes/routes.index.js")(app);
-let apiRoutes = require("./routes/routes.api.js");
+require("./routes/indexRoutes.js")(app);
+let notesRoutes = require("./routes/notesRoutes.js");
 
 const host = process.env.HOST || "localhost";
 const port = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(
   sassMiddleware({
-    src: path.join(__dirname, "sass"),
+    src: path.join(__dirname, "src/sass"),
     dest: path.join(__dirname, "public/css"),
     debug: true,
     outputStyle: "compressed",
@@ -31,7 +31,7 @@ app.use(
   })
 );
 app.use(express.static("public"));
-app.use("/api", apiRoutes);
+app.use("/api", notesRoutes);
 mongoose.connect("mongodb://localhost/", { useNewUrlParser: true });
 let db = mongoose.connection;
 
@@ -42,7 +42,7 @@ if (!db) {
 }
 
 app.use(function (req, res, next) {
-  res.sendFile("public/error.html", { root: "." });
+  res.sendFile("public/html/error.html", { root: "." });
 });
 
 server.listen(port, () =>
