@@ -80,6 +80,8 @@ export class ModalController {
           ".modal__template"
         );
         this.showModal();
+      } else if (event.target.matches(".js-modal--close")) {
+        this.closeModal();
       }
     });
 

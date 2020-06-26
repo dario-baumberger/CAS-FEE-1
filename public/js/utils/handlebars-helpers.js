@@ -39,3 +39,8 @@ Handlebars.registerHelper("formatDate", function (datetime, format = "short") {
     return datetime;
   }
 });
+
+Handlebars.registerHelper("multiline", function (line) {
+  line = line.replace(/(?:\r\n|\r|\n)/g, "<br>");
+  return new Handlebars.SafeString(line);
+});

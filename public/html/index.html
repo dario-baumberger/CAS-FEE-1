@@ -19,7 +19,7 @@
       <nav>
         <ul class="aside__list">
           <li class="aside__item">
-            <button class="button button--round bg-turkis js-modal--add">
+            <button class="button button--round bg-blue js-modal--add">
               <i class="fas fa-plus"></i>
               <span class="sr-only">Add Note</span>
             </button>
@@ -32,7 +32,7 @@
           </li>
           <li class="aside__item">
             <button
-              class="button button--round bg-turkis js-theme--toggle js-theme-toggle-dark"
+                    class="button button--round bg-blue js-theme--toggle js-theme-toggle-dark"
             >
               <i class="fas fa-sun"></i>
             </button>
@@ -117,7 +117,7 @@
                 {{/if}}
               </div>
               <p>
-                {{content}}
+                {{multiline content}}
               </p>
             </div>
 
@@ -144,7 +144,7 @@
                 <i class="fas fa-spinner"></i>
               </button>
               {{/matches}} {{#matches state "1"}}
-              <button class="bg-green button button--round js-note--done">
+              <button class="bg-success button button--round js-note--done">
                 <i class="fas fa-check"></i>
               </button>
               {{/matches}}
@@ -182,9 +182,9 @@
             <label for="state">State</label>
             <select id="state">
               {{#select state}}
-              <option value="0">Todo 0</option>
-              <option value="1">In Progress 1</option>
-              <option value="2">Done 2</option>
+              <option value="0">Todo</option>
+              <option value="1">In Progress</option>
+              <option value="2">Done</option>
               {{/select}}
             </select>
           </div>
@@ -192,10 +192,10 @@
             <label for="category">Category</label>
             <select id="category">
               {{#select category}}
-              <option value="0">No Category 0</option>
-              <option value="1">School 1</option>
-              <option value="2">Work 2</option>
-              <option value="3">House 3</option>
+              <option value="0">No Category</option>
+              <option value="1">School</option>
+              <option value="2">Work</option>
+              <option value="3">House</option>
               {{/select}}
             </select>
           </div>
@@ -203,10 +203,10 @@
             <label for="importance">Importance</label>
             <select id="importance">
               {{#select importance}}
-              <option value="1">Normal 1</option>
-              <option value="0">Minor 0</option>
-              <option value="2">Important 2</option>
-              <option value="3">Urgent 3</option>
+              <option value="1">Normal</option>
+              <option value="0">Minor</option>
+              <option value="2">Important</option>
+              <option value="3">Urgent</option>
               {{/select}}
             </select>
           </div>
@@ -229,7 +229,6 @@
             </button>
             {{else}}
             <button
-              type="submit"
               class="button button--round bg-error js-modal--close"
             >
               <i class="fas fa-times"></i>
@@ -267,157 +266,189 @@
               {{/select}}
             </select>
           </fieldset>
-          <fieldset class="pills">
+          <fieldset>
             <legend>Categories</legend>
-            <ul>
+            <ul class="pills">
               <li>
-                <label for="">
-                  No Category {{#if categories.cat0}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="0"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="0"
-                  />
-                  {{/if}}
+                {{#if categories.cat0}}
+                <input
+                        checked
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="0"
+                        id="filter-categories-0"
+                />
+                {{else}}
+                <input
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="0"
+                        id="filter-categories-0"
+                />
+                {{/if}}
+                <label for="filter-categories-0">
+                  No Category
                 </label>
               </li>
               <li>
-                <label for="">
-                  Work {{#if categories.cat2}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="2"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="2"
-                  />
-                  {{/if}}
+                {{#if categories.cat2}}
+                <input
+                        checked
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="2"
+                        id="filter-categories-2"
+                />
+                {{else}}
+                <input
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="2"
+                        id="filter-categories-2"
+                />
+                {{/if}}
+                <label for="filter-categories-2">
+                  Work
                 </label>
               </li>
               <li>
-                <label for="">
-                  House {{#if categories.cat3}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="3"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="3"
-                  />
-                  {{/if}}
+                {{#if categories.cat3}}
+                <input
+                        checked
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="3"
+                        id="filter-categories-3"
+                />
+                {{else}}
+                <input
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="3"
+                        id="filter-categories-3"
+                />
+                {{/if}}
+                <label for="filter-categories-3">
+                  House
+
                 </label>
               </li>
               <li>
-                <label for="">
-                  School {{#if categories.cat1}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="1"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="1"
-                  />
-                  {{/if}}
+                {{#if categories.cat1}}
+                <input
+                        checked
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="1"
+                        id="filter-categories-1"
+                />
+                {{else}}
+                <input
+                        class="bg-turkis"
+                        name="filter-categories"
+                        type="checkbox"
+                        value="1"
+                        id="filter-categories-1"
+                />
+                {{/if}}
+                <label for="filter-categories-1">
+                  School
+
                 </label>
               </li>
             </ul>
           </fieldset>
-          <fieldset class="pills">
+          <fieldset>
             <legend>State</legend>
-            <ul>
+            <ul class="pills">
               <li>
-                <label for="">
-                  Todo {{#if states.state0}}
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-states"
-                    value="0"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-states"
-                    value="0"
-                  />
-                  {{/if}}
+                {{#if states.state0}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-states"
+                        type="checkbox"
+                        value="0"
+                        id="filter-states-0"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-states"
+                        type="checkbox"
+                        value="0"
+                        id="filter-states-0"
+                />
+                {{/if}}
+                <label for="filter-states-0">
+                  Todo
+
                 </label>
               </li>
               <li>
-                <label for="">
-                  In Progress {{#if states.state1}}
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-states"
-                    value="1"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-states"
-                    value="1"
-                  />
-                  {{/if}}
+                {{#if states.state1}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-states"
+                        type="checkbox"
+                        value="1"
+                        id="filter-states-1"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-states"
+                        type="checkbox"
+                        value="1"
+                        id="filter-states-1"
+                />
+                {{/if}}
+                <label for="filter-states-1">
+                  In Progress
+
                 </label>
               </li>
               <li>
-                <label for="">
-                  Done {{#if states.state2}}
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-states"
-                    value="2"
-                    checked
-                  />
-                  {{else}}
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-states"
-                    value="2"
-                  />
-                  {{/if}}
+                {{#if states.state2}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-states"
+                        type="checkbox"
+                        value="2"
+                        id="filter-states-2"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-states"
+                        type="checkbox"
+                        value="2"
+                        id="filter-states-2"
+                />
+                {{/if}}
+                <label for="filter-states-2">
+                  Done
+
                 </label>
               </li>
             </ul>
           </fieldset>
           <div class="form__actions">
+            <button
+                    class="button button--round bg-error js-modal--close"
+            >
+              <i class="fas fa-times"></i>
+              <span class="sr-only">Close Modal</span>
+            </button>
             <button class="button button--round bg-blue js-note--filter">
               <i class="fas fa-search"></i>
               <span class="sr-only">Show Notes</span>
