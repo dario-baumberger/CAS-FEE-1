@@ -108,6 +108,12 @@
                   {{/matches}}
                 </span>
               </h2>
+              <div class="note__infos t-sm">
+                {{#if due}}
+                <p>Due Date: {{formatDate due "short"}}</p>
+                {{/if}}
+
+              </div>
               <p>
                 {{content}}
               </p>
@@ -118,9 +124,6 @@
 
                 <p>Created: {{formatDate created "long"}}</p>
                 <p>Updated: {{formatDate updated "long"}}</p>
-                {{#if due}}
-                <p>Due Date: {{formatDate due "short"}}</p>
-                {{/if}}
               </div>
               {{#if age}}
               <div class="note__age">

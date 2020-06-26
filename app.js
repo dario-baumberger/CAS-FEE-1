@@ -4,8 +4,6 @@ import express from "express";
 import sassMiddleware from "node-sass-middleware";
 import path from "path";
 import bodyParser from "body-parser";
-
-import { indexRoutes } from "./routes/indexRoutes.js";
 import { notesRoutes } from "./routes/notesRoutes.js";
 
 const app = express();
@@ -30,7 +28,6 @@ app.use(
 );
 app.use(express.static("public"));
 app.use("/api/notes", notesRoutes);
-app.use("/", indexRoutes);
 
 app.get("/", function (req, res) {
   res.sendFile("public/html/index.html", { root: "." });

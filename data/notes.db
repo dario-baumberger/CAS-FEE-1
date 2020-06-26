@@ -1,3 +1,6 @@
-{"title":"test","created":{"$$date":1593208084762},"content":"test","due":"2020-06-13","importance":"1","state":"0","category":"0","_id":"9LN9mx6OHPBgcQDJ"}
-{"title":"123","created":{"$$date":1593208095034},"content":"123","due":"","importance":"1","state":"0","category":"0","_id":"gcYkjzvg4sJ4vgvo"}
-{"title":"123456","created":{"$$date":1593208095034},"content":"123","due":"","importance":"1","state":"0","category":"0","_id":"gcYkjzvg4sJ4vgvo"}
+{"title":"Hausaufgaben","created":{"$$date":1593211692303},"due":"2020-07-01","importance":"3","state":"1","category":"1","_id":"RKzwnyrjWIZxZWWT"}
+{"title":"Einkaufen","created":{"$$date":1593211654709},"due":"2020-07-09","importance":"1","state":"0","category":"3","_id":"yRuBMdEuu6v4nnVu"}
+{"title":"Hausaufgaben","created":{"$$date":1593211692303},"due":"2020-07-01","importance":"3","state":"1","category":"1","_id":"RKzwnyrjWIZxZWWT","note":"Franz Test"}
+{"title":"Hausaufgaben","created":{"$$date":1593211692303},"due":"2020-07-01","importance":"3","state":"1","category":"1","_id":"RKzwnyrjWIZxZWWT","note":"Franz lernen für Test"}
+{"title":"Hausaufgaben","created":{"$$date":1593211692303},"due":"2020-07-01","importance":"3","state":"1","category":"1","_id":"RKzwnyrjWIZxZWWT","note":"Franz lernen für Test","content":"sd"}
+{"title":"Hausaufgaben","created":{"$$date":1593211692303},"due":"2020-07-01","importance":"3","state":"1","category":"1","_id":"RKzwnyrjWIZxZWWT","note":"Franz lernen für Test","content":"Für Franz Test lernen\nMath Kapitel 7 lösen"}
