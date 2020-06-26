@@ -1,5 +1,5 @@
-module.exports = function (app) {
-  app.get("/", function (req, res) {
-    res.sendFile("public/html/index.html", { root: "." });
-  });
-};
+import express from "express";
+
+const router = express.Router();
+
+export const indexRoutes = router;

@@ -6,7 +6,7 @@
   }
 }
 
-.bg-green {
+.bg-success {
   background-color: var(--success-500);
 
   &:hover {
@@ -14,11 +14,11 @@
   }
 }
 
-.bg-red {
-  background-color: var(--red-warn500);
+.bg-error {
+  background-color: var(--error-500);
 
   &:hover {
-    background-color: var(--red-warn600);
+    background-color: var(--error-600);
   }
 }
 

@@ -4,8 +4,12 @@ header {
   left: 0;
   right: 0;
   top: 0;
-  height: 52px;
-  margin: 30px;
+  height: 100px;
+  padding: 30px;
+  background-color: var(--white);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
 
   .left {
     background: red;
@@ -15,14 +19,29 @@ header {
     display: none;
   }
 
-  ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
 
-  li {
-    list-style: none;
-    margin-left: 20px;
+  nav{
+    ul{
+      display: flex;
+      margin: 0;
+      padding: 0;
+
+      li{
+        list-style: none;
+        margin-left: 1rem;
+        @media screen and (max-width: $md) {
+          margin-left: .75rem;
+        }
+      }
+    }
   }
 }
+
+.logo {
+  img {
+    width: auto;
+    display: block;
+    height: 40px;
+  }
+}
+

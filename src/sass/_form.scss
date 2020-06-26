@@ -3,7 +3,7 @@ textarea {
   min-height: 250px;
 }
 
-.form-group {
+.form__group {
   margin-bottom: 1rem;
   display: flex;
   @media screen and (max-width: $md) {
@@ -27,13 +27,11 @@ textarea {
   }
 }
 
-.form-actions {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  grid-gap: 1rem;
+.form__actions {
+  display: flex;
+  justify-content: flex-end;
   grid-auto-flow: column;
+  margin-top: 2rem;
 }
 
 form {

@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "prestart": "start mongod --config ./data/mongod.cfg",
-    "start": "node app.js"
+    "start": "node --experimental-modules --es-module-specifier-resolution=node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,21 +21,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
-    "ejs": "^3.1.2",
     "express": "^4.17.1",
-    "express-handlebars": "^4.0.4",
     "express-session": "^1.17.1",
-    "handlebars-helpers": "^0.10.0",
     "moment": "^2.27.0",
-    "mongodb": "^3.5.7",
-    "mongoose": "^5.9.11",
     "nedb": "^1.8.0",
+    "nedb-promises": "^4.0.3",
     "node-sass-middleware": "^0.11.0",
-    "request": "^2.88.2",
-    "rxjs": "^6.5.5",
     "socket.io": "^2.3.0"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.3"
-  }
+  "devDependencies": {}
 }

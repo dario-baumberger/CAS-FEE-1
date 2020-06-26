@@ -15,6 +15,7 @@ button {
   justify-content: flex-end;
   width: 200px;
   align-items: flex-end;
+
 }
 
 .button--round {
@@ -23,7 +24,7 @@ button {
   border-radius: 50%;
   border: none;
   transition: all 0.3s;
-  margin-right: 20px;
+  margin-left: .5rem;
   cursor: pointer;
   color: #fff;
 
@@ -38,10 +39,4 @@ button {
     height: 50px;
     border-radius: 50%;
   }
-}
-
-.round {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
 }

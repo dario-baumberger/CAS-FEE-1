@@ -1,13 +1,13 @@
-let router = require("express").Router();
+import express from "express";
+import { notesController } from "../controllers/notesController";
 
-let noteController = require("../controllers/notesController");
+const router = express.Router();
 
-router.route("/notes").get(noteController.index).post(noteController.new);
-router
-  .route("/notes/:note_id")
-  .get(noteController.view)
-  .patch(noteController.update)
-  .put(noteController.update)
-  .delete(noteController.delete);
+router.get("/", notesController.all.bind(notesController));
+router.post("/", notesController.add.bind(notesController));
+router.get("/:id", notesController.get.bind(notesController));
+router.patch("/:id", notesController.update.bind(notesController));
+router.put("/:id", notesController.update.bind(notesController));
+router.delete("/:id", notesController.delete.bind(notesController));
 
-module.exports = router;
+export const notesRoutes = router;

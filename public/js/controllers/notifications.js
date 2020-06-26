@@ -21,15 +21,6 @@ export class Notifications {
         this.closeNotification();
       }
     });
-
-    /*this.socket.on("notification", (data) => {
-      console.log("1234");
-      this.template.renderTemplate(
-        data,
-        "notification",
-        ".notifications__list"
-      );
-    });*/
   }
 
   init() {

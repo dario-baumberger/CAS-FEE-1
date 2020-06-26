@@ -3,28 +3,12 @@ import { TemplateController } from "../controllers/template.js";
 import { ModalController } from "../controllers/modal.js";
 
 export class NotesController {
-  constructor(socket) {
+  constructor() {
     this.template = new TemplateController();
     this.modal = new ModalController();
     this.notesService = new NotesService();
     this.$notes = document.querySelector(".notes");
-    this.$sort = document.querySelector(".sort");
-    this.socket = socket;
     this.notes = [];
-
-    /*this.observer = new Observable((observer) => {
-      setTimeout(() => {
-        observer.next("got data!");
-        observer.complete();
-      }, 1000);
-    });
-    this.observer.subscribe(this.notes);*/
-    /*this.obs = new Observable(this.notes, (changes) => {
-      changes.forEach(function (change) {
-        // Letting us know what changed
-        console.log(change.type, change.name, change.oldValue);
-      });
-    });*/
   }
 
   clearNotes() {
@@ -41,19 +25,15 @@ export class NotesController {
   deleteNote() {
     event.preventDefault();
     const id = document.getElementById("id").value;
-    this.notesService.deleteNote(id).then((data) => {
-      if (data.status === "success") {
-        this.filterNotes();
-      }
+    this.notesService.deleteNote(id).then(() => {
+      this.filterNotes();
     });
   }
 
   updateNoteState(state) {
-    let content = event.target.parentNode;
-    let note = content.parentNode;
-    let listEl = note.parentNode;
-    let id = listEl.dataset.id;
-    this.notesService.updateState(id, state).then((data) => {
+    const id = event.target.parentNode.parentNode.parentNode.dataset.id;
+
+    this.notesService.updateState(id, state).then(() => {
       this.notesService.getNotes().then((data) => {
         this.notes = data;
         this.renderNotes();
@@ -67,9 +47,7 @@ export class NotesController {
     this.notesService.updateNote(data).then(() => {
       this.notesService.getNotes().then((data) => {
         this.notes = data;
-        this.renderNotes();
-        this.renderNotes();
-        this.modal.closeModal();
+        this.filterNotes();
       });
     });
   }
@@ -87,13 +65,13 @@ export class NotesController {
 
         if (filterCategories.length) {
           inCategories = filterCategories.some((x) => {
-            return parseInt(x) === obj.category;
+            return x === obj.category;
           });
         }
 
         if (filterStates.length) {
           inStates = filterStates.some((x) => {
-            return parseInt(x) === obj.state;
+            return x === obj.state;
           });
         }
 
@@ -109,8 +87,7 @@ export class NotesController {
       this.notes.sort(function (a, b) {
         return b.importance - a.importance;
       });
-    }
-    if (logic === "importanceDESC") {
+    } else if (logic === "importanceDESC") {
       this.notes.sort(function (a, b) {
         return a.importance - b.importance;
       });
@@ -163,8 +140,7 @@ export class NotesController {
         return new Date(a.created) - new Date(b.created);
       });
     }
-    this.$sort.innerHTML = "";
-    this.template.renderTemplate({ logic: logic }, "sort", ".sort");
+
     this.renderNotes();
   }
 
@@ -194,25 +170,15 @@ export class NotesController {
   }
 
   getNoteFormData() {
-    const title = document.getElementById("title").value;
-    const note = document.getElementById("note").value;
-    const state = document.getElementById("state").value;
-    const category = document.getElementById("category").value;
-    const due = document.getElementById("due").value;
-    const importance = document.getElementById("importance").value;
-    const id = document.getElementById("id").value;
-
-    const data = {
-      _id: id,
-      title: title,
-      content: note,
-      state: state,
-      category: category,
-      importance: importance,
-      due: due,
+    return {
+      title: document.getElementById("title").value,
+      note: document.getElementById("note").value,
+      state: document.getElementById("state").value,
+      category: document.getElementById("category").value,
+      due: document.getElementById("due").value,
+      importance: document.getElementById("importance").value,
+      _id: document.getElementById("id").value,
     };
-
-    return data;
   }
 
   addNote() {
@@ -283,7 +249,7 @@ export class NotesController {
     if (localStorage.getItem("sort") === null) {
       localStorage.setItem("sort", "dueDESC");
     }
-    this.template.renderTemplate({}, "sort", ".sort");
+
     this.filterNotes();
   }
 }

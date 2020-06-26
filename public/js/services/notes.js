@@ -1,6 +1,4 @@
 export class NotesService {
-  constructor() {}
-
   async getNote(id) {
     const options = {
       method: "GET",
@@ -59,7 +57,6 @@ export class NotesService {
   }
 
   async addNote(data) {
-    console.log(data);
     const options = {
       method: "POST",
       headers: {

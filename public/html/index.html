@@ -16,8 +16,6 @@
           <img src="images/todo-logo.png" alt="Todo Logo" />
         </a>
       </div>
-    </header>
-    <aside class="aside">
       <nav>
         <ul class="aside__list">
           <li class="aside__item">
@@ -44,7 +42,7 @@
           </li>
         </ul>
       </nav>
-    </aside>
+    </header>
     <main>
 
       <section class="notes">
@@ -64,24 +62,6 @@
       >
     </footer>
     <div id="templates">
-      <template id="templates__sort">
-        <select class="sort__select js-note--sort" name="sort" id="sort">
-          {{#select logic}}
-          <option value="dueASC">Due Date ASC</option>
-          <option value="dueDESC">Due Date DESC</option>
-          <option value="importanceASC">Importance ASC</option>
-          <option value="importanceDESC">Importance DES</option>
-          <option value="stateASC">State ASC</option>
-          <option value="stateDESC">State DESC</option>
-          <option value="titleASC">Title ASC</option>
-          <option value="titleDESC">Title DESC</option>
-          <option value="createdASC">Newest</option>
-          <option value="createdDESC">Oldest</option>
-          <option value="updatedASC">Updated ASC</option>
-          <option value="updatedDESC">Updated DESC</option>
-          {{/select}}
-        </select>
-      </template>
       <template id="templates__notification">
         <li class="notification">
           <div class="notification__content">
@@ -103,7 +83,7 @@
           class="note"
           data-created="{{created}}"
           data-due="{{due}}"
-          data-ID="{{id}}"
+          data-id="{{_id}}"
           data-importance="{{importance}}"
           data-state="{{state}}"
         >
@@ -114,15 +94,15 @@
                   {{title}}
                 </span>
                 <span class="note__importance">
-                  {{#matches importance 1}}
+                  {{#matches importance "0"}}
                   <span class="sr-only">Normal</span>
-                  {{/matches}} {{#matches importance 1}}
+                  {{/matches}} {{#matches importance "1"}}
                   <i class="fas fa-chevron-down"></i>
                   <span class="sr-only">Minor Important</span>
-                  {{/matches}} {{#matches importance 2}}
+                  {{/matches}} {{#matches importance "2"}}
                   <i class="fas fa-chevron-up"></i>
                   <span class="sr-only">Important</span>
-                  {{/matches}} {{#matches importance 3}}
+                  {{/matches}} {{#matches importance "3"}}
                   <i class="fas fa-exclamation"></i>
                   <span class="sr-only">Urgent</span>
                   {{/matches}}
@@ -139,7 +119,7 @@
                 <p>Created: {{formatDate created "long"}}</p>
                 <p>Updated: {{formatDate updated "long"}}</p>
                 {{#if due}}
-                <p>Due Date: {{formatDate due "long"}}</p>
+                <p>Due Date: {{formatDate due "short"}}</p>
                 {{/if}}
               </div>
               {{#if age}}
@@ -152,15 +132,15 @@
               {{/if}}
             </div>
             <div class="note__actions">
-              <button class="bg-yellow round button js-modal--edit" id="">
+              <button class="bg-yellow button button--round js-modal--edit">
                 <i class="fas fa-pen"></i>
               </button>
-              {{#matches state 0}}
-              <button class="bg-orange round button js-note--progress">
+              {{#matches state "0"}}
+              <button class="bg-orange button button--round js-note--progress">
                 <i class="fas fa-spinner"></i>
               </button>
-              {{/matches}} {{#matches state 1}}
-              <button class="bg-green round button js-note--done">
+              {{/matches}} {{#matches state "1"}}
+              <button class="bg-green button button--round js-note--done">
                 <i class="fas fa-check"></i>
               </button>
               {{/matches}}
@@ -182,19 +162,19 @@
       </template>
       <template id="templates__form">
         <form id="form-data">
-          <div class="form-group">
+          <div class="form__group">
             <label for="title">Title</label>
             <input id="title" value="{{title}}" required />
           </div>
-          <div class="form-group">
+          <div class="form__group">
             <label for="note">Note</label>
-            <textarea id="note" required>{{note}}</textarea>
+            <textarea id="note" required>{{content}}</textarea>
           </div>
-          <div class="form-group">
+          <div class="form__group">
             <label for="due">Due Date</label>
             <input type="date" id="due" value="{{due}}" />
           </div>
-          <div class="form-group">
+          <div class="form__group">
             <label for="state">State</label>
             <select id="state">
               {{#select state}}
@@ -204,7 +184,7 @@
               {{/select}}
             </select>
           </div>
-          <div class="form-group">
+          <div class="form__group">
             <label for="category">Category</label>
             <select id="category">
               {{#select category}}
@@ -215,7 +195,7 @@
               {{/select}}
             </select>
           </div>
-          <div class="form-group">
+          <div class="form__group">
             <label for="importance">Importance</label>
             <select id="importance">
               {{#select importance}}
@@ -226,23 +206,23 @@
               {{/select}}
             </select>
           </div>
-          <input type="hidden" name="id" id="id" value="{{id}}" />
-          <div class="form-actions buttons">
-            {{#if id}}
-            <button type="button" class="button round bg-warn js-note--delete">
+          <input type="hidden" name="id" id="id" value="{{_id}}" />
+          <div class="form__actions">
+            {{#if _id}}
+            <button type="button" class="button button--round bg-error js-note--delete">
               <i class="far fa-trash-alt"></i>
               <span class="sr-only">Delete Note</span>
             </button>
-            <button type="submit" class="button round bg-green js-note--save">
+            <button type="submit" class="button button--round bg-success js-note--save">
               <i class="far fa-save"></i>
               <span class="sr-only">Save Note</span>
             </button>
             {{else}}
-            <button type="submit" class="button round bg-warn js-modal--close">
+            <button type="submit" class="button button--round bg-error js-modal--close">
               <i class="fas fa-times"></i>
               <span class="sr-only">Close Modal</span>
             </button>
-            <button type="submit" class="button round bg-green js-note--add">
+            <button type="submit" class="button button--round bg-success js-note--add">
               <i class="fas fa-plus"></i>
               <span class="sr-only">Add Note</span>
             </button>
@@ -252,6 +232,25 @@
       </template>
       <template id="templates__filter">
         <form>
+          <fieldset>
+            <legend>Sort</legend>
+            <select class="sort__select js-note--sort" name="sort" id="sort">
+              {{#select sort}}
+              <option value="dueASC">Due Date ASC</option>
+              <option value="dueDESC">Due Date DESC</option>
+              <option value="importanceASC">Importance ASC</option>
+              <option value="importanceDESC">Importance DES</option>
+              <option value="stateASC">State ASC</option>
+              <option value="stateDESC">State DESC</option>
+              <option value="titleASC">Title ASC</option>
+              <option value="titleDESC">Title DESC</option>
+              <option value="createdASC">Newest</option>
+              <option value="createdDESC">Oldest</option>
+              <option value="updatedASC">Updated ASC</option>
+              <option value="updatedDESC">Updated DESC</option>
+              {{/select}}
+            </select>
+          </fieldset>
           <fieldset class="pills">
             <legend>Categories</legend>
             <ul>
@@ -368,8 +367,8 @@
               </li>
             </ul>
           </fieldset>
-          <div class="form-actions buttons">
-            <button class="button round bg-blue js-note--filter">
+          <div class="form__actions">
+            <button class="button button--round bg-blue js-note--filter">
               <i class="fas fa-search"></i>
               <span class="sr-only">Show Notes</span>
             </button>

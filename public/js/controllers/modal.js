@@ -34,29 +34,8 @@ export class ModalController {
             "modalcontent",
             ".modal"
           );
-          let due = data.due;
 
-          if (due !== undefined) {
-            due = new Date(due);
-            due =
-              due.getFullYear() +
-              "-" +
-              ("0" + (due.getMonth() + 1)).slice(-2) +
-              "-" +
-              ("0" + due.getDate()).slice(-2);
-          }
-
-          const ret = {
-            title: data.title,
-            note: data.content,
-            id: data.id,
-            category: data.category,
-            importance: data.importance,
-            state: data.state,
-            due: due,
-          };
-
-          this.template.renderTemplate(ret, "form", ".modal__template");
+          this.template.renderTemplate(data, "form", ".modal__template");
           this.showModal();
         });
       } else if (event.target.matches(".js-modal--filter")) {
@@ -77,6 +56,7 @@ export class ModalController {
             state1: filterStates.includes("1"),
             state2: filterStates.includes("2"),
           },
+          sort: localStorage.getItem("sort"),
         };
 
         this.template.renderTemplate(
