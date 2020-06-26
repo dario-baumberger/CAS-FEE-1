@@ -1,4 +1,5 @@
 "use strict";
+
 Handlebars.registerHelper("select", function (value, options) {
   return options
     .fn()

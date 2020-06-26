@@ -1,3 +1,5 @@
+"use strict";
+
 import Datastore from "nedb-promises";
 
 export class Note {

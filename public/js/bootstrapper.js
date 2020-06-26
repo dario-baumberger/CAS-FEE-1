@@ -1,3 +1,5 @@
+"use strict";
+
 import { ModalController } from "./controllers/modal.js";
 import { NotesController } from "./controllers/notes.js";
 import { NotesService } from "./services/notes.js";

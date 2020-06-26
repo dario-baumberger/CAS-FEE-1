@@ -1,3 +1,5 @@
+"use strict";
+
 import { notesService } from "../services/notesService";
 
 export class NotesController {

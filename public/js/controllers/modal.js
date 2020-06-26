@@ -1,3 +1,5 @@
+"use strict";
+
 import { NotesService } from "../services/notes.js";
 import { TemplateController } from "./template.js";
 

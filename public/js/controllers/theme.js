@@ -1,3 +1,5 @@
+"use strict";
+
 export class ThemeController {
   constructor() {
     this.$html = document.querySelector("html");

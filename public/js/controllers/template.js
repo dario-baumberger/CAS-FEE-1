@@ -1,3 +1,5 @@
+"use strict";
+
 export class TemplateController {
   renderTemplate(data, templateId, target, place = "beforeend") {
     templateId = "templates__" + templateId;

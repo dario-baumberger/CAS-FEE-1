@@ -1,3 +1,5 @@
+"use strict";
+
 export class NotesService {
   async getNote(id) {
     const options = {
