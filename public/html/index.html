@@ -33,12 +33,12 @@
             </button>
           </li>
           <li class="aside__item">
-            <button class="button button--round bg-turkis js-theme--toggle">
+            <button class="button button--round bg-turkis js-theme--toggle js-theme-toggle-dark">
               <i class="fas fa-sun"></i>
             </button>
           </li>
           <li class="aside__item hidden">
-            <button class="button button--round bg-turkis js-theme--toggle">
+            <button class="button button--round bg-turkis js-theme--toggle js-theme-toggle-light">
               <i class="far fa-sun"></i>
             </button>
           </li>
@@ -46,17 +46,9 @@
       </nav>
     </aside>
     <main>
-      <div class="sort">
-        <select class="sort__select js-note--sort" name="sort" id="sort">
-          <option value="due">Due Date</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="importance">Importance</option>
-          <option value="created">Created</option>
-        </select>
-      </div>
 
       <section class="notes">
+        <div class="sort"></div>
         <ol class="notes__list"></ol>
       </section>
 
@@ -72,6 +64,24 @@
       >
     </footer>
     <div id="templates">
+      <template id="templates__sort">
+        <select class="sort__select js-note--sort" name="sort" id="sort">
+          {{#select logic}}
+          <option value="dueASC">Due Date ASC</option>
+          <option value="dueDESC">Due Date DESC</option>
+          <option value="importanceASC">Importance ASC</option>
+          <option value="importanceDESC">Importance DES</option>
+          <option value="stateASC">State ASC</option>
+          <option value="stateDESC">State DESC</option>
+          <option value="titleASC">Title ASC</option>
+          <option value="titleDESC">Title DESC</option>
+          <option value="createdASC">Newest</option>
+          <option value="createdDESC">Oldest</option>
+          <option value="updatedASC">Updated ASC</option>
+          <option value="updatedDESC">Updated DESC</option>
+          {{/select}}
+        </select>
+      </template>
       <template id="templates__notification">
         <li class="notification">
           <div class="notification__content">
@@ -125,10 +135,11 @@
 
             <div class="note__infos t-sm">
               <div>
-                <p>Created: {{created}}</p>
-                <p>Updated: {{updated}}</p>
+
+                <p>Created: {{formatDate created "long"}}</p>
+                <p>Updated: {{formatDate updated "long"}}</p>
                 {{#if due}}
-                <p>Due Date: {{due}}</p>
+                <p>Due Date: {{formatDate due "long"}}</p>
                 {{/if}}
               </div>
               {{#if age}}
@@ -244,53 +255,44 @@
           <fieldset class="pills">
             <legend>Categories</legend>
             <ul>
-
               <li>
                 <label for="">
                   No Category
-                  <input
-                    type="checkbox"
-                    class="bg-blue"
-                    name="filter-categories"
-                    value="0"
-checked
-                  />
+                  {{#if categories.cat0}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='0' checked/>
+                  {{else}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='0'/>
+                  {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
                   Work
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="2"
-                    checked
-                  />
+                  {{#if categories.cat2}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='2' checked/>
+                  {{else}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='2'/>
+                  {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
                   House
-                  <input
-                          type="checkbox"
-                          class="bg-turkis"
-                          name="filter-categories"
-                          value="3"
-                          checked
-                  />
+                  {{#if categories.cat3}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='3' checked/>
+                  {{else}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='3'/>
+                  {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
                   School
-                  <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-categories"
-                    value="1"
-                    checked
-                  />
+                  {{#if categories.cat1}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='1' checked/>
+                  {{else}}
+                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='1'/>
+                  {{/if}}
                 </label>
               </li>
             </ul>
@@ -301,6 +303,7 @@ checked
               <li>
                 <label for="">
                   Todo
+                  {{#if states.state0}}
                   <input
                     type="checkbox"
                     class="bg-blue"
@@ -308,30 +311,59 @@ checked
                     value="0"
                     checked
                   />
+                  {{else}}
+                  <input
+                          type="checkbox"
+                          class="bg-blue"
+                          name="filter-states"
+                          value="0"
+
+                  />
+                  {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
                   In Progress
+                  {{#if states.state1}}
                   <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-states"
-                    value="1"
-                    checked
+                          type="checkbox"
+                          class="bg-blue"
+                          name="filter-states"
+                          value="1"
+                          checked
                   />
+                  {{else}}
+                  <input
+                          type="checkbox"
+                          class="bg-blue"
+                          name="filter-states"
+                          value="1"
+
+                  />
+                  {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
                   Done
+                  {{#if states.state2}}
                   <input
-                    type="checkbox"
-                    class="bg-turkis"
-                    name="filter-states"
-                    value="2"
-                    checked
+                          type="checkbox"
+                          class="bg-blue"
+                          name="filter-states"
+                          value="2"
+                          checked
                   />
+                  {{else}}
+                  <input
+                          type="checkbox"
+                          class="bg-blue"
+                          name="filter-states"
+                          value="2"
+
+                  />
+                  {{/if}}
                 </label>
               </li>
             </ul>
@@ -347,7 +379,8 @@ checked
     </div>
     <script src="js/vendor/socket.io.js"></script>
     <script src="js/vendor/handlebars.js"></script>
-   <script src="js/vendor/rxjs.umd.min.js"></script>
+    <script src="js/vendor/moment.min.js"></script>
+    <script src="js/vendor/de-ch.min.js"></script>
     <script src="js/bootstrapper.js" type="module" defer></script>
     <script src="js/utils/handlebars-helpers.js"></script>
   </body>

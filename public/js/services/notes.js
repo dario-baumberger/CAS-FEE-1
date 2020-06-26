@@ -12,6 +12,7 @@ export class NotesService {
       const url = "http://localhost:3000/api/notes/" + id;
       const response = await fetch(url, options);
       const data = await response.json();
+
       return await data;
     } catch (err) {
       console.error(err);
@@ -50,6 +51,7 @@ export class NotesService {
       const url = "http://localhost:3000/api/notes/" + id;
       const response = await fetch(url, options);
       const data = await response.json();
+
       return await data;
     } catch (err) {
       console.error(err);
@@ -69,6 +71,7 @@ export class NotesService {
       const url = "http://localhost:3000/api/notes/";
       const response = await fetch(url, options);
       const data = await response.json();
+
       return await data;
     } catch (err) {
       console.error(err);

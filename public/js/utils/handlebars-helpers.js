@@ -23,3 +23,18 @@ Handlebars.registerHelper("matches", function (arg1, arg2, options) {
 Handlebars.registerHelper("notmatches", function (arg1, arg2, options) {
   return arg1 !== arg2 ? options.fn(this) : options.inverse(this);
 });
+
+Handlebars.registerHelper("formatDate", function (datetime, format = "short") {
+  if (moment) {
+    const DateFormats = {
+      short: "DD. MMMM YYYY",
+      long: "DD. MMMM YYYY HH:mm",
+    };
+
+    format = DateFormats[format] || format;
+
+    return moment(datetime).format(format);
+  } else {
+    return datetime;
+  }
+});

@@ -13,7 +13,7 @@ exports.index = function (req, res) {
       let updated = new Date(note.updated);
       let due = note.due;
 
-      if (due !== undefined || due !== "" || due !== null) {
+      /*if (due !== undefined || due !== "" || due !== null) {
         due = new Date(due);
         due =
           due.getDate() + "." + (due.getMonth() + 1) + "." + due.getFullYear();
@@ -42,7 +42,7 @@ exports.index = function (req, res) {
         ":" +
         updated.getMinutes() +
         ":" +
-        updated.getSeconds();
+        updated.getSeconds();*/
 
       notes.push({
         id: note._id,

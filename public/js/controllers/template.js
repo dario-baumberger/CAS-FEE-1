@@ -1,4 +1,4 @@
-export class Template {
+export class TemplateController {
   constructor() {}
 
   renderTemplate(data, templateId, target, place = "beforeend") {

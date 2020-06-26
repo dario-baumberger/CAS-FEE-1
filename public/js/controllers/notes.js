@@ -1,14 +1,15 @@
 import { NotesService } from "../services/notes.js";
-import { Template } from "../controllers/template.js";
-import { Modal } from "../controllers/modal.js";
+import { TemplateController } from "../controllers/template.js";
+import { ModalController } from "../controllers/modal.js";
 
-export class Notes {
+export class NotesController {
   constructor(socket) {
-    this.template = new Template();
-    this.modal = new Modal();
-    this.$notes = document.querySelector(".notes");
-    this.socket = socket;
+    this.template = new TemplateController();
+    this.modal = new ModalController();
     this.notesService = new NotesService();
+    this.$notes = document.querySelector(".notes");
+    this.$sort = document.querySelector(".sort");
+    this.socket = socket;
     this.notes = [];
 
     /*this.observer = new Observable((observer) => {
@@ -37,57 +38,48 @@ export class Notes {
     );
   }
 
-  noteDelete() {
+  deleteNote() {
     event.preventDefault();
     const id = document.getElementById("id").value;
     this.notesService.deleteNote(id).then((data) => {
       if (data.status === "success") {
-        this.notesService.getNotes().then((data) => {
-          this.notes = data;
-          this.renderNotes();
-          this.modal.modalClose();
-        });
+        this.filterNotes();
       }
     });
   }
 
-  noteState(state) {
+  updateNoteState(state) {
     let content = event.target.parentNode;
     let note = content.parentNode;
     let listEl = note.parentNode;
     let id = listEl.dataset.id;
-    listEl.classList.add("note--removed");
     this.notesService.updateState(id, state).then((data) => {
       this.notesService.getNotes().then((data) => {
         this.notes = data;
         this.renderNotes();
-        this.modal.modalClose();
       });
     });
   }
 
-  noteUpdate() {
-    const data = this.noteGetData();
+  updateNote() {
+    const data = this.getNoteFormData();
 
-    console.log(data);
-
-    this.notesService.updateNote(data).then((data) => {
+    this.notesService.updateNote(data).then(() => {
       this.notesService.getNotes().then((data) => {
         this.notes = data;
         this.renderNotes();
         this.renderNotes();
-        this.modal.modalClose();
+        this.modal.closeModal();
       });
     });
   }
 
-  noteFilter() {
+  filterNotes(
+    filterStates = localStorage.getItem("filterStates").split(","),
+    filterCategories = localStorage.getItem("filterCategories").split(",")
+  ) {
     this.notesService.getNotes().then((data) => {
       this.notes = data;
-      const filterCategories = this.getFilterData("filter-categories");
-      const filterStates = this.getFilterData("filter-states");
-
-      console.log(filterCategories);
 
       this.notes = this.notes.filter((obj) => {
         let inCategories = false;
@@ -95,66 +87,113 @@ export class Notes {
 
         if (filterCategories.length) {
           inCategories = filterCategories.some((x) => {
-            console.log(
-              "cat",
-              obj.title,
-              obj.category,
-              parseInt(x),
-              parseInt(x) === obj.category
-            );
             return parseInt(x) === obj.category;
           });
         }
 
         if (filterStates.length) {
           inStates = filterStates.some((x) => {
-            console.log(
-              "state",
-              obj.title,
-              obj.state,
-              parseInt(x),
-              parseInt(x) === obj.state
-            );
             return parseInt(x) === obj.state;
           });
         }
 
-        console.log(
-          inStates,
-          inCategories,
-          ![inStates, inCategories].some((x) => x === false)
-        );
-
-        console.log("-----------");
-
         return ![inStates, inCategories].some((x) => x === false);
       });
-      this.renderNotes();
-      this.modal.modalClose();
+      this.noteSort();
+      this.modal.closeModal();
     });
   }
 
-  noteSort() {
-    this.notes.sort(function (a, b) {
-      return a.importance - b.importance;
-    });
+  noteSort(logic = localStorage.getItem("sort")) {
+    if (logic === "importanceASC") {
+      this.notes.sort(function (a, b) {
+        return b.importance - a.importance;
+      });
+    }
+    if (logic === "importanceDESC") {
+      this.notes.sort(function (a, b) {
+        return a.importance - b.importance;
+      });
+    } else if (logic === "stateASC") {
+      this.notes.sort(function (a, b) {
+        return b.state - a.state;
+      });
+    } else if (logic === "stateDESC") {
+      this.notes.sort(function (a, b) {
+        return a.state - b.state;
+      });
+    } else if (logic === "titleASC") {
+      this.notes.sort(function (a, b) {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+        if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+        return 0;
+      });
+    } else if (logic === "titleDESC") {
+      this.notes.sort(function (a, b) {
+        if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
+        if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
+        return 0;
+      });
+    } else if (logic === "createdASC") {
+      this.notes.sort(function (a, b) {
+        return new Date(b.created) - new Date(a.created);
+      });
+    } else if (logic === "createdDESC") {
+      this.notes.sort(function (a, b) {
+        return new Date(a.created) - new Date(b.created);
+      });
+    } else if (logic === "updatedASC") {
+      this.notes.sort(function (a, b) {
+        return new Date(b.updated) - new Date(a.updated);
+      });
+    } else if (logic === "updatedDESC") {
+      this.notes.sort(function (a, b) {
+        return new Date(a.updated) - new Date(b.updated);
+      });
+    } else if (logic === "dueASC") {
+      this.notes.sort(function (a, b) {
+        return new Date(b.due) - new Date(a.due);
+      });
+    } else if (logic === "dueDESC") {
+      this.notes.sort(function (a, b) {
+        return new Date(a.due) - new Date(b.due);
+      });
+    } else {
+      this.notes.sort(function (a, b) {
+        return new Date(a.created) - new Date(b.created);
+      });
+    }
+    this.$sort.innerHTML = "";
+    this.template.renderTemplate({ logic: logic }, "sort", ".sort");
     this.renderNotes();
   }
 
+  setFilters() {
+    localStorage.setItem(
+      "filterStates",
+      this.getFilterData("filter-states").toString()
+    );
+
+    localStorage.setItem(
+      "filterCategories",
+      this.getFilterData("filter-categories").toString()
+    );
+  }
+
   getFilterData(name) {
-    const oRadio = document.forms[0].elements[name];
+    const filter = document.forms[0].elements[name];
     let ret = [];
 
-    for (let i = 0; i < oRadio.length; i++) {
-      if (oRadio[i].checked) {
-        ret.push(oRadio[i].value);
+    for (let i = 0; i < filter.length; i++) {
+      if (filter[i].checked) {
+        ret.push(filter[i].value);
       }
     }
 
     return ret;
   }
 
-  noteGetData() {
+  getNoteFormData() {
     const title = document.getElementById("title").value;
     const note = document.getElementById("note").value;
     const state = document.getElementById("state").value;
@@ -176,69 +215,75 @@ export class Notes {
     return data;
   }
 
-  noteAdd() {
+  addNote() {
     event.preventDefault();
-    const data = this.noteGetData();
-
-    console.log(data);
-
+    const data = this.getNoteFormData();
     this.notesService.addNote(data).then((data) => {
-      console.log(data);
-      this.notesService.getNotes().then((data) => {
-        this.notes = data;
-        this.renderNotes();
-        this.modal.modalClose();
-      });
+      this.filterNotes();
     });
   }
 
   initEventHandlers() {
     this.$notes.addEventListener("click", (event) => {
       if (event.target.matches(".js-note--done")) {
-        this.noteState(2);
+        this.updateNoteState(2);
       }
       if (event.target.matches(".js-note--progress")) {
-        this.noteState(1);
+        this.updateNoteState(1);
       }
     });
 
     window.addEventListener("submit", (event) => {
       if (event.target.matches("#form-data")) {
         event.preventDefault();
-        this.noteAdd();
+        this.addNote();
       }
     });
 
     window.addEventListener("change", (event) => {
       if (event.target.matches(".js-note--sort")) {
         event.preventDefault();
-        this.noteSort("importance");
+        localStorage.setItem("sort", event.target.value);
+        this.noteSort(event.target.value);
       }
     });
 
     window.addEventListener("click", (event) => {
       if (event.target.matches(".js-note--delete")) {
-        this.noteDelete();
+        event.preventDefault();
+        this.deleteNote();
       }
 
       if (event.target.matches(".js-note--save")) {
         event.preventDefault();
-        this.noteUpdate();
+        this.updateNote();
       }
 
       if (event.target.matches(".js-note--filter")) {
         event.preventDefault();
-        this.noteFilter();
+        this.setFilters();
+        this.filterNotes();
       }
     });
   }
 
   init() {
     this.initEventHandlers();
+    const filterStates = [0, 1];
+    const filterCategories = [0, 1, 2, 3];
 
-    this.notesService.getNotes().then((data) => {
-      this.notes = data;
-      this.renderNotes();
-    });
+    if (localStorage.getItem("filterStates") === null) {
+      localStorage.setItem("filterStates", filterStates.toString());
+    }
+
+    if (localStorage.getItem("filterCategories") === null) {
+      localStorage.setItem("filterCategories", filterCategories.toString());
+    }
+
+    if (localStorage.getItem("sort") === null) {
+      localStorage.setItem("sort", "dueDESC");
+    }
+    this.template.renderTemplate({}, "sort", ".sort");
+    this.filterNotes();
   }
 }

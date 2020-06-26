@@ -1,10 +1,11 @@
 import { NotesService } from "../services/notes.js";
+import { TemplateController } from "./template.js";
 
-export class Modal {
-  constructor(template) {
-    this.template = template;
-    this.$modal = document.querySelector(".modal");
+export class ModalController {
+  constructor() {
+    this.template = new TemplateController();
     this.notesService = new NotesService();
+    this.$modal = document.querySelector(".modal");
     this.$html = document.querySelector("html");
   }
 
@@ -13,13 +14,13 @@ export class Modal {
     this.$html.classList.add("has-open-modal");
   }
 
-  modalClose() {
+  closeModal() {
     this.$modal.classList.remove("modal--open");
     this.$html.classList.remove("has-open-modal");
-    this.modalClear();
+    this.clearModal();
   }
 
-  modalClear() {
+  clearModal() {
     this.$modal.innerHTML = "";
   }
 
@@ -59,16 +60,31 @@ export class Modal {
           this.showModal();
         });
       } else if (event.target.matches(".js-modal--filter")) {
+        const filterStates = localStorage.getItem("filterStates").split(",");
+        const filterCategories = localStorage
+          .getItem("filterCategories")
+          .split(",");
+
+        const data = {
+          categories: {
+            cat0: filterCategories.includes("0"),
+            cat1: filterCategories.includes("1"),
+            cat2: filterCategories.includes("2"),
+            cat3: filterCategories.includes("3"),
+          },
+          states: {
+            state0: filterStates.includes("0"),
+            state1: filterStates.includes("1"),
+            state2: filterStates.includes("2"),
+          },
+        };
+
         this.template.renderTemplate(
           { title: "Filter" },
           "modalcontent",
           ".modal"
         );
-        this.template.renderTemplate(
-          { title: "Filter", note: "Demo Note" },
-          "filter",
-          ".modal__template"
-        );
+        this.template.renderTemplate(data, "filter", ".modal__template");
         this.showModal();
       } else if (event.target.matches(".js-modal--add")) {
         this.template.renderTemplate(
@@ -87,7 +103,7 @@ export class Modal {
 
     this.$modal.addEventListener("click", (event) => {
       if (event.target.matches(".modal__close")) {
-        this.modalClose();
+        this.closeModal();
       }
     });
   }
