@@ -19,18 +19,17 @@ header {
     display: none;
   }
 
-
-  nav{
-    ul{
+  nav {
+    ul {
       display: flex;
       margin: 0;
       padding: 0;
 
-      li{
+      li {
         list-style: none;
         margin-left: 1rem;
         @media screen and (max-width: $md) {
-          margin-left: .75rem;
+          margin-left: 0.75rem;
         }
       }
     }
@@ -44,4 +43,3 @@ header {
     height: 40px;
   }
 }
-

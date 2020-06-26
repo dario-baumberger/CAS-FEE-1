@@ -31,12 +31,16 @@
             </button>
           </li>
           <li class="aside__item">
-            <button class="button button--round bg-turkis js-theme--toggle js-theme-toggle-dark">
+            <button
+              class="button button--round bg-turkis js-theme--toggle js-theme-toggle-dark"
+            >
               <i class="fas fa-sun"></i>
             </button>
           </li>
           <li class="aside__item hidden">
-            <button class="button button--round bg-turkis js-theme--toggle js-theme-toggle-light">
+            <button
+              class="button button--round bg-turkis js-theme--toggle js-theme-toggle-light"
+            >
               <i class="far fa-sun"></i>
             </button>
           </li>
@@ -44,7 +48,6 @@
       </nav>
     </header>
     <main>
-
       <section class="notes">
         <div class="sort"></div>
         <ol class="notes__list"></ol>
@@ -112,7 +115,6 @@
                 {{#if due}}
                 <p>Due Date: {{formatDate due "short"}}</p>
                 {{/if}}
-
               </div>
               <p>
                 {{content}}
@@ -121,7 +123,6 @@
 
             <div class="note__infos t-sm">
               <div>
-
                 <p>Created: {{formatDate created "long"}}</p>
                 <p>Updated: {{formatDate updated "long"}}</p>
               </div>
@@ -212,20 +213,32 @@
           <input type="hidden" name="id" id="id" value="{{_id}}" />
           <div class="form__actions">
             {{#if _id}}
-            <button type="button" class="button button--round bg-error js-note--delete">
+            <button
+              type="button"
+              class="button button--round bg-error js-note--delete"
+            >
               <i class="far fa-trash-alt"></i>
               <span class="sr-only">Delete Note</span>
             </button>
-            <button type="submit" class="button button--round bg-success js-note--save">
+            <button
+              type="submit"
+              class="button button--round bg-success js-note--save"
+            >
               <i class="far fa-save"></i>
               <span class="sr-only">Save Note</span>
             </button>
             {{else}}
-            <button type="submit" class="button button--round bg-error js-modal--close">
+            <button
+              type="submit"
+              class="button button--round bg-error js-modal--close"
+            >
               <i class="fas fa-times"></i>
               <span class="sr-only">Close Modal</span>
             </button>
-            <button type="submit" class="button button--round bg-success js-note--add">
+            <button
+              type="submit"
+              class="button button--round bg-success js-note--add"
+            >
               <i class="fas fa-plus"></i>
               <span class="sr-only">Add Note</span>
             </button>
@@ -259,41 +272,81 @@
             <ul>
               <li>
                 <label for="">
-                  No Category
-                  {{#if categories.cat0}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='0' checked/>
+                  No Category {{#if categories.cat0}}
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="0"
+                    checked
+                  />
                   {{else}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='0'/>
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="0"
+                  />
                   {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
-                  Work
-                  {{#if categories.cat2}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='2' checked/>
+                  Work {{#if categories.cat2}}
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="2"
+                    checked
+                  />
                   {{else}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='2'/>
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="2"
+                  />
                   {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
-                  House
-                  {{#if categories.cat3}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='3' checked/>
+                  House {{#if categories.cat3}}
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="3"
+                    checked
+                  />
                   {{else}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='3'/>
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="3"
+                  />
                   {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
-                  School
-                  {{#if categories.cat1}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='1' checked/>
+                  School {{#if categories.cat1}}
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="1"
+                    checked
+                  />
                   {{else}}
-                  <input type='checkbox' class='bg-turkis' name='filter-categories' value='1'/>
+                  <input
+                    type="checkbox"
+                    class="bg-turkis"
+                    name="filter-categories"
+                    value="1"
+                  />
                   {{/if}}
                 </label>
               </li>
@@ -304,8 +357,7 @@
             <ul>
               <li>
                 <label for="">
-                  Todo
-                  {{#if states.state0}}
+                  Todo {{#if states.state0}}
                   <input
                     type="checkbox"
                     class="bg-blue"
@@ -315,55 +367,50 @@
                   />
                   {{else}}
                   <input
-                          type="checkbox"
-                          class="bg-blue"
-                          name="filter-states"
-                          value="0"
-
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-states"
+                    value="0"
                   />
                   {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
-                  In Progress
-                  {{#if states.state1}}
+                  In Progress {{#if states.state1}}
                   <input
-                          type="checkbox"
-                          class="bg-blue"
-                          name="filter-states"
-                          value="1"
-                          checked
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-states"
+                    value="1"
+                    checked
                   />
                   {{else}}
                   <input
-                          type="checkbox"
-                          class="bg-blue"
-                          name="filter-states"
-                          value="1"
-
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-states"
+                    value="1"
                   />
                   {{/if}}
                 </label>
               </li>
               <li>
                 <label for="">
-                  Done
-                  {{#if states.state2}}
+                  Done {{#if states.state2}}
                   <input
-                          type="checkbox"
-                          class="bg-blue"
-                          name="filter-states"
-                          value="2"
-                          checked
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-states"
+                    value="2"
+                    checked
                   />
                   {{else}}
                   <input
-                          type="checkbox"
-                          class="bg-blue"
-                          name="filter-states"
-                          value="2"
-
+                    type="checkbox"
+                    class="bg-blue"
+                    name="filter-states"
+                    value="2"
                   />
                   {{/if}}
                 </label>
