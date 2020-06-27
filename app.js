@@ -21,7 +21,7 @@ app.use(
   sassMiddleware({
     src: path.resolve("src/sass"),
     dest: path.resolve("public/css"),
-    debug: true,
+    debug: false,
     outputStyle: "compressed",
     prefix: "/css",
   })

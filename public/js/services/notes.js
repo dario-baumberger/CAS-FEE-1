@@ -31,8 +31,6 @@ export class NotesService {
       const response = await fetch(url, options);
       const data = await response.json();
 
-      console.log(data);
-
       return await data;
     } catch (err) {
       console.error(err);

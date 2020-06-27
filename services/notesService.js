@@ -76,8 +76,6 @@ export class NotesService {
   }
 
   async update(id, req) {
-    console.log(req.body);
-
     return this.db.update({ _id: id }, { $set: req.body });
   }
 

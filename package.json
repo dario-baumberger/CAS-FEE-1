@@ -5,7 +5,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "prestart": "start mongod --config ./data/mongod.cfg",
     "start": "node --experimental-modules --es-module-specifier-resolution=node app.js"
   },
   "repository": {
@@ -20,14 +19,10 @@
   "homepage": "https://github.com/dario-baumberger/CAS-FEE-1#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "moment": "^2.27.0",
     "nedb": "^1.8.0",
     "nedb-promises": "^4.0.3",
-    "node-sass-middleware": "^0.11.0",
-    "socket.io": "^2.3.0"
+    "node-sass-middleware": "^0.11.0"
   },
   "devDependencies": {}
 }

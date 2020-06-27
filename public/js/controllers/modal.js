@@ -37,8 +37,6 @@ export class ModalController {
             ".modal"
           );
 
-          console.log(data);
-
           this.template.renderTemplate(data, "form", ".modal__template");
           this.showModal();
         });
