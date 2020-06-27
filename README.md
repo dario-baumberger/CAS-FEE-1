@@ -1,7 +1,9 @@
 # CAS-FEE-1
+
 Todo App build with NodeJS.
 
 ## Requirements
+
 - NodeJS
 - Only modern Browsers are supported (ES6 and CSS Vars)
 
@@ -16,6 +18,7 @@ Todo App build with NodeJS.
 [http://localhost:3000](http://localhost:3000)
 
 ## Features
+
 - Add Notes
 - Remove Notes
 - Notes with due date

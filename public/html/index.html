@@ -32,7 +32,7 @@
           </li>
           <li class="aside__item">
             <button
-                    class="button button--round bg-blue js-theme--toggle js-theme-toggle-dark"
+              class="button button--round bg-blue js-theme--toggle js-theme-toggle-dark"
             >
               <i class="fas fa-sun"></i>
             </button>
@@ -55,16 +55,11 @@
       <div class="modal"></div>
     </main>
     <footer class="footer">
-      <small
-        >2020 Dario Baumberger © Alle Rechte vorbehalten.</small
-      >
+      <small>2020 Dario Baumberger © Alle Rechte vorbehalten.</small>
     </footer>
     <div id="templates">
       <template id="templates__note">
-        <li
-          class="note"
-          data-id="{{_id}}"
-        >
+        <li class="note" data-id="{{_id}}">
           <article class="note__article">
             <div class="note__content">
               <h2 class="note__title">
@@ -92,36 +87,35 @@
             </div>
 
             <div class="note__infos">
-
-                {{#if due}}
-                <p>Due Date: {{formatDate due "short"}}</p>
-                {{/if}}
-                <p>Created: {{formatDate createdAt "long"}}</p>
-                {{#if updatedAt}}
-                <p>Updated:
-                  {{formatDate updatedAt "long"}}</p>
-                {{/if}}
-                <p>Category:
-                  {{#matches category "0"}}No Category{{/matches}}
-                  {{#matches category "1"}}School{{/matches}}
-                  {{#matches category "2"}}Work{{/matches}}
-                  {{#matches category "3"}}House{{/matches}}
-                </p>
-                <p>Importance:
-                  {{#matches importance "0"}}Minor{{/matches}}
-                  {{#matches importance "1"}}Normal{{/matches}}
-                  {{#matches importance "2"}}Important{{/matches}}
-                  {{#matches importance "3"}}Urgent{{/matches}}
-                </p>
-                <p>State:
-                  {{#matches state "0"}}Todo{{/matches}}
-                  {{#matches state "1"}}In Progress{{/matches}}
-                  {{#matches state "2"}}Done{{/matches}}
-                </p>
+              {{#if due}}
+              <p>Due Date: {{formatDate due "short"}}</p>
+              {{/if}}
+              <p>Created: {{formatDate createdAt "long"}}</p>
+              {{#if updatedAt}}
+              <p>Updated: {{formatDate updatedAt "long"}}</p>
+              {{/if}}
+              <p>
+                Category: {{#matches category "0"}}No Category{{/matches}}
+                {{#matches category "1"}}School{{/matches}} {{#matches category
+                "2"}}Work{{/matches}} {{#matches category "3"}}House{{/matches}}
+              </p>
+              <p>
+                Importance: {{#matches importance "0"}}Minor{{/matches}}
+                {{#matches importance "1"}}Normal{{/matches}} {{#matches
+                importance "2"}}Important{{/matches}} {{#matches importance
+                "3"}}Urgent{{/matches}}
+              </p>
+              <p>
+                State: {{#matches state "0"}}Todo{{/matches}} {{#matches state
+                "1"}}In Progress{{/matches}} {{#matches state
+                "2"}}Done{{/matches}}
+              </p>
 
               {{#if age}}
               <div class="note__age">
-                <p class="label">Age: <span class="sr-only">{{age}} days</span></p>
+                <p class="label">
+                  Age: <span class="sr-only">{{age}} days</span>
+                </p>
                 {{#times age}}
                 <span></span>
                 {{/times}}
@@ -221,9 +215,7 @@
               <span class="sr-only">Save Note</span>
             </button>
             {{else}}
-            <button
-              class="button button--round bg-error js-modal--close"
-            >
+            <button class="button button--round bg-error js-modal--close">
               <i class="fas fa-times"></i>
               <span class="sr-only">Close Modal</span>
             </button>
@@ -265,18 +257,18 @@
               <li>
                 {{#if categories.cat0}}
                 <input
-                        checked
-                        name="filter-categories"
-                        type="checkbox"
-                        value="0"
-                        id="filter-categories-0"
+                  checked
+                  name="filter-categories"
+                  type="checkbox"
+                  value="0"
+                  id="filter-categories-0"
                 />
                 {{else}}
                 <input
-                        name="filter-categories"
-                        type="checkbox"
-                        value="0"
-                        id="filter-categories-0"
+                  name="filter-categories"
+                  type="checkbox"
+                  value="0"
+                  id="filter-categories-0"
                 />
                 {{/if}}
                 <label for="filter-categories-0">
@@ -286,18 +278,18 @@
               <li>
                 {{#if categories.cat2}}
                 <input
-                        checked
-                        name="filter-categories"
-                        type="checkbox"
-                        value="2"
-                        id="filter-categories-2"
+                  checked
+                  name="filter-categories"
+                  type="checkbox"
+                  value="2"
+                  id="filter-categories-2"
                 />
                 {{else}}
                 <input
-                        name="filter-categories"
-                        type="checkbox"
-                        value="2"
-                        id="filter-categories-2"
+                  name="filter-categories"
+                  type="checkbox"
+                  value="2"
+                  id="filter-categories-2"
                 />
                 {{/if}}
                 <label for="filter-categories-2">
@@ -307,45 +299,43 @@
               <li>
                 {{#if categories.cat3}}
                 <input
-                        checked
-                        name="filter-categories"
-                        type="checkbox"
-                        value="3"
-                        id="filter-categories-3"
+                  checked
+                  name="filter-categories"
+                  type="checkbox"
+                  value="3"
+                  id="filter-categories-3"
                 />
                 {{else}}
                 <input
-                        name="filter-categories"
-                        type="checkbox"
-                        value="3"
-                        id="filter-categories-3"
+                  name="filter-categories"
+                  type="checkbox"
+                  value="3"
+                  id="filter-categories-3"
                 />
                 {{/if}}
                 <label for="filter-categories-3">
                   House
-
                 </label>
               </li>
               <li>
                 {{#if categories.cat1}}
                 <input
-                        checked
-                        name="filter-categories"
-                        type="checkbox"
-                        value="1"
-                        id="filter-categories-1"
+                  checked
+                  name="filter-categories"
+                  type="checkbox"
+                  value="1"
+                  id="filter-categories-1"
                 />
                 {{else}}
                 <input
-                        name="filter-categories"
-                        type="checkbox"
-                        value="1"
-                        id="filter-categories-1"
+                  name="filter-categories"
+                  type="checkbox"
+                  value="1"
+                  id="filter-categories-1"
                 />
                 {{/if}}
                 <label for="filter-categories-1">
                   School
-
                 </label>
               </li>
             </ul>
@@ -356,20 +346,20 @@
               <li>
                 {{#if states.state0}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-states"
-                        type="checkbox"
-                        value="0"
-                        id="filter-states-0"
+                  checked
+                  class="bg-blue"
+                  name="filter-states"
+                  type="checkbox"
+                  value="0"
+                  id="filter-states-0"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-states"
-                        type="checkbox"
-                        value="0"
-                        id="filter-states-0"
+                  class="bg-blue"
+                  name="filter-states"
+                  type="checkbox"
+                  value="0"
+                  id="filter-states-0"
                 />
                 {{/if}}
                 <label for="filter-states-0">
@@ -379,49 +369,47 @@
               <li>
                 {{#if states.state1}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-states"
-                        type="checkbox"
-                        value="1"
-                        id="filter-states-1"
+                  checked
+                  class="bg-blue"
+                  name="filter-states"
+                  type="checkbox"
+                  value="1"
+                  id="filter-states-1"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-states"
-                        type="checkbox"
-                        value="1"
-                        id="filter-states-1"
+                  class="bg-blue"
+                  name="filter-states"
+                  type="checkbox"
+                  value="1"
+                  id="filter-states-1"
                 />
                 {{/if}}
                 <label for="filter-states-1">
                   In Progress
-
                 </label>
               </li>
               <li>
                 {{#if states.state2}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-states"
-                        type="checkbox"
-                        value="2"
-                        id="filter-states-2"
+                  checked
+                  class="bg-blue"
+                  name="filter-states"
+                  type="checkbox"
+                  value="2"
+                  id="filter-states-2"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-states"
-                        type="checkbox"
-                        value="2"
-                        id="filter-states-2"
+                  class="bg-blue"
+                  name="filter-states"
+                  type="checkbox"
+                  value="2"
+                  id="filter-states-2"
                 />
                 {{/if}}
                 <label for="filter-states-2">
                   Done
-
                 </label>
               </li>
             </ul>
@@ -432,20 +420,20 @@
               <li>
                 {{#if importances.importance0}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="0"
-                        id="filter-importances-0"
+                  checked
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="0"
+                  id="filter-importances-0"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="0"
-                        id="filter-importances-0"
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="0"
+                  id="filter-importances-0"
                 />
                 {{/if}}
                 <label for="filter-importances-0">
@@ -455,81 +443,76 @@
               <li>
                 {{#if importances.importance1}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="1"
-                        id="filter-importances-1"
+                  checked
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="1"
+                  id="filter-importances-1"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="1"
-                        id="filter-importances-1"
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="1"
+                  id="filter-importances-1"
                 />
                 {{/if}}
                 <label for="filter-importances-1">
                   Normal
-
                 </label>
               </li>
               <li>
                 {{#if importances.importance2}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="2"
-                        id="filter-importances-2"
+                  checked
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="2"
+                  id="filter-importances-2"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="2"
-                        id="filter-importances-2"
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="2"
+                  id="filter-importances-2"
                 />
                 {{/if}}
                 <label for="filter-importances-2">
                   Important
-
                 </label>
               </li>
               <li>
                 {{#if importances.importance3}}
                 <input
-                        checked
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="3"
-                        id="filter-importances-3"
+                  checked
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="3"
+                  id="filter-importances-3"
                 />
                 {{else}}
                 <input
-                        class="bg-blue"
-                        name="filter-importances"
-                        type="checkbox"
-                        value="3"
-                        id="filter-importances-3"
+                  class="bg-blue"
+                  name="filter-importances"
+                  type="checkbox"
+                  value="3"
+                  id="filter-importances-3"
                 />
                 {{/if}}
                 <label for="filter-importances-3">
                   Urgent
-
                 </label>
               </li>
             </ul>
           </fieldset>
           <div class="form__actions">
-            <button
-                    class="button button--round bg-error js-modal--close"
-            >
+            <button class="button button--round bg-error js-modal--close">
               <i class="fas fa-times"></i>
               <span class="sr-only">Close Modal</span>
             </button>
