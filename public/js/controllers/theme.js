@@ -7,6 +7,7 @@ export class ThemeController {
     this.$toggles = document.querySelectorAll(".js-theme--toggle");
     this.dark = this.getMode();
     this.setTheme();
+    this.setLogo();
     this.saveMode();
   }
 
@@ -35,8 +36,8 @@ export class ThemeController {
       toggle.parentNode.classList.toggle("hidden");
     });
     this.$html.classList.toggle("theme-dark");
-    this.setLogo();
     this.dark = !this.dark;
+    this.setLogo();
     this.saveMode();
   }
 
