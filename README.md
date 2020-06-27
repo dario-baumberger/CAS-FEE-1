@@ -31,3 +31,4 @@ Tested with npm 6.13.7
 - Filter Notes
 - Order Notes
 - Light and Dark Mode
+- Demo Notes are included
