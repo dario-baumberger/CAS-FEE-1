@@ -4,7 +4,7 @@ import { notesService } from "../services/notesService";
 
 export class NotesController {
   async all(req, res) {
-    res.json((await notesService.all()) || ["asd"]);
+    res.json((await notesService.all()) || []);
   }
 
   async add(req, res) {
@@ -16,7 +16,7 @@ export class NotesController {
   }
 
   async update(req, res) {
-    res.json((await notesService.update(req)) || []);
+    res.json((await notesService.update(req.params.id, req)) || []);
   }
 
   async delete(req, res) {

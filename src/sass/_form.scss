@@ -1,6 +1,34 @@
+
+form {
+  position: relative;
+  padding: 0 0 50px 0;
+}
+
+fieldset{
+  border: none;
+  margin-top: 2rem;
+  padding: 0;
+}
+
+select{
+  height: 40px;
+}
+
+legend{
+  margin-bottom: .5rem;
+}
+
 textarea {
   resize: vertical;
   min-height: 250px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 5px;
+  color: #333;
 }
 
 .form__group {
@@ -17,14 +45,6 @@ textarea {
       width: 100%;
     }
   }
-
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 5px;
-    color: #333;
-  }
 }
 
 .form__actions {
@@ -32,24 +52,4 @@ textarea {
   justify-content: flex-end;
   grid-auto-flow: column;
   margin-top: 2rem;
-}
-
-form {
-  position: relative;
-  padding: 0 0 50px 0;
-}
-
-fieldset{
-  border: none;
-  margin-top: 2rem;
-  padding: 0;
-}
-
-select{
-  width: 100%;
-  height: 40px;
-}
-
-legend{
-  margin-bottom: .5rem;
 }

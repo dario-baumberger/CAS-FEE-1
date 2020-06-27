@@ -5,6 +5,7 @@
 html {
   background-color: var(--bg);
   min-width: 320px;
+  overflow-x: hidden;
 }
 
 main {
@@ -12,14 +13,6 @@ main {
   padding-top: 120px;
   max-width: 90%;
   margin: auto;
-
-  @include media($md) {
-    max-width: 1200px;
-  }
-}
-
-* {
-  //grid
 }
 
 .hidden {

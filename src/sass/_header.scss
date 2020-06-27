@@ -12,14 +12,6 @@ header {
   justify-content: space-between;
   z-index: 1;
 
-  .left {
-    background: red;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    display: none;
-  }
-
   nav {
     ul {
       display: flex;

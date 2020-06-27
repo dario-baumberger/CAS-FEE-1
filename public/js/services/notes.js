@@ -31,6 +31,8 @@ export class NotesService {
       const response = await fetch(url, options);
       const data = await response.json();
 
+      console.log(data);
+
       return await data;
     } catch (err) {
       console.error(err);
@@ -103,7 +105,7 @@ export class NotesService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        state: state,
+        state: state.toString(),
       }),
     };
     try {

@@ -39,7 +39,7 @@
           </li>
           <li class="aside__item hidden">
             <button
-              class="button button--round bg-turkis js-theme--toggle js-theme-toggle-light"
+              class="button button--round bg-blue js-theme--toggle js-theme-toggle-light"
             >
               <i class="far fa-sun"></i>
             </button>
@@ -55,35 +55,15 @@
       <div class="modal"></div>
     </main>
     <footer class="footer">
-      <small class="t-xs"
+      <small
         >2020 Dario Baumberger © Alle Rechte vorbehalten.</small
       >
     </footer>
     <div id="templates">
-      <template id="templates__notification">
-        <li class="notification">
-          <div class="notification__content">
-            <b>
-              {{title}}
-            </b>
-            <p>
-              {{text}}
-            </p>
-          </div>
-          <button class="notification__close">
-            <i class="fas fa-times"></i>
-            <span class="sr-only">Close Notification</span>
-          </button>
-        </li>
-      </template>
       <template id="templates__note">
         <li
           class="note"
-          data-created="{{created}}"
-          data-due="{{due}}"
           data-id="{{_id}}"
-          data-importance="{{importance}}"
-          data-state="{{state}}"
         >
           <article class="note__article">
             <div class="note__content">
@@ -111,14 +91,15 @@
               </p>
             </div>
 
-            <div class="note__infos t-sm">
-              <div>
+            <div class="note__infos">
+
                 {{#if due}}
                 <p>Due Date: {{formatDate due "short"}}</p>
                 {{/if}}
-                <p>Created: {{formatDate created "long"}}</p>
-                {{#if updated}}
-                <p>Updated: {{formatDate updated "long"}}</p>
+                <p>Created: {{formatDate createdAt "long"}}</p>
+                {{#if updatedAt}}
+                <p>Updated:
+                  {{formatDate updatedAt "long"}}</p>
                 {{/if}}
                 <p>Category:
                   {{#matches category "0"}}No Category{{/matches}}
@@ -137,10 +118,10 @@
                   {{#matches state "1"}}In Progress{{/matches}}
                   {{#matches state "2"}}Done{{/matches}}
                 </p>
-              </div>
+
               {{#if age}}
               <div class="note__age">
-                <p class="label">Age:</p>
+                <p class="label">Age: <span class="sr-only">{{age}} days</span></p>
                 {{#times age}}
                 <span></span>
                 {{/times}}
@@ -148,11 +129,11 @@
               {{/if}}
             </div>
             <div class="note__actions">
-              <button class="bg-yellow button button--round js-modal--edit">
+              <button class="bg-info button button--round js-modal--edit">
                 <i class="fas fa-pen"></i>
               </button>
               {{#matches state "0"}}
-              <button class="bg-orange button button--round js-note--progress">
+              <button class="bg-warn button button--round js-note--progress">
                 <i class="fas fa-spinner"></i>
               </button>
               {{/matches}} {{#matches state "1"}}
@@ -261,7 +242,7 @@
         <form>
           <fieldset>
             <legend>Sort</legend>
-            <select class="sort__select js-note--sort" name="sort" id="sort">
+            <select class="js-note--sort" name="sort" id="sort">
               {{#select sort}}
               <option value="dueASC">Due Date ASC</option>
               <option value="dueDESC">Due Date DESC</option>

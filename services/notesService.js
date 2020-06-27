@@ -9,13 +9,9 @@ export class Note {
     due = null,
     importance = 0,
     state = 0,
-    category = 0,
-    updated = null,
-    created
+    category = 0
   ) {
     this.title = title;
-    this.created = created;
-    this.updated = updated;
     this.content = content;
     this.due = due;
     this.importance = importance;
@@ -27,19 +23,39 @@ export class Note {
 export class NotesService {
   constructor(db) {
     this.db =
-      db || new Datastore({ filename: "./data/notes.db", autoload: true });
+      db ||
+      new Datastore({
+        filename: "./data/notes.db",
+        autoload: true,
+        timestampData: true,
+      });
   }
 
   async all() {
     let notes = await this.db.find({});
+    const day = 1000 * 60 * 60 * 24;
+    const now = new Date().getTime();
 
-    notes.forEach((note) => {
-      const day = 1000 * 60 * 60 * 24;
-      const dif = new Date(note.created).getTime() - new Date().getTime();
-      console.log(dif / day);
+    let data = [];
+
+    notes.forEach((note, index) => {
+      const dif = now - new Date(note.createdAt).getTime();
+
+      data.push({
+        _id: note._id,
+        title: note.title,
+        content: note.content,
+        due: note.due,
+        createdAt: note.createdAt,
+        updatedAt: note.updatedAt,
+        importance: note.importance,
+        state: note.state,
+        category: note.category,
+        age: Math.round(dif / day),
+      });
     });
 
-    return notes;
+    return data;
   }
 
   async add(req) {
@@ -49,9 +65,7 @@ export class NotesService {
       req.body.due,
       req.body.importance,
       req.body.state,
-      req.body.category,
-      null,
-      new Date()
+      req.body.category
     );
 
     return await this.db.insert(note);
@@ -61,18 +75,10 @@ export class NotesService {
     return this.db.findOne({ _id: id });
   }
 
-  async update(req) {
-    const note = new Note(
-      req.body.title,
-      req.body.content,
-      req.body.due,
-      req.body.importance,
-      req.body.state,
-      req.body.category,
-      new Date()
-    );
+  async update(id, req) {
+    console.log(req.body);
 
-    return this.db.update({ _id: req.body._id }, { $set: note });
+    return this.db.update({ _id: id }, { $set: req.body });
   }
 
   async delete(id) {

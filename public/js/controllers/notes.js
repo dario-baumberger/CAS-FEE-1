@@ -125,19 +125,19 @@ export class NotesController {
       });
     } else if (logic === "createdASC") {
       this.notes.sort(function (a, b) {
-        return new Date(b.created) - new Date(a.created);
+        return new Date(b.createdAt) - new Date(a.createdAt);
       });
     } else if (logic === "createdDESC") {
       this.notes.sort(function (a, b) {
-        return new Date(a.created) - new Date(b.created);
+        return new Date(a.createdAt) - new Date(b.createdAt);
       });
     } else if (logic === "updatedASC") {
       this.notes.sort(function (a, b) {
-        return new Date(b.updated) - new Date(a.updated);
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
       });
     } else if (logic === "updatedDESC") {
       this.notes.sort(function (a, b) {
-        return new Date(a.updated) - new Date(b.updated);
+        return new Date(a.updatedAt) - new Date(b.updatedAt);
       });
     } else if (logic === "dueASC") {
       this.notes.sort(function (a, b) {
@@ -149,7 +149,7 @@ export class NotesController {
       });
     } else {
       this.notes.sort(function (a, b) {
-        return new Date(a.created) - new Date(b.created);
+        return new Date(a.createdAt) - new Date(b.createdAt);
       });
     }
 

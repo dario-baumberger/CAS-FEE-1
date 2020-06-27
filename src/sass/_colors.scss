@@ -22,7 +22,7 @@
   }
 }
 
-.bg-yellow {
+.bg-info {
   background-color: var(--danger-500);
 
   &:hover {
@@ -30,18 +30,10 @@
   }
 }
 
-.bg-orange {
+.bg-warn {
   background-color: var(--warn-500);
 
   &:hover {
     background-color: var(--warn-600);
-  }
-}
-
-.bg-turkis {
-  background-color: var(--turkis-500);
-
-  &:hover {
-    background-color: var(--turkis-600);
   }
 }

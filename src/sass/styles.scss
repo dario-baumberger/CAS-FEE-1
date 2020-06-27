@@ -1,6 +1,5 @@
 @import "normalize";
 @import "vars";
-@import "mixins";
 @import "colors";
 @import "fonts";
 @import "font-awesome";
@@ -12,14 +11,3 @@
 @import "buttons";
 @import "form";
 @import "pills";
-@import "notifications";
-@import "sort";
-
-.actions {
-  position: absolute;
-  right: -180px;
-}
-
-.label {
-  width: 50px;
-}
