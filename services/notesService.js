@@ -5,13 +5,13 @@ import Datastore from "nedb-promises";
 export class Note {
   constructor(
     title = "",
-    created,
-    updated,
     content = "",
     due = null,
     importance = 0,
     state = 0,
-    category = 0
+    category = 0,
+    updated = null,
+    created
   ) {
     this.title = title;
     this.created = created;
@@ -43,15 +43,16 @@ export class NotesService {
   }
 
   async add(req) {
-    let note = new Note();
-
-    note.title = req.body.title ? req.body.title : note.title;
-    note.content = req.body.content;
-    note.state = req.body.state;
-    note.importance = req.body.importance;
-    note.due = req.body.due;
-    note.category = req.body.category;
-    note.created = new Date();
+    const note = new Note(
+      req.body.title,
+      req.body.content,
+      req.body.due,
+      req.body.importance,
+      req.body.state,
+      req.body.category,
+      null,
+      new Date()
+    );
 
     return await this.db.insert(note);
   }
@@ -61,11 +62,17 @@ export class NotesService {
   }
 
   async update(req) {
-    req.body.push({
-      created: new Date(),
-    });
+    const note = new Note(
+      req.body.title,
+      req.body.content,
+      req.body.due,
+      req.body.importance,
+      req.body.state,
+      req.body.category,
+      new Date()
+    );
 
-    return this.db.update({ _id: req.body._id }, { $set: req.body });
+    return this.db.update({ _id: req.body._id }, { $set: note });
   }
 
   async delete(id) {

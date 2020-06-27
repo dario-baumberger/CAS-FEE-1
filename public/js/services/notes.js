@@ -78,7 +78,6 @@ export class NotesService {
   }
 
   async updateNote(data) {
-    console.log(data);
     const options = {
       method: "PATCH",
       headers: {

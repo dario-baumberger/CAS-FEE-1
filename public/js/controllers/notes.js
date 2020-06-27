@@ -46,8 +46,6 @@ export class NotesController {
   updateNote() {
     const data = this.getNoteFormData();
 
-    console.log(data);
-
     this.notesService.updateNote(data).then(() => {
       this.notesService.getNotes().then((data) => {
         this.notes = data;
