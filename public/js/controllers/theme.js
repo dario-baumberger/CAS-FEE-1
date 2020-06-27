@@ -35,8 +35,8 @@ export class ThemeController {
       toggle.parentNode.classList.toggle("hidden");
     });
     this.$html.classList.toggle("theme-dark");
-    this.dark = !this.dark;
     this.setLogo();
+    this.dark = !this.dark;
     this.saveMode();
   }
 
