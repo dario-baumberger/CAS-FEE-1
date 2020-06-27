@@ -1,1 +1,4 @@
 *.html
+node_modules
+public/js/vendor
+public\css\styles.css
