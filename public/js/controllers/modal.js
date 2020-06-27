@@ -42,6 +42,9 @@ export class ModalController {
         });
       } else if (event.target.matches(".js-modal--filter")) {
         const filterStates = localStorage.getItem("filterStates").split(",");
+        const filterImportances = localStorage
+          .getItem("filterImportances")
+          .split(",");
         const filterCategories = localStorage
           .getItem("filterCategories")
           .split(",");
@@ -57,6 +60,12 @@ export class ModalController {
             state0: filterStates.includes("0"),
             state1: filterStates.includes("1"),
             state2: filterStates.includes("2"),
+          },
+          importances: {
+            importance0: filterImportances.includes("0"),
+            importance1: filterImportances.includes("1"),
+            importance2: filterImportances.includes("2"),
+            importance3: filterImportances.includes("3"),
           },
           sort: localStorage.getItem("sort"),
         };

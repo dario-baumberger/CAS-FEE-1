@@ -1,9 +1,9 @@
 # CAS-FEE-1
-Todo App build with NodeJS
+Todo App build with NodeJS.
 
 ## Requirements
 - NodeJS
-- Only modern Browsers are supported
+- Only modern Browsers are supported (ES6 and CSS Vars)
 
 ## Setup
 
@@ -24,3 +24,4 @@ Todo App build with NodeJS
 - Notes with categories
 - Filter Notes
 - Order Notes
+- Light and Dark Mode

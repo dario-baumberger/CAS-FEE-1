@@ -24,6 +24,9 @@
     &:checked{
       &+label{
         background-color: var(--turkis-500);
+        &:hover {
+          background-color: var(--turkis-600);
+        }
       }
     }
   }
@@ -39,6 +42,9 @@
     display: inline-block;
     line-height: 40px;
     cursor: pointer;
+    &:hover {
+      background-color: var(--turkis-500);
+    }
 
 
   }

@@ -43,7 +43,6 @@ export class NotesService {
   }
 
   async add(req) {
-    console.log("add");
     let note = new Note();
 
     note.title = req.body.title ? req.body.title : note.title;
@@ -62,7 +61,10 @@ export class NotesService {
   }
 
   async update(req) {
-    console.log(req.body._id);
+    req.body.push({
+      created: new Date(),
+    });
+
     return this.db.update({ _id: req.body._id }, { $set: req.body });
   }
 

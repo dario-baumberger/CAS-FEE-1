@@ -48,15 +48,10 @@
       </nav>
     </header>
     <main>
-      <section class="notes">
+      <div class="notes">
         <div class="sort"></div>
         <ol class="notes__list"></ol>
-      </section>
-
-      <section class="notifications">
-        <ul class="notifications__list"></ul>
-      </section>
-
+      </div>
       <div class="modal"></div>
     </main>
     <footer class="footer">
@@ -97,9 +92,9 @@
                   {{title}}
                 </span>
                 <span class="note__importance">
-                  {{#matches importance "0"}}
+                  {{#matches importance "1"}}
                   <span class="sr-only">Normal</span>
-                  {{/matches}} {{#matches importance "1"}}
+                  {{/matches}} {{#matches importance "0"}}
                   <i class="fas fa-chevron-down"></i>
                   <span class="sr-only">Minor Important</span>
                   {{/matches}} {{#matches importance "2"}}
@@ -111,11 +106,6 @@
                   {{/matches}}
                 </span>
               </h2>
-              <div class="note__infos t-sm">
-                {{#if due}}
-                <p>Due Date: {{formatDate due "short"}}</p>
-                {{/if}}
-              </div>
               <p>
                 {{multiline content}}
               </p>
@@ -123,8 +113,30 @@
 
             <div class="note__infos t-sm">
               <div>
+                {{#if due}}
+                <p>Due Date: {{formatDate due "short"}}</p>
+                {{/if}}
                 <p>Created: {{formatDate created "long"}}</p>
+                {{#if updated}}
                 <p>Updated: {{formatDate updated "long"}}</p>
+                {{/if}}
+                <p>Category:
+                  {{#matches category "0"}}No Category{{/matches}}
+                  {{#matches category "1"}}School{{/matches}}
+                  {{#matches category "2"}}Work{{/matches}}
+                  {{#matches category "3"}}House{{/matches}}
+                </p>
+                <p>Importance:
+                  {{#matches importance "0"}}Minor{{/matches}}
+                  {{#matches importance "1"}}Normal{{/matches}}
+                  {{#matches importance "2"}}Important{{/matches}}
+                  {{#matches importance "3"}}Urgent{{/matches}}
+                </p>
+                <p>State:
+                  {{#matches state "0"}}Todo{{/matches}}
+                  {{#matches state "1"}}In Progress{{/matches}}
+                  {{#matches state "2"}}Done{{/matches}}
+                </p>
               </div>
               {{#if age}}
               <div class="note__age">
@@ -273,7 +285,6 @@
                 {{#if categories.cat0}}
                 <input
                         checked
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="0"
@@ -281,7 +292,6 @@
                 />
                 {{else}}
                 <input
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="0"
@@ -296,7 +306,6 @@
                 {{#if categories.cat2}}
                 <input
                         checked
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="2"
@@ -304,7 +313,6 @@
                 />
                 {{else}}
                 <input
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="2"
@@ -319,7 +327,6 @@
                 {{#if categories.cat3}}
                 <input
                         checked
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="3"
@@ -327,7 +334,6 @@
                 />
                 {{else}}
                 <input
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="3"
@@ -343,7 +349,6 @@
                 {{#if categories.cat1}}
                 <input
                         checked
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="1"
@@ -351,7 +356,6 @@
                 />
                 {{else}}
                 <input
-                        class="bg-turkis"
                         name="filter-categories"
                         type="checkbox"
                         value="1"
@@ -389,7 +393,6 @@
                 {{/if}}
                 <label for="filter-states-0">
                   Todo
-
                 </label>
               </li>
               <li>
@@ -442,6 +445,106 @@
               </li>
             </ul>
           </fieldset>
+          <fieldset>
+            <legend>Importance</legend>
+            <ul class="pills">
+              <li>
+                {{#if importances.importance0}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="0"
+                        id="filter-importances-0"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="0"
+                        id="filter-importances-0"
+                />
+                {{/if}}
+                <label for="filter-importances-0">
+                  Minor
+                </label>
+              </li>
+              <li>
+                {{#if importances.importance1}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="1"
+                        id="filter-importances-1"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="1"
+                        id="filter-importances-1"
+                />
+                {{/if}}
+                <label for="filter-importances-1">
+                  Normal
+
+                </label>
+              </li>
+              <li>
+                {{#if importances.importance2}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="2"
+                        id="filter-importances-2"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="2"
+                        id="filter-importances-2"
+                />
+                {{/if}}
+                <label for="filter-importances-2">
+                  Important
+
+                </label>
+              </li>
+              <li>
+                {{#if importances.importance3}}
+                <input
+                        checked
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="3"
+                        id="filter-importances-3"
+                />
+                {{else}}
+                <input
+                        class="bg-blue"
+                        name="filter-importances"
+                        type="checkbox"
+                        value="3"
+                        id="filter-importances-3"
+                />
+                {{/if}}
+                <label for="filter-importances-3">
+                  Urgent
+
+                </label>
+              </li>
+            </ul>
+          </fieldset>
           <div class="form__actions">
             <button
                     class="button button--round bg-error js-modal--close"
@@ -457,11 +560,11 @@
         </form>
       </template>
     </div>
-    <script src="js/vendor/socket.io.js"></script>
     <script src="js/vendor/handlebars.js"></script>
     <script src="js/vendor/moment.min.js"></script>
     <script src="js/vendor/de-ch.min.js"></script>
-    <script src="js/bootstrapper.js" type="module" defer></script>
+    <script src="js/vendor/flying-focus.js"></script>
     <script src="js/utils/handlebars-helpers.js"></script>
+    <script src="js/bootstrapper.js" type="module" defer></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0,0,0, 0.75);
   display: none;
   z-index: 1;
 
@@ -21,7 +21,7 @@
   max-width: 750px;
   height: 90vh;
   margin: auto;
-  background-color: white;
+  background-color: var(--white);
   padding: 2rem;
   width: 90%;
   display: block;

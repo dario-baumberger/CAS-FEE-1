@@ -58,7 +58,8 @@ export class NotesController {
 
   filterNotes(
     filterStates = localStorage.getItem("filterStates").split(","),
-    filterCategories = localStorage.getItem("filterCategories").split(",")
+    filterCategories = localStorage.getItem("filterCategories").split(","),
+    filterImportances = localStorage.getItem("filterImportances").split(",")
   ) {
     this.notesService.getNotes().then((data) => {
       this.notes = data;
@@ -66,6 +67,7 @@ export class NotesController {
       this.notes = this.notes.filter((obj) => {
         let inCategories = false;
         let inStates = false;
+        let inImportances = false;
 
         if (filterCategories.length) {
           inCategories = filterCategories.some((x) => {
@@ -79,7 +81,15 @@ export class NotesController {
           });
         }
 
-        return ![inStates, inCategories].some((x) => x === false);
+        if (filterImportances.length) {
+          inImportances = filterImportances.some((x) => {
+            return x === obj.importance;
+          });
+        }
+
+        return ![inStates, inCategories, inImportances].some(
+          (x) => x === false
+        );
       });
       this.noteSort();
       this.modal.closeModal();
@@ -157,6 +167,10 @@ export class NotesController {
     localStorage.setItem(
       "filterCategories",
       this.getFilterData("filter-categories").toString()
+    );
+    localStorage.setItem(
+      "filterImportances",
+      this.getFilterData("filter-importances").toString()
     );
   }
 
@@ -241,6 +255,7 @@ export class NotesController {
     this.initEventHandlers();
     const filterStates = [0, 1];
     const filterCategories = [0, 1, 2, 3];
+    const filterImportances = [0, 1, 2, 3];
 
     if (localStorage.getItem("filterStates") === null) {
       localStorage.setItem("filterStates", filterStates.toString());
@@ -248,6 +263,9 @@ export class NotesController {
 
     if (localStorage.getItem("filterCategories") === null) {
       localStorage.setItem("filterCategories", filterCategories.toString());
+    }
+    if (localStorage.getItem("filterImportances") === null) {
+      localStorage.setItem("filterImportances", filterImportances.toString());
     }
 
     if (localStorage.getItem("sort") === null) {
