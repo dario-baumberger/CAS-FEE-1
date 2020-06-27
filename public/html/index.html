@@ -1,534 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Notes | Todo</title>
-    <meta name="description" content="Description" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000" />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <header>
-      <div class="logo">
-        <a href="/">
-          <span class="sr-only">Zur Startseite</span>
-          <img src="images/todo-logo.png" alt="Todo Logo" />
-        </a>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Notes | Todo</title>
+  <meta content="Manage your todos" name="description"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="#000" name="theme-color"/>
+  <link href="css/styles.css" rel="stylesheet"/>
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <a href="/">
+      <span class="sr-only">Zur Startseite</span>
+      <img alt="Todo Logo" src="images/todo-logo.png"/>
+    </a>
+  </div>
+  <nav>
+    <ul class="aside__list">
+      <li class="aside__item">
+        <button class="button button--round bg-blue js-modal--add">
+          <i class="fas fa-plus"></i>
+          <span class="sr-only">Add Note</span>
+        </button>
+      </li>
+      <li class="aside__item">
+        <button class="button button--round bg-blue js-modal--filter">
+          <i class="fas fa-filter"></i>
+          <span class="sr-only">Filter Notes</span>
+        </button>
+      </li>
+      <li class="aside__item">
+        <button class="button button--round bg-blue js-theme--toggle js-theme-toggle-dark">
+          <i class="fas fa-sun"></i>
+        </button>
+      </li>
+      <li class="aside__item hidden">
+        <button class="button button--round bg-blue js-theme--toggle js-theme-toggle-light">
+          <i class="far fa-sun"></i>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <div class="notes">
+    <div class="sort"></div>
+    <ol class="notes__list"></ol>
+  </div>
+  <div class="modal"></div>
+</main>
+<footer class="footer">
+  <small>2020 Dario Baumberger © Alle Rechte vorbehalten.</small>
+</footer>
+<div id="templates">
+  <template id="templates__note">
+    <li class="note" data-id="{{_id}}">
+      <article class="note__article">
+        <div class="note__content">
+          <h2 class="note__title">
+                              <span>
+                                  {{title}}
+                              </span>
+            <span class="note__importance">
+                                  {{#matches importance "1"}}
+                                  <span class="sr-only">Normal</span>
+                                  {{/matches}} {{#matches importance "0"}}
+                                  <i class="fas fa-chevron-down"></i>
+                                  <span class="sr-only">Minor Important</span>
+                                  {{/matches}} {{#matches importance "2"}}
+                                  <i class="fas fa-chevron-up"></i>
+                                  <span class="sr-only">Important</span>
+                                  {{/matches}} {{#matches importance "3"}}
+                                  <i class="fas fa-exclamation"></i>
+                                  <span class="sr-only">Urgent</span>
+                                  {{/matches}}
+                              </span>
+          </h2>
+          <p>
+            {{multiline content}}
+          </p>
+        </div>
+
+        <div class="note__infos">
+          {{#if due}}
+          <p>Due Date: {{formatDate due "short"}}</p>
+          {{/if}}
+          <p>Created: {{formatDate createdAt "long"}}</p>
+          {{#if updatedAt}}
+          <p>Updated: {{formatDate updatedAt "long"}}</p>
+          {{/if}}
+          <p>
+            Category: {{#matches category "0"}}No Category{{/matches}}
+            {{#matches category "1"}}School{{/matches}} {{#matches category
+            "2"}}Work{{/matches}} {{#matches category "3"}}House{{/matches}}
+          </p>
+          <p>
+            Importance: {{#matches importance "0"}}Minor{{/matches}}
+            {{#matches importance "1"}}Normal{{/matches}} {{#matches
+            importance "2"}}Important{{/matches}} {{#matches importance
+            "3"}}Urgent{{/matches}}
+          </p>
+          <p>
+            State: {{#matches state "0"}}Todo{{/matches}} {{#matches state
+            "1"}}In Progress{{/matches}} {{#matches state
+            "2"}}Done{{/matches}}
+          </p>
+
+          {{#if age}}
+          <div class="note__age">
+            <p class="label">
+              Age: <span class="sr-only">{{age}} days</span>
+            </p>
+            {{#times age}}
+            <span></span>
+            {{/times}}
+          </div>
+          {{/if}}
+        </div>
+        <div class="note__actions">
+          <button class="bg-info button button--round js-modal--edit">
+            <i class="fas fa-pen"></i>
+          </button>
+          {{#matches state "0"}}
+          <button class="bg-warn button button--round js-note--progress">
+            <i class="fas fa-spinner"></i>
+          </button>
+          {{/matches}} {{#matches state "1"}}
+          <button class="bg-success button button--round js-note--done">
+            <i class="fas fa-check"></i>
+          </button>
+          {{/matches}}
+        </div>
+      </article>
+    </li>
+  </template>
+  <template id="templates__modalcontent">
+    <div class="modal__content">
+      <h1>
+        {{title}}
+      </h1>
+      <div class="modal__template"></div>
+      <button class="modal__close">
+        <i class="fas fa-times"></i>
+        <span class="sr-only">Close Notification</span>
+      </button>
+    </div>
+  </template>
+  <template id="templates__form">
+    <form id="form-data">
+      <div class="form__group">
+        <label for="title">Title</label>
+        <input id="title" required value="{{title}}"/>
       </div>
-      <nav>
-        <ul class="aside__list">
-          <li class="aside__item">
-            <button class="button button--round bg-blue js-modal--add">
-              <i class="fas fa-plus"></i>
-              <span class="sr-only">Add Note</span>
-            </button>
+      <div class="form__group">
+        <label for="note">Note</label>
+        <textarea id="note" required>{{content}}</textarea>
+      </div>
+      <div class="form__group">
+        <label for="due">Due Date</label>
+        <input id="due" type="date" value="{{due}}"/>
+      </div>
+      <div class="form__group">
+        <label for="state">State</label>
+        <select id="state">
+          {{#select state}}
+          <option value="0">Todo</option>
+          <option value="1">In Progress</option>
+          <option value="2">Done</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="form__group">
+        <label for="category">Category</label>
+        <select id="category">
+          {{#select category}}
+          <option value="0">No Category</option>
+          <option value="1">School</option>
+          <option value="2">Work</option>
+          <option value="3">House</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="form__group">
+        <label for="importance">Importance</label>
+        <select id="importance">
+          {{#select importance}}
+          <option value="1">Normal</option>
+          <option value="0">Minor</option>
+          <option value="2">Important</option>
+          <option value="3">Urgent</option>
+          {{/select}}
+        </select>
+      </div>
+      <input id="id" name="id" type="hidden" value="{{_id}}"/>
+      <div class="form__actions">
+        {{#if _id}}
+        <button class="button button--round bg-error js-note--delete" type="button">
+          <i class="far fa-trash-alt"></i>
+          <span class="sr-only">Delete Note</span>
+        </button>
+        <button class="button button--round bg-success js-note--save" type="submit">
+          <i class="far fa-save"></i>
+          <span class="sr-only">Save Note</span>
+        </button>
+        {{else}}
+        <button class="button button--round bg-error js-modal--close">
+          <i class="fas fa-times"></i>
+          <span class="sr-only">Close Modal</span>
+        </button>
+        <button class="button button--round bg-success js-note--add" type="submit">
+          <i class="fas fa-plus"></i>
+          <span class="sr-only">Add Note</span>
+        </button>
+        {{/if}}
+      </div>
+    </form>
+  </template>
+  <template id="templates__filter">
+    <form>
+      <fieldset>
+        <legend>Sort</legend>
+        <select class="js-note--sort" id="sort" name="sort">
+          {{#select sort}}
+          <option value="dueASC">Due Date ASC</option>
+          <option value="dueDESC">Due Date DESC</option>
+          <option value="importanceASC">Importance ASC</option>
+          <option value="importanceDESC">Importance DES</option>
+          <option value="stateASC">State ASC</option>
+          <option value="stateDESC">State DESC</option>
+          <option value="titleASC">Title ASC</option>
+          <option value="titleDESC">Title DESC</option>
+          <option value="createdASC">Newest</option>
+          <option value="createdDESC">Oldest</option>
+          <option value="updatedASC">Updated ASC</option>
+          <option value="updatedDESC">Updated DESC</option>
+          {{/select}}
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>Categories</legend>
+        <ul class="pills">
+          <li>
+            {{#if categories.cat0}}
+            <input checked id="filter-categories-0" name="filter-categories" type="checkbox"
+                   value="0"/>
+            {{else}}
+            <input id="filter-categories-0" name="filter-categories" type="checkbox" value="0"/>
+            {{/if}}
+            <label for="filter-categories-0">
+              No Category
+            </label>
           </li>
-          <li class="aside__item">
-            <button class="button button--round bg-blue js-modal--filter">
-              <i class="fas fa-filter"></i>
-              <span class="sr-only">Filter Notes</span>
-            </button>
+          <li>
+            {{#if categories.cat2}}
+            <input checked id="filter-categories-2" name="filter-categories" type="checkbox"
+                   value="2"/>
+            {{else}}
+            <input id="filter-categories-2" name="filter-categories" type="checkbox" value="2"/>
+            {{/if}}
+            <label for="filter-categories-2">
+              Work
+            </label>
           </li>
-          <li class="aside__item">
-            <button
-              class="button button--round bg-blue js-theme--toggle js-theme-toggle-dark"
-            >
-              <i class="fas fa-sun"></i>
-            </button>
+          <li>
+            {{#if categories.cat3}}
+            <input checked id="filter-categories-3" name="filter-categories" type="checkbox"
+                   value="3"/>
+            {{else}}
+            <input id="filter-categories-3" name="filter-categories" type="checkbox" value="3"/>
+            {{/if}}
+            <label for="filter-categories-3">
+              House
+            </label>
           </li>
-          <li class="aside__item hidden">
-            <button
-              class="button button--round bg-blue js-theme--toggle js-theme-toggle-light"
-            >
-              <i class="far fa-sun"></i>
-            </button>
+          <li>
+            {{#if categories.cat1}}
+            <input checked id="filter-categories-1" name="filter-categories" type="checkbox"
+                   value="1"/>
+            {{else}}
+            <input id="filter-categories-1" name="filter-categories" type="checkbox" value="1"/>
+            {{/if}}
+            <label for="filter-categories-1">
+              School
+            </label>
           </li>
         </ul>
-      </nav>
-    </header>
-    <main>
-      <div class="notes">
-        <div class="sort"></div>
-        <ol class="notes__list"></ol>
-      </div>
-      <div class="modal"></div>
-    </main>
-    <footer class="footer">
-      <small>2020 Dario Baumberger © Alle Rechte vorbehalten.</small>
-    </footer>
-    <div id="templates">
-      <template id="templates__note">
-        <li class="note" data-id="{{_id}}">
-          <article class="note__article">
-            <div class="note__content">
-              <h2 class="note__title">
-                <span>
-                  {{title}}
-                </span>
-                <span class="note__importance">
-                  {{#matches importance "1"}}
-                  <span class="sr-only">Normal</span>
-                  {{/matches}} {{#matches importance "0"}}
-                  <i class="fas fa-chevron-down"></i>
-                  <span class="sr-only">Minor Important</span>
-                  {{/matches}} {{#matches importance "2"}}
-                  <i class="fas fa-chevron-up"></i>
-                  <span class="sr-only">Important</span>
-                  {{/matches}} {{#matches importance "3"}}
-                  <i class="fas fa-exclamation"></i>
-                  <span class="sr-only">Urgent</span>
-                  {{/matches}}
-                </span>
-              </h2>
-              <p>
-                {{multiline content}}
-              </p>
-            </div>
-
-            <div class="note__infos">
-              {{#if due}}
-              <p>Due Date: {{formatDate due "short"}}</p>
-              {{/if}}
-              <p>Created: {{formatDate createdAt "long"}}</p>
-              {{#if updatedAt}}
-              <p>Updated: {{formatDate updatedAt "long"}}</p>
-              {{/if}}
-              <p>
-                Category: {{#matches category "0"}}No Category{{/matches}}
-                {{#matches category "1"}}School{{/matches}} {{#matches category
-                "2"}}Work{{/matches}} {{#matches category "3"}}House{{/matches}}
-              </p>
-              <p>
-                Importance: {{#matches importance "0"}}Minor{{/matches}}
-                {{#matches importance "1"}}Normal{{/matches}} {{#matches
-                importance "2"}}Important{{/matches}} {{#matches importance
-                "3"}}Urgent{{/matches}}
-              </p>
-              <p>
-                State: {{#matches state "0"}}Todo{{/matches}} {{#matches state
-                "1"}}In Progress{{/matches}} {{#matches state
-                "2"}}Done{{/matches}}
-              </p>
-
-              {{#if age}}
-              <div class="note__age">
-                <p class="label">
-                  Age: <span class="sr-only">{{age}} days</span>
-                </p>
-                {{#times age}}
-                <span></span>
-                {{/times}}
-              </div>
-              {{/if}}
-            </div>
-            <div class="note__actions">
-              <button class="bg-info button button--round js-modal--edit">
-                <i class="fas fa-pen"></i>
-              </button>
-              {{#matches state "0"}}
-              <button class="bg-warn button button--round js-note--progress">
-                <i class="fas fa-spinner"></i>
-              </button>
-              {{/matches}} {{#matches state "1"}}
-              <button class="bg-success button button--round js-note--done">
-                <i class="fas fa-check"></i>
-              </button>
-              {{/matches}}
-            </div>
-          </article>
-        </li>
-      </template>
-      <template id="templates__modalcontent">
-        <div class="modal__content">
-          <h1>
-            {{title}}
-          </h1>
-          <div class="modal__template"></div>
-          <button class="modal__close">
-            <i class="fas fa-times"></i>
-            <span class="sr-only">Close Notification</span>
-          </button>
-        </div>
-      </template>
-      <template id="templates__form">
-        <form id="form-data">
-          <div class="form__group">
-            <label for="title">Title</label>
-            <input id="title" value="{{title}}" required />
-          </div>
-          <div class="form__group">
-            <label for="note">Note</label>
-            <textarea id="note" required>{{content}}</textarea>
-          </div>
-          <div class="form__group">
-            <label for="due">Due Date</label>
-            <input type="date" id="due" value="{{due}}" />
-          </div>
-          <div class="form__group">
-            <label for="state">State</label>
-            <select id="state">
-              {{#select state}}
-              <option value="0">Todo</option>
-              <option value="1">In Progress</option>
-              <option value="2">Done</option>
-              {{/select}}
-            </select>
-          </div>
-          <div class="form__group">
-            <label for="category">Category</label>
-            <select id="category">
-              {{#select category}}
-              <option value="0">No Category</option>
-              <option value="1">School</option>
-              <option value="2">Work</option>
-              <option value="3">House</option>
-              {{/select}}
-            </select>
-          </div>
-          <div class="form__group">
-            <label for="importance">Importance</label>
-            <select id="importance">
-              {{#select importance}}
-              <option value="1">Normal</option>
-              <option value="0">Minor</option>
-              <option value="2">Important</option>
-              <option value="3">Urgent</option>
-              {{/select}}
-            </select>
-          </div>
-          <input type="hidden" name="id" id="id" value="{{_id}}" />
-          <div class="form__actions">
-            {{#if _id}}
-            <button
-              type="button"
-              class="button button--round bg-error js-note--delete"
-            >
-              <i class="far fa-trash-alt"></i>
-              <span class="sr-only">Delete Note</span>
-            </button>
-            <button
-              type="submit"
-              class="button button--round bg-success js-note--save"
-            >
-              <i class="far fa-save"></i>
-              <span class="sr-only">Save Note</span>
-            </button>
+      </fieldset>
+      <fieldset>
+        <legend>State</legend>
+        <ul class="pills">
+          <li>
+            {{#if states.state0}}
+            <input checked class="bg-blue" id="filter-states-0" name="filter-states" type="checkbox"
+                   value="0"/>
             {{else}}
-            <button class="button button--round bg-error js-modal--close">
-              <i class="fas fa-times"></i>
-              <span class="sr-only">Close Modal</span>
-            </button>
-            <button
-              type="submit"
-              class="button button--round bg-success js-note--add"
-            >
-              <i class="fas fa-plus"></i>
-              <span class="sr-only">Add Note</span>
-            </button>
+            <input class="bg-blue" id="filter-states-0" name="filter-states" type="checkbox"
+                   value="0"/>
             {{/if}}
-          </div>
-        </form>
-      </template>
-      <template id="templates__filter">
-        <form>
-          <fieldset>
-            <legend>Sort</legend>
-            <select class="js-note--sort" name="sort" id="sort">
-              {{#select sort}}
-              <option value="dueASC">Due Date ASC</option>
-              <option value="dueDESC">Due Date DESC</option>
-              <option value="importanceASC">Importance ASC</option>
-              <option value="importanceDESC">Importance DES</option>
-              <option value="stateASC">State ASC</option>
-              <option value="stateDESC">State DESC</option>
-              <option value="titleASC">Title ASC</option>
-              <option value="titleDESC">Title DESC</option>
-              <option value="createdASC">Newest</option>
-              <option value="createdDESC">Oldest</option>
-              <option value="updatedASC">Updated ASC</option>
-              <option value="updatedDESC">Updated DESC</option>
-              {{/select}}
-            </select>
-          </fieldset>
-          <fieldset>
-            <legend>Categories</legend>
-            <ul class="pills">
-              <li>
-                {{#if categories.cat0}}
-                <input
-                  checked
-                  name="filter-categories"
-                  type="checkbox"
-                  value="0"
-                  id="filter-categories-0"
-                />
-                {{else}}
-                <input
-                  name="filter-categories"
-                  type="checkbox"
-                  value="0"
-                  id="filter-categories-0"
-                />
-                {{/if}}
-                <label for="filter-categories-0">
-                  No Category
-                </label>
-              </li>
-              <li>
-                {{#if categories.cat2}}
-                <input
-                  checked
-                  name="filter-categories"
-                  type="checkbox"
-                  value="2"
-                  id="filter-categories-2"
-                />
-                {{else}}
-                <input
-                  name="filter-categories"
-                  type="checkbox"
-                  value="2"
-                  id="filter-categories-2"
-                />
-                {{/if}}
-                <label for="filter-categories-2">
-                  Work
-                </label>
-              </li>
-              <li>
-                {{#if categories.cat3}}
-                <input
-                  checked
-                  name="filter-categories"
-                  type="checkbox"
-                  value="3"
-                  id="filter-categories-3"
-                />
-                {{else}}
-                <input
-                  name="filter-categories"
-                  type="checkbox"
-                  value="3"
-                  id="filter-categories-3"
-                />
-                {{/if}}
-                <label for="filter-categories-3">
-                  House
-                </label>
-              </li>
-              <li>
-                {{#if categories.cat1}}
-                <input
-                  checked
-                  name="filter-categories"
-                  type="checkbox"
-                  value="1"
-                  id="filter-categories-1"
-                />
-                {{else}}
-                <input
-                  name="filter-categories"
-                  type="checkbox"
-                  value="1"
-                  id="filter-categories-1"
-                />
-                {{/if}}
-                <label for="filter-categories-1">
-                  School
-                </label>
-              </li>
-            </ul>
-          </fieldset>
-          <fieldset>
-            <legend>State</legend>
-            <ul class="pills">
-              <li>
-                {{#if states.state0}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-states"
-                  type="checkbox"
-                  value="0"
-                  id="filter-states-0"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-states"
-                  type="checkbox"
-                  value="0"
-                  id="filter-states-0"
-                />
-                {{/if}}
-                <label for="filter-states-0">
-                  Todo
-                </label>
-              </li>
-              <li>
-                {{#if states.state1}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-states"
-                  type="checkbox"
-                  value="1"
-                  id="filter-states-1"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-states"
-                  type="checkbox"
-                  value="1"
-                  id="filter-states-1"
-                />
-                {{/if}}
-                <label for="filter-states-1">
-                  In Progress
-                </label>
-              </li>
-              <li>
-                {{#if states.state2}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-states"
-                  type="checkbox"
-                  value="2"
-                  id="filter-states-2"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-states"
-                  type="checkbox"
-                  value="2"
-                  id="filter-states-2"
-                />
-                {{/if}}
-                <label for="filter-states-2">
-                  Done
-                </label>
-              </li>
-            </ul>
-          </fieldset>
-          <fieldset>
-            <legend>Importance</legend>
-            <ul class="pills">
-              <li>
-                {{#if importances.importance0}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="0"
-                  id="filter-importances-0"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="0"
-                  id="filter-importances-0"
-                />
-                {{/if}}
-                <label for="filter-importances-0">
-                  Minor
-                </label>
-              </li>
-              <li>
-                {{#if importances.importance1}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="1"
-                  id="filter-importances-1"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="1"
-                  id="filter-importances-1"
-                />
-                {{/if}}
-                <label for="filter-importances-1">
-                  Normal
-                </label>
-              </li>
-              <li>
-                {{#if importances.importance2}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="2"
-                  id="filter-importances-2"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="2"
-                  id="filter-importances-2"
-                />
-                {{/if}}
-                <label for="filter-importances-2">
-                  Important
-                </label>
-              </li>
-              <li>
-                {{#if importances.importance3}}
-                <input
-                  checked
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="3"
-                  id="filter-importances-3"
-                />
-                {{else}}
-                <input
-                  class="bg-blue"
-                  name="filter-importances"
-                  type="checkbox"
-                  value="3"
-                  id="filter-importances-3"
-                />
-                {{/if}}
-                <label for="filter-importances-3">
-                  Urgent
-                </label>
-              </li>
-            </ul>
-          </fieldset>
-          <div class="form__actions">
-            <button class="button button--round bg-error js-modal--close">
-              <i class="fas fa-times"></i>
-              <span class="sr-only">Close Modal</span>
-            </button>
-            <button class="button button--round bg-blue js-note--filter">
-              <i class="fas fa-search"></i>
-              <span class="sr-only">Show Notes</span>
-            </button>
-          </div>
-        </form>
-      </template>
-    </div>
-    <script src="js/vendor/handlebars.js"></script>
-    <script src="js/vendor/moment.min.js"></script>
-    <script src="js/vendor/de-ch.min.js"></script>
-    <script src="js/vendor/flying-focus.js"></script>
-    <script src="js/utils/handlebars-helpers.js"></script>
-    <script src="js/bootstrapper.js" type="module" defer></script>
-  </body>
+            <label for="filter-states-0">
+              Todo
+            </label>
+          </li>
+          <li>
+            {{#if states.state1}}
+            <input checked class="bg-blue" id="filter-states-1" name="filter-states" type="checkbox"
+                   value="1"/>
+            {{else}}
+            <input class="bg-blue" id="filter-states-1" name="filter-states" type="checkbox"
+                   value="1"/>
+            {{/if}}
+            <label for="filter-states-1">
+              In Progress
+            </label>
+          </li>
+          <li>
+            {{#if states.state2}}
+            <input checked class="bg-blue" id="filter-states-2" name="filter-states" type="checkbox"
+                   value="2"/>
+            {{else}}
+            <input class="bg-blue" id="filter-states-2" name="filter-states" type="checkbox"
+                   value="2"/>
+            {{/if}}
+            <label for="filter-states-2">
+              Done
+            </label>
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Importance</legend>
+        <ul class="pills">
+          <li>
+            {{#if importances.importance0}}
+            <input checked class="bg-blue" id="filter-importances-0" name="filter-importances" type="checkbox"
+                   value="0"/>
+            {{else}}
+            <input class="bg-blue" id="filter-importances-0" name="filter-importances" type="checkbox"
+                   value="0"/>
+            {{/if}}
+            <label for="filter-importances-0">
+              Minor
+            </label>
+          </li>
+          <li>
+            {{#if importances.importance1}}
+            <input checked class="bg-blue" id="filter-importances-1" name="filter-importances" type="checkbox"
+                   value="1"/>
+            {{else}}
+            <input class="bg-blue" id="filter-importances-1" name="filter-importances" type="checkbox"
+                   value="1"/>
+            {{/if}}
+            <label for="filter-importances-1">
+              Normal
+            </label>
+          </li>
+          <li>
+            {{#if importances.importance2}}
+            <input checked class="bg-blue" id="filter-importances-2" name="filter-importances" type="checkbox"
+                   value="2"/>
+            {{else}}
+            <input class="bg-blue" id="filter-importances-2" name="filter-importances" type="checkbox"
+                   value="2"/>
+            {{/if}}
+            <label for="filter-importances-2">
+              Important
+            </label>
+          </li>
+          <li>
+            {{#if importances.importance3}}
+            <input checked class="bg-blue" id="filter-importances-3" name="filter-importances" type="checkbox"
+                   value="3"/>
+            {{else}}
+            <input class="bg-blue" id="filter-importances-3" name="filter-importances" type="checkbox"
+                   value="3"/>
+            {{/if}}
+            <label for="filter-importances-3">
+              Urgent
+            </label>
+          </li>
+        </ul>
+      </fieldset>
+      <div class="form__actions">
+        <button class="button button--round bg-error js-modal--close">
+          <i class="fas fa-times"></i>
+          <span class="sr-only">Close Modal</span>
+        </button>
+        <button class="button button--round bg-blue js-note--filter">
+          <i class="fas fa-search"></i>
+          <span class="sr-only">Show Notes</span>
+        </button>
+      </div>
+    </form>
+  </template>
+</div>
+<script src="js/vendor/handlebars.js"></script>
+<script src="js/vendor/moment.min.js"></script>
+<script src="js/vendor/de-ch.min.js"></script>
+<script src="js/vendor/flying-focus.js"></script>
+<script src="js/utils/handlebars-helpers.js"></script>
+<script defer src="js/bootstrapper.js" type="module"></script>
+</body>
 </html>
