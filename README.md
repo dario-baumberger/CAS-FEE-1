@@ -7,6 +7,9 @@ Todo App build with NodeJS.
 - NodeJS
 - Only modern Browsers are supported (ES6 and CSS Vars)
 
+Tested with NodeJS v13.10.1
+Tested with npm 6.13.7
+
 ## Setup
 
 `npm -i`
